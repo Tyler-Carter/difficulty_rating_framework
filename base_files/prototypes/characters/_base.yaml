@@ -1,0 +1,591 @@
+# =============================================================================
+# prototypes/characters/_base.yml
+# Player character prototypes for Cyberpunk TTRPG.
+#
+# Character creation order (RED Core Rulebook pp. 60-93):
+#   Step 1  Choose a Role                 -> sets $base to the Role archetype
+#   Step 2  Set ten attributes            -> 62 pts; min 2 max 8 per attribute
+#   Step 3  Derive secondary stats        -> resolver computes HP, Humanity, etc.
+#   Step 4  Assign skill points           -> Career Skills (86 pts) + Pickup (22 pts)
+#   Step 5  Choose cyberware              -> each piece costs Humanity
+#   Step 6  Record lifepath entries       -> cultural origin, background, events
+#   Step 7  Select starting gear          -> role-specific starting package
+#
+# Prototype hierarchy:
+#
+#   Characters.Base_Character
+#     |- Characters.Archetype_Rockerboy
+#     |- Characters.Archetype_Solo
+#     |- Characters.Archetype_Netrunner
+#     |- Characters.Archetype_Tech
+#     |- Characters.Archetype_Medtech
+#     |- Characters.Archetype_Media
+#     |- Characters.Archetype_Lawman
+#     |- Characters.Archetype_Exec
+#     |- Characters.Archetype_Fixer
+#     '- Characters.Archetype_Nomad
+#
+# Skill ranks in PC records:
+#   PC records store the RAW RANK only (0-10), NOT the attribute+rank total.
+#   The resolver adds the governing attribute at presentation time.
+#   This differs from NPC records, which store pre-summed totals for speed.
+# =============================================================================
+
+
+# =============================================================================
+# UNIVERSAL CHARACTER ROOT
+# =============================================================================
+
+Characters.Base_Character:
+  $type: Character
+
+  # --- Identity (all overridden at leaf) ---
+  name:           ''
+  handle:         ''
+  description:    ''
+  age:            null
+  faction:        Neutral
+  culturalOrigin: NorthAmerican
+
+  # --- Role (overridden by each Archetype; required on every resolved leaf) ---
+  roleAbility:
+    role:  Lawman               # placeholder; every Archetype overrides this
+    rank:  2                    # floor rank; leaf records set their actual rank
+
+  # Attribute floor values (minimum 2 per RED rules)
+  attributes:
+    intelligence: 2
+    reflexes:     2
+    dexterity:    2
+    tech:         2
+    cool:         2
+    willpower:    2
+    luck:         2
+    move:         2
+    body:         2
+    empathy:      2
+
+  # Death Save base threshold (RED p. 64; some cyberware modifies this)
+  deathSaveThreshold: 10
+
+  # Derived stats — initialised to floor; resolver recomputes after attribute assignment
+  # HP formula:       10 + (5 * ceil((BODY + WILL) / 2))
+  # Run formula:      MOVE x 2
+  # Humanity formula: EMP * 10 (then subtract humanityCost of installed cyberware)
+  # Armor is gained through cyberware or items being equipped, base is 0
+  derivedStats:
+    maxHP:        20
+    currentHP:    20
+    armor:        0
+    humanity:     20
+    humanityLost: 0
+    luckPool:     2
+    run:          4
+    carryWeight:  20
+
+  # --- Skills, abilities, cyberware (empty; overridden at tier or leaf) ---
+  skills:         []
+  abilities:      []
+  statModifiers:  []
+  cyberware:      []
+  gear:           []
+  lifepath:       []
+
+  # --- Equipment (empty at root; set at archetype or leaf level) ---
+  armorRecord:          ''            # Armor record ID
+  primaryEquipment:
+    weapon:             ''
+    hand:               Primary
+  secondaryEquipment:
+    weapon:             ''
+    hand:               Holstered
+
+# =============================================================================
+# ROLE ARCHETYPES
+# Each Archetype extends Base_Character and sets:
+#   - roleAbility (role + starting rank 4 — the RED default for a new character)
+#   - A representative spread of career skills at rank 2
+#   - Any role-specific stat modifier that applies to all characters of this Role
+#
+# Career skill lists are sourced from RED Core Rulebook pp. 96-213.
+# Starting rank 2 is the prototype floor. Leaf records raise individual skills
+# with !append. Players who want higher ranks append overrides.
+# =============================================================================
+
+# =============================================================================
+# ROCKERBOY  (RED pp. 96-111)
+# Special ability: Charismatic Impact
+#   At rank 1 affects small groups; at rank 10 can sway entire districts.
+#   Governs crowd control performances and social domination effects.
+# Primary stats: EMP, COOL
+# =============================================================================
+
+Characters.Archetype_Rockerboy:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Rockerboy
+    rank:  1
+
+  # Suggested attribute spread, players will be able to redistribute freely within 62-pt budget
+  attributes:
+    intelligence: 6
+    reflexes:     5
+    dexterity:    5
+    tech:         3
+    cool:         8
+    willpower:    5
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      8
+  # HP: 10 + (5 * ceil((5+5)/2)) = 35
+  # Humanity: empathy * 10 = 80
+
+  # Career Skills — rank 0; players allocate 86 pts here (max rank 6 at creation)
+  skills:
+    - { skill: Acting,            rank: 0 }
+    - { skill: Brawling,          rank: 0 }
+    - { skill: Concentration,     rank: 0 }
+    - { skill: Dancing,           rank: 0 }
+    - { skill: Handgun,     rank: 0 }
+    - { skill: HumanPerception,   rank: 0 }
+    - { skill: Perception,        rank: 0 }
+    - { skill: Performance,       rank: 0 }
+    - { skill: Persuasion,        rank: 0 }
+    - { skill: PlayInstrument,    rank: 0 }
+    - { skill: Streetwise,        rank: 0 }
+    - { skill: WardrobeStyle,     rank: 0 }
+
+  gear:
+    - Item.StartingGear_Rockerboy
+
+
+# =============================================================================
+# SOLO  (RED pp. 112-127)
+# Special ability: Combat Awareness
+#   Adds directly to Initiative; provides increasing bonuses to Perception
+#   and Evasion, and situational awareness in combat. Rank 1-10.
+# Primary stats: REF, DEX, BODY
+# =============================================================================
+
+Characters.Archetype_Solo:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Solo
+    rank:  1
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    8
+    tech:         5
+    cool:         6
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      3
+  # HP: 10 + (5 * ceil((7+6)/2)) = 45
+  # Humanity: empathy * 10 = 30
+
+  skills:
+    - { skill: Athletics,         rank: 0 }
+    - { skill: Brawling,          rank: 0 }
+    - { skill: Concentration,     rank: 0 }
+    - { skill: Dodge,             rank: 0 }
+    - { skill: Evasion,           rank: 0 }
+    - { skill: Handgun,     rank: 0 }
+    - { skill: HeavyWeapons,      rank: 0 }
+    - { skill: MartialArts,       rank: 0 }
+    - { skill: MeleeCombat,       rank: 0 }
+    - { skill: Perception,        rank: 0 }
+    - { skill: ShoulderArms,      rank: 0 }
+    - { skill: Stealth,           rank: 0 }
+    - { skill: Tactics,           rank: 0 }
+    - { skill: Tracking,          rank: 0 }
+
+  gear:
+    - Item.StartingGear_Solo
+
+
+# =============================================================================
+# NETRUNNER  (RED pp. 128-143)
+# Special ability: Interface
+#   Governs accessible quickhack tiers and Momentum ceiling bonuses.
+#   Also determines the Netrunner's NET Architecture access depth. Rank 1-10.
+# Primary stats: INT, TECH
+# =============================================================================
+
+Characters.Archetype_Netrunner:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Netrunner
+    rank:  1
+
+  attributes:
+    intelligence: 8
+    reflexes:     5
+    dexterity:    5
+    tech:         8
+    cool:         5
+    willpower:    6
+    luck:         5
+    move:         4
+    body:         4
+    empathy:      5
+  # HP: 10 + (5 * ceil((4+6)/2)) = 35
+  # Humanity: empathy * 10 = 50
+
+  skills:
+    - { skill: Athletics,                rank: 0 }
+    - { skill: BasicTech,                rank: 0 }
+    - { skill: Concentration,            rank: 0 }
+    - { skill: Cryptography,             rank: 0 }
+    - { skill: Cybertech,                rank: 0 }
+    - { skill: Deduction,                rank: 0 }
+    - { skill: Education,                rank: 0 }
+    - { skill: Electronics_SecurityTech, rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: LibrarySearch,            rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: Stealth,                  rank: 0 }
+
+  gear:
+    - Item.StartingGear_Netrunner
+
+
+# =============================================================================
+# TECH  (RED pp. 144-159)
+# Special ability: Maker
+#   Governs the complexity of items that can be fabricated or repaired, and
+#   the quality tier achievable without a dedicated facility. Rank 1-10.
+# Primary stats: TECH, INT
+# =============================================================================
+
+Characters.Archetype_Tech:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Tech
+    rank:  1
+
+  attributes:
+    intelligence: 7
+    reflexes:     5
+    dexterity:    6
+    tech:         8
+    cool:         4
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      5
+  # HP: 10 + (5 * ceil((5+6)/2)) = 40
+  # Humanity: empathy * 10 = 50
+
+  skills:
+    - { skill: AirVehicleTech,           rank: 0 }
+    - { skill: BasicTech,                rank: 0 }
+    - { skill: Cybertech,                rank: 0 }
+    - { skill: Demolitions,              rank: 0 }
+    - { skill: Education,                rank: 0 }
+    - { skill: Electronics_SecurityTech, rank: 0 }
+    - { skill: FirstAid,                 rank: 0 }
+    - { skill: LandVehicleTech,          rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: PickLock,                 rank: 0 }
+    - { skill: Science,                  rank: 0 }
+    - { skill: Weaponstech,              rank: 0 }
+
+  gear:
+    - Item.StartingGear_Tech
+
+
+# =============================================================================
+# MEDTECH  (RED pp. 160-175)
+# Special ability: Medicine
+#   Governs complexity of field surgical procedures and the die bonus applied
+#   to medical rolls. Rank 1-10.
+# Primary stats: TECH, INT, EMP
+# =============================================================================
+
+Characters.Archetype_Medtech:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Medtech
+    rank:  1
+
+  attributes:
+    intelligence: 7
+    reflexes:     5
+    dexterity:    6
+    tech:         7
+    cool:         5
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         4
+    empathy:      7
+  # HP: 10 + (5 * ceil((4+6)/2)) = 35
+  # Humanity: empathy * 10 = 70
+
+  skills:
+    - { skill: BasicTech,                rank: 0 }
+    - { skill: Concentration,            rank: 0 }
+    - { skill: Cybertech,                rank: 0 }
+    - { skill: Deduction,                rank: 0 }
+    - { skill: Education,                rank: 0 }
+    - { skill: FirstAid,                 rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: HumanPerception,          rank: 0 }
+    - { skill: Paramedic,                rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: Science,                  rank: 0 }
+
+  gear:
+    - Item.StartingGear_Medtech
+
+
+# =============================================================================
+# MEDIA  (RED pp. 176-189)
+# Special ability: Credibility
+#   Governs the reach and believability of broadcasts and exposés, and the
+#   Media's resistance to being discredited or silenced. Rank 1-10.
+# Primary stats: INT, COOL, EMP
+# =============================================================================
+
+Characters.Archetype_Media:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Media
+    rank:  1
+
+  attributes:
+    intelligence: 8
+    reflexes:     5
+    dexterity:    5
+    tech:         5
+    cool:         7
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         4
+    empathy:      7
+  # HP: 10 + (5 * ceil((4+6)/2)) = 35
+  # Humanity: empathy * 10 = 70
+
+  skills:
+    - { skill: Athletics,                rank: 0 }
+    - { skill: Brawling,                 rank: 0 }
+    - { skill: Composition,              rank: 0 }
+    - { skill: Concentration,            rank: 0 }
+    - { skill: Cryptography,             rank: 0 }
+    - { skill: Deduction,                rank: 0 }
+    - { skill: Education,                rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: HumanPerception,          rank: 0 }
+    - { skill: LibrarySearch,            rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: Persuasion,               rank: 0 }
+    - { skill: Streetwise,               rank: 0 }
+
+  gear:
+    - Item.StartingGear_Media
+
+
+# =============================================================================
+# LAWMAN  (RED pp. 190-199)
+# Special ability: Backup
+#   Governs the size, quality, and response time of law enforcement backup
+#   units the Lawman can call in. Rank 1-10.
+# Primary stats: COOL, REF, DEX
+# =============================================================================
+
+Characters.Archetype_Lawman:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Lawman
+    rank:  1
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    7
+    tech:         5
+    cool:         7
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         6
+    empathy:      4
+  # HP: 10 + (5 * ceil((6+6)/2)) = 40
+  # Humanity: empathy * 10 = 40
+
+  skills:
+    - { skill: Athletics,                rank: 0 }
+    - { skill: Brawling,                 rank: 0 }
+    - { skill: Criminology,              rank: 0 }
+    - { skill: Deduction,                rank: 0 }
+    - { skill: DriveLandVehicle,         rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: Interrogation,            rank: 0 }
+    - { skill: MeleeCombat,              rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: ShoulderArms,             rank: 0 }
+    - { skill: Streetwise,               rank: 0 }
+    - { skill: Tactics,                  rank: 0 }
+
+  gear:
+    - Item.StartingGear_Lawman
+
+
+# =============================================================================
+# EXEC  (RED pp. 200-205)
+# Special ability: Teamwork
+#   Governs the size of the team bonus granted by leadership and the tier
+#   of corporate resources that can be requisitioned. Rank 1-10.
+# Primary stats: COOL, INT, EMP
+# =============================================================================
+
+Characters.Archetype_Exec:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Exec
+    rank:  1
+
+  attributes:
+    intelligence: 7
+    reflexes:     5
+    dexterity:    5
+    tech:         5
+    cool:         8
+    willpower:    7
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      7
+  # HP: 10 + (5 * ceil((5+7)/2)) = 40
+  # Humanity: empathy * 10 = 70
+
+  skills:
+    - { skill: Accounting,               rank: 0 }
+    - { skill: Bribery,                  rank: 0 }
+    - { skill: Business,                 rank: 0 }
+    - { skill: Concentration,            rank: 0 }
+    - { skill: Deduction,                rank: 0 }
+    - { skill: Education,                rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: HumanPerception,          rank: 0 }
+    - { skill: LibrarySearch,            rank: 0 }
+    - { skill: LocalExpert,              rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: Persuasion,               rank: 0 }
+    - { skill: Tactics,                  rank: 0 }
+    - { skill: Trading,                  rank: 0 }
+
+  gear:
+    - Item.StartingGear_Exec
+
+
+# =============================================================================
+# FIXER  (RED pp. 206-209)
+# Special ability: Operator
+#   Governs the breadth and reliability of the contact network, and the margin
+#   earned on deals brokered for the party. Rank 1-10.
+# Primary stats: COOL, INT, EMP
+# =============================================================================
+
+Characters.Archetype_Fixer:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Fixer
+    rank:  1
+
+  attributes:
+    intelligence: 7
+    reflexes:     5
+    dexterity:    5
+    tech:         5
+    cool:         8
+    willpower:    6
+    luck:         6
+    move:         5
+    body:         4
+    empathy:      7
+  # HP: 10 + (5 * ceil((4+6)/2)) = 35
+  # Humanity: empathy * 10 = 70
+
+  skills:
+    - { skill: Accounting,               rank: 0 }
+    - { skill: Bribery,                  rank: 0 }
+    - { skill: Business,                 rank: 0 }
+    - { skill: Concentration,            rank: 0 }
+    - { skill: Criminology,              rank: 0 }
+    - { skill: Deduction,                rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: HumanPerception,          rank: 0 }
+    - { skill: LibrarySearch,            rank: 0 }
+    - { skill: LocalExpert,              rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: Persuasion,               rank: 0 }
+    - { skill: Streetwise,               rank: 0 }
+    - { skill: Trading,                  rank: 0 }
+
+  gear:
+    - Item.StartingGear_Fixer
+
+
+# =============================================================================
+# NOMAD  (RED pp. 210-213)
+# Special ability: Moto
+#   Governs vehicle performance bonuses, the size of convoy that can be
+#   marshalled, and wilderness navigation. Rank 1-10.
+# Primary stats: TECH, REF, BODY
+# =============================================================================
+
+Characters.Archetype_Nomad:
+  $base: Characters.Base_Character
+
+  roleAbility:
+    role:  Nomad
+    rank:  1
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    6
+    tech:         7
+    cool:         5
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      5
+  # HP: 10 + (5 * ceil((7+6)/2)) = 45
+  # Humanity: empathy * 10 = 50
+
+  skills:
+    - { skill: AnimalHandling,           rank: 0 }
+    - { skill: Athletics,                rank: 0 }
+    - { skill: BasicTech,                rank: 0 }
+    - { skill: Brawling,                 rank: 0 }
+    - { skill: DriveLandVehicle,         rank: 0 }
+    - { skill: Handgun,            rank: 0 }
+    - { skill: LandVehicleTech,          rank: 0 }
+    - { skill: MeleeCombat,              rank: 0 }
+    - { skill: Perception,               rank: 0 }
+    - { skill: ShoulderArms,             rank: 0 }
+    - { skill: Stealth,                  rank: 0 }
+    - { skill: Tactics,                  rank: 0 }
+    - { skill: WildernessSurvival,       rank: 0 }
+
+  gear:
+    - Item.StartingGear_Nomad

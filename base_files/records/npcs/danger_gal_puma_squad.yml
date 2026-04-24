@@ -1,0 +1,399 @@
+# =============================================================================
+# records/npcs/danger_gal_puma_squad.yml
+# Danger Gal Puma Squad NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 5 NPCs: Pantera, Tigress, Doc Mittens, Mouse, Lynx
+# =============================================================================
+
+
+# =============================================================================
+# PUMA SQUAD — NAMED OPERATIVES
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Pantera — One Badas Librarian (Hardened Mini-Boss, Netrunner)
+# ---------------------------------------------------------------------------
+NPC.DangerGal_Pantera:
+  $base: NPC.Base_HardenedMiniBoss
+  name: "Shoko Asagiri"
+  handle: "Pantera"
+  description: "One Badass Librarian — Danger Gal's elite Netrunner operative."
+  lore: >
+    Born in Vancouver to a Braindance editor and a Biotechnica fauna designer,
+    Shoko Asagiri pursued a Master's in Library Sciences before relocating to
+    Night City. Entered Danger Gal's notice after a series of exceptionally
+    discreet data thefts of unreleased Elflines Online Chronicles footage —
+    kept purely for personal viewing pleasure.
+  npcType: RecurringNPC
+  npcRole: Netrunner_NPC
+  faction: Danger_Gal
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 8
+    reflexes:     5
+    dexterity:    5
+    tech:         7
+    cool:         6
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         5
+    empathy:      6
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 15
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,              rank: 9 }
+    - !append { skill: BasicTech,              rank: 13 }
+    - !append { skill: Brawling,               rank: 7 }
+    - !append { skill: Concentration,          rank: 10 }
+    - !append { skill: ConversationCool,       rank: 10 }
+    - !append { skill: Cybertech,              rank: 10 }
+    - !append { skill: Education,              rank: 14 }
+    - !append { skill: Electronics_SecurityTech, rank: 13 }
+    - !append { skill: Evasion,                rank: 15 }
+    - !append { skill: FirstAid,               rank: 9 }
+    - !append { skill: Handgun,          rank: 14 }
+    - !append { skill: HumanPerception,        rank: 8 }
+    - !append { skill: LinguisticsBase,        rank: 12 }
+    - !append { skill: LibrarySearch,          rank: 14 }
+    - !append { skill: LocalExpert,            rank: 10 }
+    - !append { skill: PaintDraw,              rank: 12 }
+    - !append { skill: Perception,             rank: 12 }
+    - !append { skill: PersonalGrooming,       rank: 10 }
+    - !append { skill: Persuasion,             rank: 10 }
+    - !append { skill: ResistTortureDrugs,     rank: 10 }
+    - !append { skill: Science,               rank: 13 }
+    - !append { skill: Stealth,                rank: 9 }
+    - !append { skill: Tactics,                rank: 12 }
+    - !append { skill: WardrobeStyle,          rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink
+    - !append Cyberware.DangerGal_InterfacePlugs
+    - !append Cyberware.DangerGal_ReflexCoProcessor
+    - !append Cyberware.DangerGal_Cyberdeck_Excellent
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent_SmartgunLink
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Tigress — YoGanger Made Good (Hardened Mini-Boss, Solo)
+# ---------------------------------------------------------------------------
+NPC.DangerGal_Tigress:
+  $base: NPC.Base_HardenedMiniBoss
+  name: ""
+  handle: "Tigress"
+  description: "YoGanger Made Good — Danger Gal sharpshooter and Puma Squad heavy."
+  lore: >
+    Records on the operative known as Tigress are patchy due to a life spent
+    primarily in the Combat Zones. She organized and led a YoGang, ensuring
+    other children had food, guns, and safety. Danger Gal recruited her after
+    she took a contract against a VIP under their protection.
+  npcType: RecurringNPC
+  faction: Danger_Gal
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    6
+    tech:         5
+    cool:         7
+    willpower:    7
+    luck:         5
+    move:         7
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 15
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,          rank: 12 }
+    - !append { skill: Brawling,           rank: 8 }
+    - !append { skill: Concentration,      rank: 9 }
+    - !append { skill: ConversationCool,   rank: 6 }
+    - !append { skill: Dancing,            rank: 10 }
+    - !append { skill: DriveLandVehicle,   rank: 10 }
+    - !append { skill: Education,          rank: 7 }
+    - !append { skill: EnduranceSTR,       rank: 13 }
+    - !append { skill: Evasion,            rank: 16 }
+    - !append { skill: FirstAid,           rank: 9 }
+    - !append { skill: Handgun,      rank: 14 }
+    - !append { skill: HumanPerception,    rank: 6 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: MeleeCombat,        rank: 14 }
+    - !append { skill: Perception,         rank: 14 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: Persuasion,         rank: 9 }
+    - !append { skill: Photography_Film,   rank: 12 }
+    - !append { skill: ResistTortureDrugs, rank: 12 }
+    - !append { skill: ShoulderArms,       rank: 16 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: Streetwise,         rank: 12 }
+    - !append { skill: Tactics,            rank: 1 }
+    - !append { skill: Trading,            rank: 1 }
+    - !append { skill: WardrobeStyle,      rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye_TargetingScope
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+
+  primaryEquipment:
+    weapon: Weapons.SniperRifle_Excellent_SmartgunLink_SnipingScope
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Doc Mittens — A Beary Good Field Medic (Hardened Lieutenant, Medtech)
+# ---------------------------------------------------------------------------
+NPC.DangerGal_DocMittens:
+  $base: NPC.Base_HardenedLieutenant
+  name: "Naomi Alexis"
+  handle: "Doc Mittens"
+  description: "A Beary Good Field Medic — Puma Squad's combat-capable Medtech."
+  lore: >
+    Agent Naomi Alexis grew up with a struggling Reclaimer family near
+    Colorado Springs. After her younger sister Minna was sold away, Naomi
+    apprenticed with a Nomad Pack healer. She accepted employment with
+    Danger Gal largely to use their reach to continue searching for Minna.
+  npcType: RecurringNPC
+  npcRole: Medtech_NPC
+  faction: Danger_Gal
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    6
+    tech:         6
+    cool:         4
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 10
+
+  skills:
+    - !append { skill: Athletics,          rank: 8 }
+    - !append { skill: Brawling,           rank: 8 }
+    - !append { skill: Concentration,      rank: 8 }
+    - !append { skill: Criminology,        rank: 12 }
+    - !append { skill: Deduction,          rank: 10 }
+    - !append { skill: DriveLandVehicle,   rank: 1 }
+    - !append { skill: Education,          rank: 10 }
+    - !append { skill: Evasion,            rank: 12 }
+    - !append { skill: FirstAid,           rank: 8 }
+    - !append { skill: Handgun,      rank: 14 }
+    - !append { skill: HumanPerception,    rank: 7 }
+    - !append { skill: LinguisticsBase,    rank: 10 }
+    - !append { skill: LibrarySearch,      rank: 10 }
+    - !append { skill: LocalExpert,        rank: 8 }
+    - !append { skill: MedicalTech,        rank: 10 }
+    - !append { skill: Paramedic,          rank: 12 }
+    - !append { skill: Perception,         rank: 8 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: Persuasion,         rank: 6 }
+    - !append { skill: Science,            rank: 10 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: WardrobeStyle,      rank: 6 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_Medscanner
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Mouse — Cat Burglar and Poster Girl (Hardened Lieutenant, Solo)
+# ---------------------------------------------------------------------------
+NPC.DangerGal_Mouse:
+  $base: NPC.Base_HardenedLieutenant
+  name: "Moira Kahn"
+  handle: "Mouse"
+  description: "Cat Burglar and Poster Girl — Puma Squad infiltration specialist."
+  lore: >
+    The child of two inattentive middle-management Execs, Moira Kahn excelled
+    only in gymnastics until a car accident cost her both legs and her parents.
+    She resurfaced as a cat burglar five years later, leading Danger Gal
+    operatives on a merry chase across Night City rooftops.
+  npcType: RecurringNPC
+  faction: Danger_Gal
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 4
+    reflexes:     8
+    dexterity:    7
+    tech:         6
+    cool:         6
+    willpower:    3
+    luck:         5
+    move:         6
+    body:         6
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,              rank: 12 }
+    - !append { skill: Autofire,               rank: 13 }
+    - !append { skill: Brawling,               rank: 9 }
+    - !append { skill: Concentration,          rank: 5 }
+    - !append { skill: Contortionist,          rank: 12 }
+    - !append { skill: ConversationCool,       rank: 6 }
+    - !append { skill: Education,              rank: 8 }
+    - !append { skill: Electronics_SecurityTech, rank: 10 }
+    - !append { skill: Evasion,                rank: 12 }
+    - !append { skill: FirstAid,               rank: 8 }
+    - !append { skill: Handgun,          rank: 10 }
+    - !append { skill: HumanPerception,        rank: 10 }
+    - !append { skill: LinguisticsBase,        rank: 8 }
+    - !append { skill: LocalExpert,            rank: 6 }
+    - !append { skill: MeleeCombat,            rank: 12 }
+    - !append { skill: Perception,             rank: 10 }
+    - !append { skill: PersonalGrooming,       rank: 10 }
+    - !append { skill: Persuasion,             rank: 8 }
+    - !append { skill: PickLock,               rank: 12 }
+    - !append { skill: ResistTortureDrugs,     rank: 8 }
+    - !append { skill: Stealth,                rank: 12 }
+    - !append { skill: WardrobeStyle,          rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye_LowLightInfraredUV
+    - !append Cyberware.DangerGal_Cyberleg_JumpBoosters
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_GraftedMuscleBoneLace
+    - !append Cyberware.DangerGal_Scratchers
+    - !append Cyberware.DangerGal_ShiftTacts
+    - !append Cyberware.DangerGal_Techair
+
+  primaryEquipment:
+    weapon: Weapons.HeavySMG_Excellent_DrumMagazine
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.Scratchers
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Lynx — Enjoys Shooting People (Lieutenant, Solo)
+# ---------------------------------------------------------------------------
+NPC.DangerGal_Lynx:
+  $base: NPC.Base_DangerGal_Operative
+  name: "Bella Sawyer"
+  handle: "Lynx"
+  description: "Enjoys Shooting People — Puma Squad's no-nonsense street operative."
+  lore: >
+    Bella Sawyer grew up in an abusive household before being raised under a
+    strict Inquisitor regimen. After her grandmother's arrest on terrorism
+    charges, she was adopted by an NCPD officer and briefly joined the force
+    before her path led her to Danger Gal.
+  npcType: RecurringNPC
+  faction: Danger_Gal
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    6
+    tech:         4
+    cool:         4
+    willpower:    4
+    luck:         4
+    move:         6
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,          rank: 8 }
+    - !append { skill: Brawling,           rank: 10 }
+    - !append { skill: Concentration,      rank: 6 }
+    - !append { skill: ConversationCool,   rank: 6 }
+    - !append { skill: Criminology,        rank: 12 }
+    - !append { skill: Deduction,          rank: 12 }
+    - !append { skill: DriveLandVehicle,   rank: 10 }
+    - !append { skill: Education,          rank: 6 }
+    - !append { skill: Evasion,            rank: 8 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 10 }
+    - !append { skill: HumanPerception,    rank: 6 }
+    - !append { skill: Interrogation,      rank: 10 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 6 }
+    - !append { skill: Perception,         rank: 6 }
+    - !append { skill: Persuasion,         rank: 6 }
+    - !append { skill: ResistTortureDrugs, rank: 10 }
+    - !append { skill: ShoulderArms,       rank: 14 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: Streetwise,         rank: 10 }
+    - !append { skill: Tactics,            rank: 8 }
+    - !append { skill: Tracking,           rank: 1 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Chemskin
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_ChemicalAnalyzer
+    - !append Cyberware.DangerGal_Techair
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Excellent
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false

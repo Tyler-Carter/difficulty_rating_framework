@@ -1,0 +1,637 @@
+# =============================================================================
+# records/npcs/danger_gal_zoners.yml
+# Zoners NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 10 NPCs: Vanisher, Tearjerker, Forty Mike-Mike, Mister Studd, Freefall,
+#          Nemo, Speed Demon, Alpha, Blaze, Wrecker
+# =============================================================================
+
+
+NPC.Zoners_Vanisher:
+  $base: NPC.Base_Boss
+  name: ""
+  handle: "Vanisher"
+  description: "Mysterious Zoner Ally"
+  lore: >
+    Vanisher's identity, gender, political affiliations, and funding are all unknown. Vanisher
+    is a Solo who's been operating out of Night City for the last five years, previously reported
+    in Ethiopia, Japan, Argentina, and the Great Plains. Oddly, Vanisher seems obsessed with
+    keeping as small a rep as possible — it's included in every one of their contracts.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 7
+    reflexes:     8
+    dexterity:    8
+    tech:         5
+    cool:         6
+    willpower:    6
+    luck:         6
+    move:         6
+    body:         10
+    empathy:      3
+
+  derivedStats:
+    maxHP: 50
+    currentHP: 50
+    armor: 15
+
+  deathSaveThreshold: 10
+
+  skills:
+    - !append { skill: Athletics,               rank: 14 }
+    - !append { skill: Autofire,                rank: 16 }
+    - !append { skill: BasicTech,               rank: 10 }
+    - !append { skill: Brawling,                rank: 10 }
+    - !append { skill: ConcealRevealObject,     rank: 12 }
+    - !append { skill: Concentration,           rank: 10 }
+    - !append { skill: ConversationCool,        rank: 5 }
+    - !append { skill: DriveLandVehicle,        rank: 14 }
+    - !append { skill: Education,               rank: 9 }
+    - !append { skill: Electronics_SecurityTech,rank: 10 }
+    - !append { skill: Evasion,                 rank: 16 }
+    - !append { skill: FirstAid,                rank: 12 }
+    - !append { skill: Handgun,           rank: 16 }
+    - !append { skill: HumanPerception,         rank: 10 }
+    - !append { skill: LinguisticsBase,         rank: 1 }
+    - !append { skill: LocalExpert,             rank: 9 }
+    - !append { skill: MartialArts,             rank: 16 }
+    - !append { skill: Perception,              rank: 12 }
+    - !append { skill: Persuasion,              rank: 13 }
+    - !append { skill: Pilot_AerialVehicle,     rank: 10 }
+    - !append { skill: ResistTortureDrugs,      rank: 10 }
+    - !append { skill: Stealth,                 rank: 16 }
+    - !append { skill: Tracking,               rank: 1 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavySMG_Excellent
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavySMG_Excellent
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_Tearjerker:
+  $base: NPC.Base_Boss
+  name: ""
+  handle: "Tearjerker"
+  description: "Fire Captain"
+  lore: >
+    Some folks just can't help themselves — they're born to help others. Tearjerker is the captain
+    of a volunteer fire department she built with her partner Forty Mike-Mike by recruiting South
+    Night City civilians and even gangers. A former Petrochem MP during the 4th Corporate War,
+    she's part of the Zoners leadership, advocating for a peaceful movement while knowing peace
+    isn't always possible.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    7
+    tech:         4
+    cool:         6
+    willpower:    6
+    luck:         6
+    move:         6
+    body:         12
+    empathy:      4
+
+  derivedStats:
+    maxHP: 55
+    currentHP: 55
+    armor: 15
+
+  deathSaveThreshold: 12
+
+  skills:
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Autofire,            rank: 12 }
+    - !append { skill: Brawling,            rank: 14 }
+    - !append { skill: Concentration,       rank: 1 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Deduction,           rank: 13 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 9 }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: HeavyWeapons,        rank: 16 }
+    - !append { skill: HumanPerception,     rank: 8 }
+    - !append { skill: Interrogation,       rank: 13 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 1 }
+    - !append { skill: Paramedic,           rank: 10 }
+    - !append { skill: Perception,          rank: 13 }
+    - !append { skill: Persuasion,          rank: 8 }
+    - !append { skill: Stealth,             rank: 9 }
+    - !append { skill: Tactics,             rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_LinearFrameSigma
+
+  primaryEquipment:
+    weapon: Weapons.GrenadeLauncher_Standard
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_FortyMikeMike:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Forty Mike-Mike"
+  description: "MP Turned Firefighter"
+  lore: >
+    Forty Mike-Mike is a founder and second-in-command of the South Night City volunteer fire
+    department. A former MP during the 4th Corporate War, she's taken it upon herself to teach
+    the fire department basics of firearms, combat, rescue, and TAC training. While the department
+    focuses on saving lives, they all live in an active Combat Zone — these skills keep the
+    firefighters alive.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    6
+    tech:         5
+    cool:         5
+    willpower:    4
+    luck:         5
+    move:         5
+    body:         8
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 8
+
+  skills:
+    - !append { skill: Athletics,           rank: 13 }
+    - !append { skill: Brawling,            rank: 8 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 8 }
+    - !append { skill: DriveLandVehicle,    rank: 12 }
+    - !append { skill: Education,           rank: 10 }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 12 }
+    - !append { skill: HeavyWeapons,        rank: 14 }
+    - !append { skill: HumanPerception,     rank: 9 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 12 }
+    - !append { skill: Stealth,             rank: 8 }
+
+  primaryEquipment:
+    weapon: Weapons.Base_Brawling
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+NPC.Zoners_MisterStudd:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Mister Studd"
+  description: "Braindance Bon Vivant"
+  lore: >
+    Mister Studd is the head of what can only be described as an artistic porn troupe, occupying
+    "The Lair," an entire floor of a large South Night City housing complex, with his gender-fluid
+    harem of followers. Career aside, Mister Studd is proficient with shotguns and repelling sieges.
+    A few months ago, he dispatched five gang members alone and sent their remains back to Zhirafa.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    7
+    tech:         3
+    cool:         5
+    willpower:    5
+    luck:         5
+    move:         5
+    body:         8
+    empathy:      4
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 11
+
+  deathSaveThreshold: 8
+
+  skills:
+    - !append { skill: Acting,              rank: 8 }
+    - !append { skill: Athletics,           rank: 13 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Contortionist,       rank: 10 }
+    - !append { skill: ConversationCool,    rank: 8 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 7 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 6 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: PersonalGrooming,    rank: 10 }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: Photography_Film,    rank: 10 }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 9 }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_Freefall:
+  $base: NPC.Base_GangElite
+  name: "Nigel Benson"
+  handle: "Freefall"
+  description: "Creating a Movement"
+  lore: >
+    FreeFall is a South Night City native, born and raised in the Combat Zone alongside their
+    sibling and Maelstrom member, Drop. FreeFall is a leader of the Zoners movement and crafts
+    much of their promotional text. While a skilled combatant in handguns, they advocate for
+    nonviolent solutions for Zoners' demands.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 6
+    reflexes:     4
+    dexterity:    6
+    tech:         6
+    cool:         4
+    willpower:    4
+    luck:         4
+    move:         5
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,               rank: 13 }
+    - !append { skill: Brawling,                rank: 8 }
+    - !append { skill: ConcealRevealObject,     rank: 8 }
+    - !append { skill: Concentration,           rank: 9 }
+    - !append { skill: ConversationCool,        rank: 6 }
+    - !append { skill: Cybertech,               rank: 10 }
+    - !append { skill: Education,               rank: 1 }
+    - !append { skill: Electronics_SecurityTech,rank: 10 }
+    - !append { skill: Evasion,                 rank: 10 }
+    - !append { skill: FirstAid,                rank: 8 }
+    - !append { skill: Handgun,           rank: 13 }
+    - !append { skill: HumanPerception,         rank: 9 }
+    - !append { skill: LinguisticsBase,         rank: 10 }
+    - !append { skill: LibrarySearch,           rank: 1 }
+    - !append { skill: LocalExpert,             rank: 8 }
+    - !append { skill: Perception,              rank: 12 }
+    - !append { skill: Persuasion,              rank: 10 }
+    - !append { skill: Stealth,                 rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_Nemo:
+  $base: NPC.Base_GangElite
+  name: "Mason Price"
+  handle: "Nemo"
+  description: "AWOL Soldier Turned Activist"
+  lore: >
+    War breaks folks in big and small ways. After less than a month in the 4th Corp War, Nemo
+    deserted his unit in a firefight. Since then, he stayed off the radar, mostly living in tent
+    cities and moving every few months. Time spent in South Night City changed all that —
+    unwilling to move again, he now calls on his soldier skills to pay the bills.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     6
+    dexterity:    6
+    tech:         4
+    cool:         4
+    willpower:    4
+    luck:         4
+    move:         5
+    body:         6
+    empathy:      3
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Autofire,            rank: 14 }
+    - !append { skill: Brawling,            rank: 8 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 5 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 7 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 8 }
+    - !append { skill: MeleeCombat,         rank: 13 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: Stealth,             rank: 1 }
+    - !append { skill: Tactics,             rank: 7 }
+    - !append { skill: Trading,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavySMG_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.Base_LightMelee
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_SpeedDemon:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Speed Demon"
+  description: "She's a Demon on Wheels"
+  lore: >
+    Looking for allies, the Zoners have found the Jodes, one of the largest Nomad Nations. While
+    the Jodes are reluctant to participate in protests in force, they dispatched Speed Demon to
+    South Night City to represent them in future planning. Speed Demon is an exceptional driver
+    known for getting more "oomph" out of anything with wheels.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     8
+    dexterity:    4
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         4
+    move:         4
+    body:         6
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Autofire,            rank: 13 }
+    - !append { skill: Brawling,            rank: 6 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 10 }
+    - !append { skill: DriveLandVehicle,    rank: 12 }
+    - !append { skill: Education,           rank: 6 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 8 }
+    - !append { skill: MeleeCombat,         rank: 8 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: Streetwise,          rank: 8 }
+    - !append { skill: Trading,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavySMG_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_Alpha:
+  $base: NPC.Base_GangGrunt
+  name: ""
+  handle: "Alpha"
+  description: "Smart Scavenger"
+  lore: >
+    Most consider living in South Night City to be either a death sentence or hell on Earth,
+    but Alpha sees it as an opportunity for anyone brave enough to do whatever it takes. A skilled
+    gunfighter with a flair for killing and little qualm about yanking out chrome and selling it.
+    Alpha is the sort of scavenger who watches fights play out, learns how the winners operate,
+    and picks over the dead when the dust settles.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    3
+    tech:         5
+    cool:         5
+    willpower:    4
+    luck:         3
+    move:         6
+    body:         3
+    empathy:      1
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 5 }
+    - !append { skill: BasicTech,           rank: 10 }
+    - !append { skill: Brawling,            rank: 5 }
+    - !append { skill: Bribery,             rank: 7 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 3 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 5 }
+    - !append { skill: FirstAid,            rank: 7 }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 5 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: Paramedic,           rank: 7 }
+    - !append { skill: Perception,          rank: 9 }
+    - !append { skill: Persuasion,          rank: 7 }
+    - !append { skill: Stealth,             rank: 5 }
+    - !append { skill: Streetwise,          rank: 10 }
+    - !append { skill: Trading,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Zoners_Blaze:
+  $base: NPC.Base_GangGrunt
+  name: "Johnny Hammond"
+  handle: "Blaze"
+  description: "Corp Double Agent"
+  lore: >
+    Blaze is a Canadian-born Militech-employee-turned-arsonist and undercover spy for the Zoners.
+    After graduating from a prestigious Canadian university, he was quickly recruited by Militech
+    into R&D and rapidly ascended through the ranks before a demotion sent him spiraling. We don't
+    know if this changed Blaze's motivations regarding Corps or if his participation in the Zoner
+    movement is part of some two-bit revenge scheme.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     3
+    dexterity:    5
+    tech:         5
+    cool:         3
+    willpower:    3
+    luck:         2
+    move:         4
+    body:         3
+    empathy:      2
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 1 }
+    - !append { skill: Brawling,            rank: 7 }
+    - !append { skill: Concentration,       rank: 5 }
+    - !append { skill: ConversationCool,    rank: 4 }
+    - !append { skill: Demolitions,         rank: 10 }
+    - !append { skill: Evasion,             rank: 9 }
+    - !append { skill: FirstAid,            rank: 7 }
+    - !append { skill: HumanPerception,     rank: 4 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LibrarySearch,       rank: 7 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: Perception,          rank: 9 }
+    - !append { skill: Persuasion,          rank: 7 }
+    - !append { skill: Science,             rank: 9 }
+    - !append { skill: Stealth,             rank: 1 }
+
+  primaryEquipment:
+    weapon: Weapons.Base_LightMelee
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+NPC.Zoners_Wrecker:
+  $base: NPC.Base_GangGrunt
+  name: "Scarlet Harris"
+  handle: "Wrecker"
+  description: "Student? Activist? Journalist?"
+  lore: >
+    Scarlet Harris, aka Wrecker, is a sophomore at Night City University dual majoring in
+    journalism and political science. She has snuck out nightly from her dorm to support the
+    Zoners movement for the last two months. When arrested during a protest, a fleet of elite
+    lawyers swooped down on the precinct within two hours, and she was out on the street shortly
+    afterward with an official apology from NCPD.
+  npcType: RecurringNPC
+  faction: Zoners
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     3
+    dexterity:    4
+    tech:         3
+    cool:         4
+    willpower:    4
+    luck:         2
+    move:         3
+    body:         4
+    empathy:      4
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 6 }
+    - !append { skill: Brawling,            rank: 6 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 5 }
+    - !append { skill: HumanPerception,     rank: 8 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LipReading,          rank: 6 }
+    - !append { skill: LocalExpert,         rank: 6 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: Photography_Film,    rank: 10 }
+    - !append { skill: Stealth,             rank: 6 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_KiroshiOptics
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Poor
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false

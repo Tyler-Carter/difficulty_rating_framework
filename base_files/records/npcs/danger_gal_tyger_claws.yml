@@ -1,0 +1,589 @@
+# =============================================================================
+# records/npcs/danger_gal_tyger_claws.yml
+# Tyger Claws NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 9 NPCs: Shinobu the Second, Zen, Burai, Wakako, Hamada, Masa, Yasu, Shinmai,
+#         Tyger Claws Mook
+# =============================================================================
+
+
+NPC.TygerClaws_ShinobuTheSecond:
+  $base: NPC.Base_Boss
+  name: "Hayato Nakagawa"
+  handle: "Shinobu the Second"
+  description: "Leader of the Tyger Claws"
+  lore: >
+    Hayato Nakagawa was adopted by Shinobu Nakagawa after the death of his parents. He wanted to
+    be a Kabuki actor, but did not have the talent to succeed. He modeled his persona on the
+    "Kabuki-mono," Japanese Rockerboy samurai of the 16th century. With his polished chrome body
+    and flashy costume, he treats The Street as his theater and his regular parades have made him
+    a hero to the youth of Kabuki.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 6
+    reflexes:     8
+    dexterity:    8
+    tech:         7
+    cool:         8
+    willpower:    7
+    luck:         7
+    move:         7
+    body:         12
+    empathy:      2
+
+  derivedStats:
+    maxHP: 60
+    currentHP: 60
+    armor: 11       # Subdermal Armor + Linear Frame Sigma; SP 11 minimum
+
+  deathSaveThreshold: 12
+
+  skills:
+    - !append { skill: Acting,              rank: 13 }
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Brawling,            rank: 14 }
+    - !append { skill: Bureaucracy,         rank: 10 }
+    - !append { skill: Concentration,       rank: 9 }
+    - !append { skill: ConversationCool,    rank: 8 }
+    - !append { skill: Dancing,             rank: 10 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 10 }
+    - !append { skill: Evasion,             rank: 16 }
+    - !append { skill: FirstAid,            rank: 9 }
+    - !append { skill: HumanPerception,     rank: 4 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 12 }
+    - !append { skill: MartialArts,         rank: 16 }
+    - !append { skill: MeleeCombat,         rank: 16 }
+    - !append { skill: PaintDraw,           rank: 10 }
+    - !append { skill: Perception,          rank: 13 }
+    - !append { skill: PersonalGrooming,    rank: 12 }
+    - !append { skill: Persuasion,          rank: 13 }
+    - !append { skill: PlayInstrument,      rank: 10 }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: ShoulderArms,        rank: 16 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Streetwise,          rank: 10 }
+    - !append { skill: Tactics,             rank: 12 }
+    - !append { skill: WardrobeStyle,       rank: 13 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_SubdermalArmor
+    - !append Cyberware.DangerGal_LinearFrameSigma
+
+  primaryEquipment:
+    weapon: Weapons.Base_VeryHeavyMelee
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Zen:
+  $base: NPC.Base_Boss
+  name: ""
+  handle: "Zen"
+  description: "Protector on the Rooftops"
+  lore: >
+    Where there's light, there's shadow. Zen knows the rooftops of the territory well, lurking
+    always nearby and providing covert sniper support to the gang's senior members. He never takes
+    off his helmet in front of others, and his true identity is unknown to the Claws' leaders. He
+    owes a debt to Shinobu Nakagawa and serves the dead man's adopted son to repay the favor.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    7
+    tech:         5
+    cool:         6
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 15
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 13 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 8 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Education,           rank: 10 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 7 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 7 }
+    - !append { skill: LipReading,          rank: 10 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: MeleeCombat,         rank: 13 }
+    - !append { skill: PaintDraw,           rank: 10 }
+    - !append { skill: Perception,          rank: 7 }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: PlayInstrument,      rank: 10 }
+    - !append { skill: ResistTortureDrugs,  rank: 14 }
+    - !append { skill: ShoulderArms,        rank: 15 }
+    - !append { skill: Stealth,             rank: 13 }
+    - !append { skill: Tracking,            rank: 13 }
+
+  primaryEquipment:
+    weapon: Weapons.SniperRifle_Excellent
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Excellent
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Burai:
+  $base: NPC.Base_GangElite
+  name: "Takeru Akagi"
+  handle: "Burai"
+  description: "Kimen-Gumi Leader"
+  lore: >
+    Takeru Akagi, aka Burai, serves as the captain of Kimen-Gumi, the "police" arm of the Tyger
+    Claws. Burai wears a red mask and each of his lieutenants wears a unique mask of a different
+    color, leading some residents of Kabuki to refer to the Kimen-Gumi leadership as the "Kabuki
+    Rangers." Unlike Shinobu the Second, Burai is not a showy performer, but a steady and reliable
+    combatant and commander.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    7
+    tech:         4
+    cool:         4
+    willpower:    7
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: Brawling,            rank: 13 }
+    - !append { skill: Concentration,       rank: 9 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Criminology,         rank: 10 }
+    - !append { skill: Deduction,           rank: 8 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 6 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: MartialArts,         rank: 14 }
+    - !append { skill: MeleeCombat,         rank: 14 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: PlayInstrument,      rank: 9 }
+    - !append { skill: Stealth,             rank: 9 }
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Wakako:
+  $base: NPC.Base_GangElite
+  name: "Wakako Okada"
+  handle: "Wakako"
+  description: "Reluctant Confidant"
+  lore: >
+    Wakako Okada was born in the Kansai region of Japan and came to Night City University to
+    study practical clinical medicine. She met her husband Hiroto Miyamoto there, then found
+    work as a laboratory Medtech at Kiroshi. When enemies of Hayato Nakagawa attacked Wakako
+    and Hiroto at home, only Wakako survived — and Shinobu the Second promised her protection
+    in exchange for her loyalty and counsel.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 8
+    reflexes:     4
+    dexterity:    3
+    tech:         7
+    cool:         7
+    willpower:    6
+    luck:         5
+    move:         4
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 5 }
+    - !append { skill: BasicTech,           rank: 10 }
+    - !append { skill: Brawling,            rank: 6 }
+    - !append { skill: Concentration,       rank: 8 }
+    - !append { skill: ConversationCool,    rank: 10 }
+    - !append { skill: Cybertech,           rank: 10 }
+    - !append { skill: Education,           rank: 12 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 9 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LibrarySearch,       rank: 10 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: MedicalTech,         rank: 1 }
+    - !append { skill: Paramedic,           rank: 10 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: PersonalGrooming,    rank: 10 }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: PlayInstrument,      rank: 10 }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: Science,             rank: 10 }
+    - !append { skill: ShoulderArms,        rank: 12 }
+    - !append { skill: Stealth,             rank: 5 }
+    - !append { skill: Trading,             rank: 10 }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Excellent
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Excellent
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Hamada:
+  $base: NPC.Base_GangElite
+  name: "Kouichi Hamada"
+  handle: "Hamada"
+  description: "Boss of the Street Vendors"
+  lore: >
+    Kouichi Hamada acts as the boss of the Tekiya (street vendors) in Kabuki for the Tyger Claws.
+    An older member of the gang, he learned classic Japanese street food recipes in the early 2020s
+    and has generously taught a number of apprentices, creating a thriving Day Market culture in
+    Kabuki. Hamada never compromises or cheats — a devout Buddhist who makes regular pilgrimages.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    5
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         4
+    move:         5
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 7 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 1 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 1 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: MeleeCombat,         rank: 13 }
+    - !append { skill: Perception,          rank: 7 }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: PlayInstrument,      rank: 8 }
+    - !append { skill: Science,             rank: 12 }
+    - !append { skill: Stealth,             rank: 7 }
+    - !append { skill: Streetwise,          rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Masa:
+  $base: NPC.Base_GangGrunt
+  name: "Masashi Miyamoto"
+  handle: "Masa"
+  description: "Kimen-Gumi Beat Cop"
+  lore: >
+    Masashi Miyamoto, aka Masa, more or less grew up in the Pachi-Pachi Kaikan pachinko parlor
+    in Kabuki. He sees the Tyger Claws as a neighborhood association and a part of everyday life.
+    Born and raised in Kabuki, Masa knows many shopkeepers, street vendors, and members of the
+    Claws, and remembers the faces, names, and pasts of most residents.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    4
+    tech:         4
+    cool:         4
+    willpower:    4
+    luck:         3
+    move:         5
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 6 }
+    - !append { skill: Brawling,            rank: 6 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 13 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Gamble,              rank: 12 }
+    - !append { skill: Handgun,       rank: 9 }
+    - !append { skill: HumanPerception,     rank: 7 }
+    - !append { skill: Interrogation,       rank: 6 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 9 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 7 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: Stealth,             rank: 6 }
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Yasu:
+  $base: NPC.Base_GangGrunt
+  name: "Yasunori Tamada"
+  handle: "Yasu"
+  description: "Fake Otaku Sales Rep"
+  lore: >
+    Yasunori Tamada, aka Yasu, is a salesman for Matsura Food Products, supplying Japanese
+    foodstuffs to vendors in Tyger Claws territory. An intelligent Fixer, Yasu threads the fine
+    line of loyalty between the Tyger Claws and his employer carefully. He also imports Japanese
+    anime, manga, and video game items — though posergangs seem keenly aware his Otaku credentials
+    are lacking.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    4
+    tech:         4
+    cool:         3
+    willpower:    3
+    luck:         2
+    move:         7
+    body:         3
+    empathy:      5
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 6 }
+    - !append { skill: Brawling,            rank: 7 }
+    - !append { skill: Concentration,       rank: 5 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 9 }
+    - !append { skill: Perception,          rank: 7 }
+    - !append { skill: Persuasion,          rank: 5 }
+    - !append { skill: Pilot_AerialVehicle, rank: 10 }
+    - !append { skill: ShoulderArms,        rank: 1 }
+    - !append { skill: Stealth,             rank: 6 }
+    - !append { skill: Trading,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Poor
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Shinmai:
+  $base: NPC.Base_GangGrunt
+  name: "Shinkichi Yoneda"
+  handle: "Shinmai"
+  description: "New Rice"
+  lore: >
+    Shinkichi Yoneda is a teenager who moved from Old Japantown to Kabuki thanks to the sponsorship
+    of the Tyger Claws. He showed promise in the Tyger Dojo and was recruited based on his skill
+    with a blade. His seniors call him Shinmai — "new rice" in Japanese. He isn't happy with the
+    nickname, but has been told he'll earn a better one if he survives for a year.
+  npcType: RecurringNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 2
+    reflexes:     5
+    dexterity:    6
+    tech:         2
+    cool:         3
+    willpower:    2
+    luck:         2
+    move:         7
+    body:         3
+    empathy:      3
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 4 }
+    - !append { skill: ConversationCool,    rank: 5 }
+    - !append { skill: Education,           rank: 4 }
+    - !append { skill: Evasion,             rank: 1 }
+    - !append { skill: FirstAid,            rank: 4 }
+    - !append { skill: HumanPerception,     rank: 5 }
+    - !append { skill: LinguisticsBase,     rank: 6 }
+    - !append { skill: LocalExpert,         rank: 4 }
+    - !append { skill: MartialArts,         rank: 1 }
+    - !append { skill: MeleeCombat,         rank: 13 }
+    - !append { skill: Perception,          rank: 6 }
+    - !append { skill: Persuasion,          rank: 5 }
+    - !append { skill: Stealth,             rank: 13 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TygerClaws_Mook:
+  $base: NPC.Base_GangGrunt
+  name: ""
+  handle: "Tyger Claws Mook"
+  description: "Generic Gang Member"
+  lore: >
+    To their credit, when you buy protection from the Tyger Claws they actually provide. While
+    you most commonly see low-level members acting as bouncers at clubs and gambling establishments,
+    they're also stationed in Day Markets and bodegas, ready to protect the merchandise —
+    or break it if the vendor gets out of line.
+  npcType: GenericNPC
+  faction: Tyger_Claws
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     4
+    dexterity:    4
+    tech:         2
+    cool:         3
+    willpower:    3
+    luck:         2
+    move:         4
+    body:         7
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 6 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Education,           rank: 6 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 4 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 6 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 5 }
+    - !append { skill: Stealth,             rank: 6 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

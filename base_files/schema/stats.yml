@@ -1,0 +1,235 @@
+# =============================================================================
+# schema/stats.yml
+# Named stat identifiers, the string keys used in StatModifier.stat fields.
+# All stat modifiers reference a key from this file.
+# =============================================================================
+
+
+# --- Ranged-only combat stats ------------------------------------------------
+rangedCombat:
+  WeaponType:
+    description: The classification for the weapon.
+    unit: string
+  WeaponSkill:
+    description: The skill required and added to rolls for actions involving the weapon.
+    unit: string
+  SingleShotDamage:
+    description: The amount of damage from a single shot of the weapon.
+    unit: flat_value                            # e.g., 1d6, 2d6, etc.
+  StandardMagazine:
+    description: How much of an ammo type can be held in the weapon without mods.
+    unit: flat_value
+
+# --- Melee-only combat stats -------------------------------------------------
+meleeCombat:
+  MeleeWeaponType:
+    description: The classification of the melee weapon.
+    unit: string
+  Damage:
+    description: The damage of a single attack from this weapon.
+    unit: flat_value                            # e.g., 1d6, 2d6, etc.
+
+# --- Shared weapon stats -----------------------------------------------------
+shared:
+  RateOfFire:
+    description: The number of times the weapon can be fired or swung with a single attack action.
+    unit: flat_value
+  WeaponCost:
+    description: The amount of currency required to purchase the weapon in Night City, the Eurobuck.
+    unit: flat_value
+  HandsRequired:
+    description: The number of hands required to hold and fire the weapon.
+    unit: flat_value
+  Concealment:
+    description: Determines if the weapon can be concealed with the Conceal/Reveal object skill under clothing.
+    unit: bool
+  ArmorPiercing:
+    description: >
+      Whether the weapon ignores half the target's Stopping Power before
+      damage is applied. Used on military-grade and exotic weapons.
+      Value 1 = armor piercing active; 0 = standard.
+    unit: bool_as_int
+
+
+# --- Defense / Survival stats ------------------------------------------------
+defense:
+  ArmorType:
+    description: The generic title for the armor and how people generally refer to it.
+    unit: string
+  ArmorDescription:
+    description: >
+      If the armor has any effects or special notes they are listed here.
+      Otherwise it is aesthetic flavor text.
+    unit: string
+  StoppingPower:
+    description: Points of damage from an attack that the armor can stop before it reaches the body.
+    unit: flat_value
+  ArmorPenalty:
+    description: How much the armor interferes with a person's ability to move and respond while worn.
+    unit: flat_value                            # penalty applied to REF/DEX-based checks
+  ArmorCost:
+    description: The amount of currency required to purchase the armor in Night City, the Eurobuck.
+    unit: flat_value
+  DamageReduction:
+    description: >
+      Percentage of incoming damage negated after Stopping Power is applied.
+      Typically granted by high-tier cyberware (e.g. Subdermal Armor Excellent).
+      Value is a decimal fraction: 0.15 = 15% reduction.
+    unit: multiplier
+
+
+# --- Character / NPC combat stats --------------------------------------------
+# These stats appear on Character, NPC, and Cyberware records.
+# They are the primary targets of StatModifier entries in those records.
+character:
+  Health:
+    description: >
+      Current or maximum hit points. Use modifierType Override to set a fixed
+      value, or Additive to add a flat bonus on top of the derived maximum.
+      Formula for max HP: 10 + (5 × ⌈(BODY + WILL) / 2⌉).
+    unit: flat_value
+  Initiative:
+    description: >
+      Flat modifier added to the Initiative roll at the start of each combat
+      round. Full roll = 1d10 + REF + INT + this modifier.
+      Sandevistan and similar cyberware grant large Additive bonuses here.
+    unit: flat_value
+  Perception:
+    description: >
+      Modifier to Perception skill checks (spot hidden, detect ambush, etc.).
+      Kiroshi optics and sensor cyberware grant Additive bonuses.
+      Skill total = Perception rank + REF + this modifier.
+    unit: flat_value
+  DeathSaveThreshold:
+    description: >
+      The target number for Death Save rolls when the character reaches 0 HP.
+      Base value is 10 for all characters. Some cyberware lowers this number,
+      making saves harder. Use modifierType Additive with a negative value.
+    unit: flat_value
+  MoveSpeed:
+    description: >
+      Modifier to the character's effective MOVE for distance calculations.
+      Run speed = (MOVE + this modifier) × 3 metres per action.
+      Leg cyberware typically grants Additive bonuses.
+    unit: flat_value
+
+
+# --- Core attributes ---------------------------------------------------------
+# These keys allow cyberware or abilities to modify a character's base
+# attribute scores directly.
+# As note, be careful when applying these to cyberware. In the Core rulebook
+# cyberware only grants skill or derived-stat bonuses. There are no instances
+# of cyberware granting raw attribute increases.
+attributes:
+  Intelligence:
+    description: Modifier to the INT attribute. Governs INT-based skill checks and Netrunner Interface ability.
+    unit: flat_value
+  Reflexes:
+    description: Modifier to the REF attribute. Governs ranged accuracy, Initiative roll, and REF-based skills.
+    unit: flat_value
+  Dexterity:
+    description: Modifier to the DEX attribute. Governs DEX-based combat skills (Handgun, ShoulderArms, Dodge).
+    unit: flat_value
+  Tech:
+    description: Modifier to the TECH attribute. Governs fabrication, repair, and TECH-based skills.
+    unit: flat_value
+  Cool:
+    description: Modifier to the COOL attribute. Governs social composure, Solo special ability, and COOL-based skills.
+    unit: flat_value
+  Willpower:
+    description: Modifier to the WILL attribute. Governs mental endurance, resist torture/drugs, and HP formula.
+    unit: flat_value
+  Luck:
+    description: >
+      Modifier to the LUCK attribute, which sets the Luck pool size.
+      The pool refreshes each session; points spent add +1 to any roll after seeing the result.
+    unit: flat_value
+  Move:
+    description: Modifier to the MOVE attribute. Affects run speed, swim speed, and leap distance.
+    unit: flat_value
+  Body:
+    description: Modifier to the BODY attribute. Affects melee damage bonus, carry weight, and HP formula.
+    unit: flat_value
+  Empathy:
+    description: >
+      Modifier to effective EMP (post-cyberware).
+      Effective EMP = HumanityCurrent / 10 (round down).
+      Direct EMP modifiers are rare; most humanity effects flow through HumanityCost.
+    unit: flat_value
+
+
+# --- Derived / secondary stats -----------------------------------------------
+derived:
+  MaxHP:
+    description: >
+      Maximum hit points. Resolver computes from attributes:
+      10 + (5 × ⌈(BODY + WILL) / 2⌉). An Additive modifier grants a flat
+      HP bonus on top of the formula result (e.g. from cyberware).
+    unit: flat_value
+  LuckPool:
+    description: >
+      Maximum size of the Luck pool for the session. Defaults to the LUCK
+      attribute value. An Additive modifier increases the pool size.
+    unit: flat_value
+  RunSpeed:
+    description: >
+      Movement distance per action in metres. Base = MOVE × 3.
+      An Additive modifier adds directly to the final metres value.
+    unit: metres_per_action
+  CarryWeight:
+    description: >
+      Maximum load in kilograms before encumbrance penalties apply.
+      Base = BODY × 10. An Additive modifier adds directly to the final kg value.
+    unit: kilograms
+
+
+# --- Humanity / cyberware capacity -------------------------------------------
+humanity:
+  HumanityCurrent:
+    description: >
+      Current Humanity remaining after all installed cyberware costs.
+      Effective EMP = HumanityCurrent / 10 (round down).
+      Falling to 0 triggers cyberpsychosis.
+      Use modifierType Additive with a negative value to apply a humanity cost.
+    unit: flat_value
+  HumanityMax:
+    description: >
+      Maximum Humanity before cyberware deductions. Equals EMP (base) × 10
+      at character creation. Rarely modified directly.
+    unit: flat_value
+  HumanityCost:
+    description: >
+      Humanity lost when a specific piece of cyberware is installed.
+      Stored on the cyberware record itself (humanityCost field) rather than
+      as a StatModifier — listed here for reference and resolver validation.
+    unit: flat_value
+
+
+# --- Hacking / Netrunner stats -----------------------------------------------
+# Used by prototypes/abilities/quickhacks.yml and the Momentum system.
+hacking:
+  Momentum:
+    description: >
+      The Netrunner's current hacking momentum for this encounter.
+      Scale of 1–5 — a single visible dial, not a subtractable pool.
+
+      Momentum 1–2  →  Shallow access  →  depth 1 nodes (cameras, doors, lights)
+      Momentum 3–4  →  Mid access      →  depth 2 nodes (turrets, terminals, cyberware)
+      Momentum 5    →  Deep access     →  depth 3 nodes (Kraken ICE, high-value targets)
+
+      Builds: +1 on each successful hack roll.
+      Drops: when the Netrunner takes damage, fails a roll, or ICE retaliates.
+      Resets: to 0 on disconnect or at encounter end.
+
+      StatModifier use: ICE retaliation applies Additive −1 or −2 per round.
+      Quickhacks with momentumCost 1 apply Additive −1 on activation.
+    unit: dial_1_to_5
+  InterfaceRank:
+    description: >
+      The Netrunner's rank in the Interface Role special ability (1–10).
+      Higher rank unlocks deeper quickhack access and stronger hack rolls.
+      Stored on the roleAbility field; listed here so a top-tier cyberdeck
+      can grant an Additive bonus to effective Interface rank.
+    unit: flat_value
+
+

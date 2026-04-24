@@ -1,0 +1,366 @@
+# =============================================================================
+# records/npcs/danger_gal_digital_divas.yml
+# The Digital Divas NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 5 NPCs: Andre Nez, Firewall, Jose Quispe, Pat Rezin, Sizzle Jams
+# =============================================================================
+
+
+# =============================================================================
+# THE DIGITAL DIVAS — NAMED MEMBERS
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Andre Nez — Gunner Turned Drummer (Lieutenant, Solo)
+# Note: Uses a Rocklin Augmentics Mercurius Cyberchair (wheelchair).
+# ---------------------------------------------------------------------------
+NPC.DigitalDivas_AndreNez:
+  $base: NPC.Base_NamedNPC
+  name: "André Nez"
+  handle: "Andre Nez"
+  description: "Gunner Turned Drummer — Digital Divas' powerhouse percussionist."
+  lore: >
+    André joined Militech's army after growing up an orphan in Night City,
+    channelling street-survival rage into a military career. Discharged after
+    refusing to kill a Nomad kid, he lost his legs in a construction accident
+    and now navigates Night City in a Rocklin Augmentics Mercurius Cyberchair,
+    projecting that same primal rage into playing drums.
+  npcType: RecurringNPC
+  faction: Digital_Divas
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     5
+    dexterity:    6
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         4
+    move:         5
+    body:         5
+    empathy:      6
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11   # Subdermal Armor → minimum 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,          rank: 12 }
+    - !append { skill: Brawling,           rank: 14 }
+    - !append { skill: Concentration,      rank: 7 }
+    - !append { skill: ConversationCool,   rank: 10 }
+    - !append { skill: Education,          rank: 6 }
+    - !append { skill: EnduranceSTR,       rank: 13 }
+    - !append { skill: Evasion,            rank: 1 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: HumanPerception,    rank: 8 }
+    - !append { skill: Interrogation,      rank: 7 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 6 }
+    - !append { skill: MeleeCombat,        rank: 13 }
+    - !append { skill: Perception,         rank: 1 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: Persuasion,         rank: 14 }
+    - !append { skill: PlayInstrument,     rank: 12 }
+    - !append { skill: ShoulderArms,       rank: 13 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: WardrobeStyle,      rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_MedicalGrade_Cyberarm_x2
+    - !append Cyberware.DangerGal_KiroshiOptiShields
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard_2
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Firewall — Light and Sound Rigger (Lieutenant, Netrunner)
+# ---------------------------------------------------------------------------
+NPC.DigitalDivas_Firewall:
+  $base: NPC.Base_NamedNPC
+  name: ""
+  handle: "Firewall"
+  description: "Light and Sound Rigger — Digital Divas' Netrunner and tech specialist."
+  lore: >
+    In their younger days, Firewall worked as an AI-assisted artist until the
+    pseudo-intelligence spontaneously transformed into a savage, self-aware
+    digital entity. Firewall neutralised it with a fatal dose of C9 antivirus
+    before Netwatch could intervene, earning a street reputation in the process.
+  npcType: RecurringNPC
+  npcRole: Netrunner_NPC
+  faction: Digital_Divas
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     5
+    dexterity:    5
+    tech:         5
+    cool:         4
+    willpower:    5
+    luck:         4
+    move:         4
+    body:         4
+    empathy:      6
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,              rank: 7 }
+    - !append { skill: BasicTech,              rank: 6 }
+    - !append { skill: Brawling,               rank: 10 }
+    - !append { skill: Concentration,          rank: 10 }
+    - !append { skill: ConversationCool,       rank: 8 }
+    - !append { skill: Demolitions,            rank: 7 }
+    - !append { skill: Education,              rank: 10 }
+    - !append { skill: Electronics_SecurityTech, rank: 9 }
+    - !append { skill: Evasion,                rank: 9 }
+    - !append { skill: FirstAid,               rank: 8 }
+    - !append { skill: Handgun,          rank: 13 }
+    - !append { skill: HumanPerception,        rank: 1 }
+    - !append { skill: LinguisticsBase,        rank: 10 }
+    - !append { skill: LocalExpert,            rank: 8 }
+    - !append { skill: Perception,             rank: 13 }
+    - !append { skill: Persuasion,             rank: 6 }
+    - !append { skill: Stealth,                rank: 1 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Jose Quispe — Brat-Punk Songsmith (Lieutenant, Rockerboy)
+# ---------------------------------------------------------------------------
+NPC.DigitalDivas_JoseQuispe:
+  $base: NPC.Base_NamedNPC
+  name: "José Quispe"
+  handle: "Jose Quispe"
+  description: "Brat-Punk Songsmith — Digital Divas' songwriter and keytarist."
+  lore: >
+    Raised on Nomad trade routes between Bolivia and the Pacifica Confederation,
+    José came to Night City at thirteen with rock-star dreams. He ran errands
+    for the Desperados gang but never touched the merchandise, surviving as the
+    last Desperado standing. His Spanish and Quechua give his songs a unique flair.
+  npcType: RecurringNPC
+  faction: Digital_Divas
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    6
+    tech:         4
+    cool:         4
+    willpower:    5
+    luck:         4
+    move:         4
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,          rank: 8 }
+    - !append { skill: Brawling,           rank: 12 }
+    - !append { skill: Concentration,      rank: 7 }
+    - !append { skill: ConversationCool,   rank: 7 }
+    - !append { skill: DriveLandVehicle,   rank: 10 }
+    - !append { skill: Education,          rank: 10 }
+    - !append { skill: Evasion,            rank: 8 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 13 }
+    - !append { skill: HumanPerception,    rank: 7 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 10 }
+    - !append { skill: Perception,         rank: 8 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: Persuasion,         rank: 6 }
+    - !append { skill: PickLock,           rank: 10 }
+    - !append { skill: PickPocket,         rank: 10 }
+    - !append { skill: PlayInstrument,     rank: 12 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: Streetwise,         rank: 8 }
+    - !append { skill: WardrobeStyle,      rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard_SmartgunLink
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Pat Rezin — Power to the People? (Lieutenant, Rockerboy)
+# ---------------------------------------------------------------------------
+NPC.DigitalDivas_PatRezin:
+  $base: NPC.Base_NamedNPC
+  name: "Pat Rezin"
+  handle: "Pat Rezin"
+  description: "Power to the People? — Digital Divas' rebel frontwoman and vocalist."
+  lore: >
+    Growing up with two Zhirafa-engineer fathers, Pat developed a fascination
+    with construction machine sounds from childhood. She learned guitar, implanted
+    an AudioVox, and cultivated a persona as a rebel musician with a Garden Patch
+    following built on speeches about giving power back to the people.
+  npcType: RecurringNPC
+  faction: Digital_Divas
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    6
+    tech:         6
+    cool:         6
+    willpower:    4
+    luck:         4
+    move:         3
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Acting,             rank: 1 }
+    - !append { skill: Athletics,          rank: 8 }
+    - !append { skill: Brawling,           rank: 9 }
+    - !append { skill: Concentration,      rank: 1 }
+    - !append { skill: ConversationCool,   rank: 9 }
+    - !append { skill: Education,          rank: 10 }
+    - !append { skill: Electronics_SecurityTech, rank: 8 }
+    - !append { skill: Evasion,            rank: 1 }
+    - !append { skill: FirstAid,           rank: 8 }
+    - !append { skill: HumanPerception,    rank: 9 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: MartialArts,        rank: 13 }
+    - !append { skill: Perception,         rank: 10 }
+    - !append { skill: PersonalGrooming,   rank: 12 }
+    - !append { skill: Persuasion,         rank: 12 }
+    - !append { skill: PlayInstrument,     rank: 13 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: WardrobeStyle,      rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_AudioVox
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_LightTattoo_x3
+    - !append Cyberware.DangerGal_ShiftTacts
+    - !append Cyberware.DangerGal_Techair
+
+  primaryEquipment:
+    weapon: Weapons.Base_Brawling
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Sizzle Jams — Independent Entertainment Agent (Hardened Mook, Exec)
+# ---------------------------------------------------------------------------
+NPC.DigitalDivas_SizzleJams:
+  $base: NPC.Base_HardenedMook
+  name: "Sizzle Jams"
+  handle: "Sizzle Jams"
+  description: "Independent Entertainment Agent — the Digital Divas' cold-burning fixer and manager."
+  lore: >
+    Sizzle Jams is a woman you can trust — cross her, and you can trust she'll
+    have your legs removed. Built her reputation as a courier who went to great
+    lengths to ensure no one touched her packages. Now runs the Digital Divas
+    as an entertainment agent in Night City's local music scene.
+  npcType: RecurringNPC
+  faction: Digital_Divas
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 7
+    reflexes:     4
+    dexterity:    4
+    tech:         2
+    cool:         6
+    willpower:    5
+    luck:         3
+    move:         5
+    body:         4
+    empathy:      2
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Acting,             rank: 10 }
+    - !append { skill: Athletics,          rank: 6 }
+    - !append { skill: Brawling,           rank: 10 }
+    - !append { skill: Bribery,            rank: 1 }
+    - !append { skill: Bureaucracy,        rank: 1 }
+    - !append { skill: Business,           rank: 1 }
+    - !append { skill: Concentration,      rank: 7 }
+    - !append { skill: ConversationCool,   rank: 4 }
+    - !append { skill: DriveLandVehicle,   rank: 10 }
+    - !append { skill: Education,          rank: 9 }
+    - !append { skill: Evasion,            rank: 6 }
+    - !append { skill: FirstAid,           rank: 4 }
+    - !append { skill: HumanPerception,    rank: 4 }
+    - !append { skill: Interrogation,      rank: 8 }
+    - !append { skill: LinguisticsBase,    rank: 1 }
+    - !append { skill: LocalExpert,        rank: 9 }
+    - !append { skill: Perception,         rank: 9 }
+    - !append { skill: Persuasion,         rank: 8 }
+    - !append { skill: Stealth,            rank: 6 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_Psiberstuff_Watchman
+
+  primaryEquipment:
+    weapon: Weapons.Brawling_Unarmed
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false

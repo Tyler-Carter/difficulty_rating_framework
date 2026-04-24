@@ -1,0 +1,464 @@
+# =============================================================================
+# schema/enums.yml
+# Valid enumerated values for all record types.
+# The resolver validates every field marked { type: enum } against this file.
+#
+# Game system: Cyberpunk RED Core Rulebook (R. Talsorian Games, 2020)
+# =============================================================================
+
+
+# =============================================================================
+# WEAPONS
+# =============================================================================
+
+WeaponType:
+  # RED Core Rulebook pp. 340-351
+  ranged:
+    - Pistol                # includes light pistols
+    - HeavyPistol
+    - VeryHeavyPistol
+    - SMG                   # submachinegun
+    - HeavySMG
+    - Shotgun
+    - AssaultRifle
+    - SniperRifle
+    - GrenadeLauncher
+    - RocketLauncher
+    - HeavyMachineGun
+    - Bow                   # crossbows use the same profile
+    - FlamethrowerWeapon
+  melee:
+    - LightMelee            # light blades, small knives; one-handed, concealable
+    - MediumMelee           # knives, hatchets, most one-handed blades
+    - HeavyMelee            # two-handed or over-sized (sledge, axe)
+    - VeryHeavyMelee        # chainsaw, monoblade; requires two hands
+    - Brawling              # unarmed / martial arts
+    - CyberweaponMelee      # Mantis Blades, Monowire — attached to body
+  thrown:
+    - Grenade
+    - Knife                 # throwable knives use a separate range profile
+
+WeaponCategory:
+  # Technology classification
+  - Standard
+  - Military                # restricted; +1d6 damage in some house rules
+  - Exotic                  # unusual; GM adjudicates legality
+  - Melee
+
+DamageType:
+  - Physical
+  - Thermal                 # fire-based; triggers Burning status
+  - Chemical                # poison/acid; triggers Poison status
+  - Electric                # EMP-adjacent; triggers Stunned on crit
+  - EMP                     # disables electronics and cyberware on hit
+
+
+# =============================================================================
+# RARITY / QUALITY
+# =============================================================================
+
+Rarity:
+  # Used for weapons, cyberware, and items.
+  # Maps loosely to RED quality tiers for crafted items (p. 140).
+  - Poor
+  - Standard
+  - Excellent
+  - Iconic                  # GMs can create speciality items as high-value rewards
+
+
+# =============================================================================
+# STAT MODIFIERS
+# =============================================================================
+
+ModifierType:
+  - Additive                # flat value added to base
+  - Multiplier              # scales existing value
+  - Override                # replaces base value entirely
+
+
+# =============================================================================
+# ROLES
+# =============================================================================
+
+Role:
+  # The ten playable Roles from RED Core Rulebook pp. 96-213.
+  # Each Role provides exactly one special ability that scales rank 1–10.
+  - Rockerboy               # Charismatic Impact (social/crowd control)
+  - Solo                    # Combat Awareness (initiative, perception)
+  - Netrunner               # Interface (hacking, netrunning)
+  - Tech                    # Maker (fabrication, repair)
+  - Medtech                 # Medicine (field surgery, pharmaceuticals)
+  - Media                   # Credibility (investigation, broadcasting)
+  - Lawman                  # Backup (law enforcement, backup calls)
+  - Exec                    # Teamwork (team buffs, corporate resources)
+  - Fixer                   # Operator (contact network, resource acquisition)
+  - Nomad                   # Moto (vehicle mastery, travel skills)
+
+
+# =============================================================================
+# SKILLS
+# =============================================================================
+
+Skill:
+  # Full skill list from RED Core Rulebook pp. 220-226.
+  # Grouped by governing attribute (for reference; not used in records).
+
+  # INT-based
+  - Accounting
+  - AnimalHandling
+  - Bureaucracy
+  - Business
+  - Composition
+  - Criminology
+  - Cryptography
+  - Deduction
+  - Education
+  - Gamble
+  - LibrarySearch
+  - LipReading               # reading lips at a distance or through barriers
+  - LocalExpert              # city/region knowledge; taken multiple times for different areas
+  - LinguisticsBase          # your native language at INT+4 automatically
+  - MakeFist                 # wilderness survival / foraging
+  - Paramedic
+  - PerceptionINT            # used separately from REF-based Perception in some editions
+  - Science
+  - Tactics
+  - TechBase                 # general tech knowledge
+  - WildernessSurvival
+
+  # REF-based
+  - Athletics
+  - Brawling
+  - Contortionist            # physical flexibility and acrobatic contortion
+  - DriveLandVehicle
+  - EducationREF             # placeholder; see Education (INT)
+  - Evasion
+  - Initiative
+  - MartialArts
+  - MeleeCombat
+  - Perception               # awareness, spot hidden
+  - Pilot_AerialVehicle
+  - Pilot_SeaVehicle
+  - RidingHorse
+  - Stealth
+  - Tracking
+
+  # DEX-based
+  - Acrobatics
+  - Archery
+  - ConcealRevealObject       # concealing/revealing items on person or in environment
+  - Handgun
+  - HeavyWeapons
+  - ShoulderArms
+  - Autofire
+  - Dodge
+  - SleightOfHand
+
+  # TECH-based
+  - AirVehicleTech
+  - BasicTech
+  - Cybertech
+  - Demolitions
+  - Electronics_SecurityTech
+  - FirstAid
+  - LandVehicleTech
+  - MedicalTech               # pharmaceutical / surgical tech knowledge (Medtech role)
+  - PaintDraw
+  - Photography_Film          # capturing and editing photographic or video media
+  - PickLock
+  - PickPocket
+  - SeaVehicleTech
+  - Surgery                   # surgical procedures; distinct from Paramedic field medicine
+  - Weaponstech
+
+  # COOL-based
+  - Bribery
+  - ConversationCool          # social grace
+  - HumanPerception
+  - Interrogation
+  - Intimidation
+  - Persuasion
+  - PersonalGrooming
+  - Streetwise
+  - Trading
+  - WardrobeStyle
+
+  # WILL-based
+  - Concentration
+  - ConversationWILL          # willpower-based persuasion (resist, maintain composure)
+  - ResistTortureDrugs
+
+  # BODY-based
+  - Athletics_BODY            # carrying, lifting — uses BODY when opposed by mass
+  - EnduranceSTR
+
+  # EMP-based
+  - Acting
+  - Dancing
+  - Forgery
+  - LibrarySearchEMP          # social research (rumour gathering)
+  - Performance
+  - PlayInstrument
+  - SeductionEMP
+  - SocialEMP
+  - Wardrobe_EMP
+
+
+# =============================================================================
+# CULTURAL ORIGIN
+# =============================================================================
+
+CulturalOrigin:
+  # RED Core Rulebook p. 72
+  # Purely narrative usage there are no penalties associated with these.
+  - NorthAmerican
+  - SouthCentralAmerican
+  - WesternEuropean
+  - EasternEuropean
+  - MiddleEasternNorthAfrican
+  - SubSaharanAfrican
+  - SouthAsian
+  - SouthEastAsian
+  - EastAsian
+  - Oceanian
+  - Nomad_American            # Nomads have their own regional sub-origin
+  - Nomad_European
+  - Nomad_Asian
+
+
+# =============================================================================
+# NPC CLASSIFICATION
+# =============================================================================
+
+NPCType:
+  # High-level category for how an NPC was created / will be used.
+  - EncounterNPC              # built for a specific combat or scene; single-use
+  - RecurringNPC              # named, reappears across sessions
+  - Vendor                    # shop or black market contact
+  - QuestGiver                # provides hooks or missions
+  - ContactFixer              # fixer-type relationship NPC
+
+NPCRole:
+  # Tactical role within an encounter.  Governs prototype selection.
+  - Grunt                     # standard combatant; limited skills
+  - Elite                     # more capable; may have cyberware
+  - Sniper                    # ranged specialist; high Perception + ShoulderArms
+  - Assassin                  # stealth and infiltration specialist; high Perception + Stealth
+  - Netrunner_NPC             # hacking NPC; may deploy ICE nodes
+  - Medtech_NPC               # healer/support; revives downed allies
+  - Boss                      # major named threat; highest stats
+  - NamedNPC                  # story-critical; not necessarily combat-focused
+  - Bodyguard                 # protecting a principal; attitudeGroup usually Hostile to threats
+  - Driver                    # vehicle operator; not primarily a combatant
+
+NPCRarity:
+  # Encounter difficulty label.  Used by GMs to gauge challenge quickly.
+  # Standard tiers (Danger Gal Dossier p.150):
+  - Mook                      # barely trained; dies from one good hit (HP 20–30)
+  - Normal                    # street-level threat; typical gang member
+  - Tough                     # seasoned; cyberware likely (HP 50–80)
+  - Elite                     # specialist; notable skills and gear
+  - Boss                      # encounter anchor; built to survive multiple rounds
+  # Hardened tiers (Danger Gal Dossier p.152) — use when facing a combat-optimised Crew:
+  - HardenedMook              # +6 STAT budget (max STAT 7); +500eb Cyberware; may have Role Ability Rank 2
+  - HardenedLieutenant        # +4 STAT budget (max STAT 8); +500eb Cyberware; likely has Role Ability Rank 4
+  - HardenedMiniBoss          # +2 STAT budget (max STAT 8); +1,200eb Cyberware; may have Role Ability Rank 6
+  - HardenedBoss              # +5 STAT budget; unlimited Cyberware (likely cyberpsycho); may have Role Ability Rank 8
+
+
+# =============================================================================
+# FACTIONS
+# =============================================================================
+
+Faction:
+  # Aligned political / gang / corporate group.
+  Unaffiliated:
+    - Neutral
+    - NCPD
+    - Netwatch
+    - Trauma_Team
+  MegaCorporations:
+    - Arasaka
+    - Militech
+    - Kang_Tao
+    - Biotechnica
+    - PetraChemical
+    - SovOil
+    - Orbital_Air
+    - EuroBank
+  NightCityGangs:
+    # Tagged NightCity for future multi-city extensibility
+    - 6th_Street
+    - Animals
+    - Aldecaldos
+    - Barghest
+    - Bozos
+    - Generation_Red
+    - Maelstrom
+    - Moxes
+    - Piranhas
+    - Sightseers
+    - Team_Monster
+    - Tyger_Claws
+    - Valentinos
+    - Voodoo_Boys
+    - Wraiths
+    - Scavengers
+    - Zoners
+  Independent:
+    - Solo_Merc               # no allegiance; hired gun
+    - Fixer_Independent
+    - Nomad_Clan              # use CulturalOrigin for specific clan
+    - Danger_Gal              # private security firm / Puma Squad
+    - Digital_Divas           # media/influencer crew
+    - Network_54              # broadcast media network
+    - Edgerunner              # unaffiliated mercenary team
+
+
+# =============================================================================
+# CYBERWARE
+# =============================================================================
+
+CyberwareSlot:
+  # Body installation slots. RED pp. 228-263.
+  - Neuralware               # Neural Link required for most Neuralware
+  - Cyberoptics              # eye replacements/augments
+  - Cyberaudio               # ear augments
+  - CyberArm_Right
+  - CyberArm_Left
+  - CyberLeg_Right
+  - CyberLeg_Left
+  - BodyPlating              # external or subdermal armor plating
+  - Internal_Organs          # borgware, internal mods
+  - Fashionware              # cosmetic; no humanity cost
+  - Borgware                 # full limb/chassis replacement; high humanity cost
+
+CyberwareType:
+  - Passive                  # always-on stat modifier
+  - Active                   # triggered by player (uses an action)
+  - NeuralOS                 # operating system tier (Sandevistan, Berserk, Interface Plugs)
+  - WeaponCyber              # body-mounted weapon (Mantis Blades, Monowire, Gorilla Arms)
+  - Fashionware              # aesthetic only; no mechanical effect
+
+
+# =============================================================================
+# ARMOR
+# =============================================================================
+
+ArmorType:
+  # RED Core Rulebook pp. 228-230
+  - Leathers                 # SP 4;  light; concealable
+  - KevlarVest               # SP 7;  standard; concealable under heavy clothing
+  - LightArmorJacket         # SP 11; medium
+  - BodyweightSuit           # SP 11; medium; concealable
+  - MediumArmorJacket        # SP 15; heavy
+  - HeavyArmorJacket         # SP 18; very heavy; REF penalty
+  - FlakVest                 # SP 15; military
+  - MetalGearHeavy           # SP 18; military; major REF penalty
+  - LinedCoat                # SP 12; medium; fashionable
+  - Shield                   # held; SP 10 for the arm side
+
+
+# =============================================================================
+# EQUIPMENT / ITEMS
+# =============================================================================
+
+ItemType:
+  - MedicalSupply            # Trauma Packs, Stims, pharmaceuticals
+  - NetrunnerTool            # Cyberdeck components, Programs
+  - Explosive                # Grenades, mines, breaching charges
+  - CommunicationDevice      # Agents, radio jammers
+  - ToolsEquipment           # Mechanical tools, lockpicks, cameras
+  - FashionCosmetic          # Clothing with no armor value
+  - Consumable               # Single-use items not covered above
+  - MiscGear                 # Everything else
+
+
+# =============================================================================
+# ABILITIES
+# =============================================================================
+
+AbilityTrigger:
+  - OnEquip                  # activates when item is equipped
+  - OnAttack                 # triggers on attack action
+  - OnHit                    # triggers when attack connects
+  - OnKill                   # triggers on defeating an enemy
+  - OnActivate               # player-triggered active use
+  - OnHack                   # Netrunner quickhack trigger
+  - Passive                  # always active while equipped / installed
+  - OnRoundStart             # triggers at the start of each combat round
+  - OnTakeDamage             # triggers when the character takes damage
+
+
+# =============================================================================
+# ATTITUDE / ENCOUNTER STANCE
+# =============================================================================
+
+AttitudeGroup:
+  # GM encounter-facing stance.  Drives initial NPC behaviour in a scene.
+  - Friendly
+  - Neutral
+  - Suspicious
+  - Hostile
+  - Fearful
+  - Berserk                  # will not stop fighting; ignores morale
+
+
+# =============================================================================
+# EQUIPMENT HAND
+# =============================================================================
+
+EquipHand:
+  - Primary                  # dominant hand
+  - Offhand                  # non-dominant; -2 to attack rolls without Ambidextrous
+  - TwoHanded                # requires both hands; fills both slots
+  - Holstered                # stowed; costs an action to draw
+
+
+# =============================================================================
+# NETWORK (HACKING) SYSTEM
+# =============================================================================
+
+NodeType:
+  # Standard infrastructure nodes (depth 1–2)
+  - Camera
+  - Door
+  - Light
+  - Speaker
+  - Terminal
+  - PowerGrid
+  - Elevator
+  - VehicleControl
+  - Turret
+  # Special
+  - CyberwareNode            # targets NPC's installed cyberware
+  # ICE types (intrusion countermeasure electronics)
+  - ICE_Watchdog             # passive: alerts on detection, does not attack
+  - ICE_Hellhound            # active: drains Momentum each round
+  - ICE_Kraken               # deep: drains Momentum AND triggers rapid response
+
+NodeState:
+  - Active
+  - Compromised
+  - Flatlined
+
+QuickhackTarget:
+  - Node
+  - NPC
+  - ICE
+  - Any
+
+
+# =============================================================================
+# STATUS EFFECTS
+# =============================================================================
+
+StatusEffectType:
+  # Common RED conditions applied by weapons, cyberware, or abilities.
+  - Stunned                  # loses next action
+  - Burning                  # takes Thermal tick damage each round
+  - Poisoned                 # takes Chemical tick damage; BODY resist
+  - EMPed                    # cyberware disabled for duration
+  - Suppressed               # pinned; must spend action to move
+  - Blinded                  # -4 to all attack and perception rolls
+  - Bleeding                 # loses HP at end of each round; First Aid or Trauma Pack ends

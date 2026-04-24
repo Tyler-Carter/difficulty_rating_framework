@@ -1,0 +1,557 @@
+# =============================================================================
+# records/npcs/danger_gal_generation_red.yml
+# Generation Red NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 8 NPCs: Blades, Apex, Tetra, Hi-Stick, Izzy, Lookout, Shredder, Wheelie
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# BLADES — On the Edge of Adulthood
+# Lieutenant / Gang Elite
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Blades:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Blades"
+  description: "On the Edge of Adulthood"
+  lore: >
+    Birth name unknown. Blades has been on The Street since she was a very young child,
+    surviving on sheer grit, determination, and a lot of luck. She knows the scavenging
+    sites of the Old Combat Zone inside and out. She lost her eye and her legs fighting
+    off scavengers, and earned a reputation for fighting like a wildcat. Danger Gal
+    funded replacement cyberlegs with skate feet as a gesture of good will.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    6
+    tech:         3
+    cool:         5
+    willpower:    4
+    luck:         4
+    move:         7
+    body:         3
+    empathy:      5
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 11
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: Brawling,            rank: 8  }
+    - !append { skill: Bribery,             rank: 7  }
+    - !append { skill: ConversationCool,    rank: 9  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 8  }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: Interrogation,       rank: 7  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: Streetwise,          rank: 10 }
+    - !append { skill: LibrarySearch,       rank: 8  }
+    - !append { skill: LocalExpert,         rank: 9  }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 7  }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: Photography_Film,    rank: 9  }
+    - !append { skill: PickLock,            rank: 5  }
+    - !append { skill: PickPocket,          rank: 5  }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Trading,             rank: 10 }
+    - !append { skill: WardrobeStyle,       rank: 8  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye
+    - !append Cyberware.DangerGal_Cyberleg_SkatesFeet
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# APEX — YoGang Leader
+# Hardened Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Apex:
+  $base: NPC.Base_HardenedGangGrunt
+  name: "Marianna Brooks"
+  handle: "Apex"
+  description: "YoGang Leader"
+  lore: >
+    Born Marianna Brooks to Corporate parents working for Zhirafa. After suffering
+    abuse at the hands of a superior, Apex fled and set up in the Old Combat Zone
+    with her friend Lookout. A natural leader, stubborn and fiercely independent,
+    she has built a collection of disaffected kids into Generation Red. Her crew
+    recently beat a group of adult gangers trying to seize their clubhouse.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     4
+    dexterity:    4
+    tech:         5
+    cool:         5
+    willpower:    5
+    luck:         3
+    move:         3
+    body:         3
+    empathy:      6
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: BasicTech,           rank: 10 }
+    - !append { skill: Brawling,            rank: 6  }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 8  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: Electronics_SecurityTech, rank: 10 }
+    - !append { skill: Evasion,             rank: 6  }
+    - !append { skill: FirstAid,            rank: 7  }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: Perception,          rank: 6  }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Streetwise,          rank: 10 }
+    - !append { skill: Tactics,             rank: 7  }
+    - !append { skill: Weaponstech,         rank: 10 }
+
+  cyberware: []
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# TETRA — Latchkey Kid Chaos
+# Hardened Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Tetra:
+  $base: NPC.Base_HardenedGangGrunt
+  name: "Andrea Olivetti"
+  handle: "Tetra"
+  description: "Latchkey Kid Chaos"
+  lore: >
+    Born Andrea Olivetti to Petrochem security Execs who are decidedly absent parents.
+    Tetra smuggled a rocket launcher out of their unsecured weapons closet and used it
+    against gangers trying to oust Generation Red from their clubhouse. The martial arts
+    classes her parents signed her up for have also proved useful. She met most of
+    Generation Red via Wheelie, and is fiercely loyal to her new family.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 3
+    reflexes:     6
+    dexterity:    5
+    tech:         3
+    cool:         4
+    willpower:    4
+    luck:         3
+    move:         4
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: Brawling,            rank: 7  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: HeavyWeapons,        rank: 10 }
+    - !append { skill: HumanPerception,     rank: 7  }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LibrarySearch,       rank: 5  }
+    - !append { skill: LocalExpert,         rank: 5  }
+    - !append { skill: MartialArts,         rank: 10 }
+    - !append { skill: Perception,          rank: 7  }
+    - !append { skill: Persuasion,          rank: 7  }
+    - !append { skill: Stealth,             rank: 7  }
+
+  cyberware: []
+
+  primaryEquipment:
+    weapon: Weapons.RocketLauncher_Standard
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# HI-STICK — Street Hockey Meets Street Poetry
+# Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_HiStick:
+  $base: NPC.Base_GangGrunt
+  name: "LeShawna Johnson"
+  handle: "Hi-Stick"
+  description: "Street Hockey Meets Street Poetry"
+  lore: >
+    Born LeShawna Johnson. Her parents died six years ago; she lives with extended
+    family in the South Cargo Village but keeps her own room at the clubhouse.
+    An excellent street hockey player and a talented poet whose work focuses on
+    the interaction between humans and the Corporate machine. She paid for her
+    EMP threading with prize money from poetry competitions.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     4
+    dexterity:    4
+    tech:         2
+    cool:         4
+    willpower:    3
+    luck:         2
+    move:         3
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: BasicTech,           rank: 4  }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 5  }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 5  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: HumanPerception,     rank: 7  }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: MeleeCombat,         rank: 10 }
+    - !append { skill: Perception,          rank: 7  }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: Stealth,             rank: 7  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_EMPThreading
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# IZZY — Future Audio Tech
+# Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Izzy:
+  $base: NPC.Base_GangGrunt
+  name: "Israel Octavius"
+  handle: "Izzy"
+  description: "Future Audio Tech"
+  lore: >
+    Born Israel Octavius to a Medtech working out of the Crisis Medical Center in
+    Old Japantown. Izzy inherited their mother's love of engineering but focuses on
+    audio tech rather than bio. Quite stealthy despite loving noise and music, they
+    are close with Lookout and experiment in beat poetry with Hi-Stick and Wheelie.
+    Their mother lets them scavenge discarded medical supplies from the Center.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     3
+    dexterity:    3
+    tech:         5
+    cool:         3
+    willpower:    4
+    luck:         2
+    move:         3
+    body:         3
+    empathy:      5
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,                rank: 5  }
+    - !append { skill: BasicTech,                rank: 10 }
+    - !append { skill: Brawling,                 rank: 5  }
+    - !append { skill: Concentration,            rank: 6  }
+    - !append { skill: ConversationCool,         rank: 7  }
+    - !append { skill: Education,                rank: 7  }
+    - !append { skill: Electronics_SecurityTech, rank: 8  }
+    - !append { skill: Evasion,                  rank: 5  }
+    - !append { skill: FirstAid,                 rank: 10 }
+    - !append { skill: Handgun,            rank: 8  }
+    - !append { skill: HumanPerception,          rank: 7  }
+    - !append { skill: LinguisticsBase,          rank: 8  }
+    - !append { skill: LocalExpert,              rank: 6  }
+    - !append { skill: Perception,               rank: 8  }
+    - !append { skill: Persuasion,               rank: 5  }
+    - !append { skill: PlayInstrument,           rank: 8  }
+    - !append { skill: Stealth,                  rank: 10 }
+    - !append { skill: Weaponstech,              rank: 6  }
+
+  cyberware: []
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# LOOKOUT — Sharp-Eyed Graffiti Artist
+# Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Lookout:
+  $base: NPC.Base_GangGrunt
+  name: "Chloe Yannatou"
+  handle: "Lookout"
+  description: "Sharp-Eyed Graffiti Artist"
+  lore: >
+    Born Chloe Yannatou. Her Corp parents work for Ziggurat; she suspects her
+    forgery skill did not spring from nowhere given what they do. Quiet but
+    always listening — she nearly caught the dossier's author once. Lookout
+    is Generation Red's official sentry and a spray-paint artist who likely
+    created the gang's logo. She helped Apex escape her family and set up the
+    clubhouse.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    4
+    tech:         4
+    cool:         3
+    willpower:    3
+    luck:         2
+    move:         3
+    body:         3
+    empathy:      4
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 8  }
+    - !append { skill: Brawling,            rank: 8  }
+    - !append { skill: Concentration,       rank: 5  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LibrarySearch,       rank: 7  }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: PaintDraw,           rank: 10 }
+    - !append { skill: Perception,          rank: 1  }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: Stealth,             rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_LightTattoo
+
+  primaryEquipment:
+    weapon: Weapons.Base_LightMelee_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# SHREDDER — Skateboarding Streetrat
+# Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Shredder:
+  $base: NPC.Base_GangGrunt
+  name: ""
+  handle: "Shredder"
+  description: "Skateboarding Streetrat"
+  lore: >
+    Birth name unknown. An orphan with Edgerunner parents who cared for her — right
+    until they got flatlined on a job. She fell for Hi-Stick after watching her dominate
+    a street hockey match, and was quickly adopted into Generation Red. Shredder helped
+    transform the clubhouse ground floor into a skate park. She also knows how to sew
+    and is trusted to perform surgery on Hi-Stick's stuffed animals.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 3
+    reflexes:     5
+    dexterity:    3
+    tech:         2
+    cool:         3
+    willpower:    4
+    luck:         2
+    move:         4
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 8  }
+    - !append { skill: BasicTech,           rank: 8  }
+    - !append { skill: Brawling,            rank: 5  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Education,           rank: 5  }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 9  }
+    - !append { skill: FirstAid,            rank: 8  }
+    - !append { skill: HumanPerception,     rank: 7  }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LibrarySearch,       rank: 5  }
+    - !append { skill: LocalExpert,         rank: 5  }
+    - !append { skill: MeleeCombat,         rank: 8  }
+    - !append { skill: Perception,          rank: 5  }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: Stealth,             rank: 5  }
+
+  cyberware: []
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyMeleeWeapon_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# WHEELIE — Heir to the Kibble Alternative
+# Mook / Gang Grunt
+# ---------------------------------------------------------------------------
+NPC.GenerationRed_Wheelie:
+  $base: NPC.Base_GangGrunt
+  name: "Hiroki Nishioka"
+  handle: "Wheelie"
+  description: "Heir to the Kibble Alternative"
+  lore: >
+    Born Hiroki Nishioka. His parents were developing a Kibble alternative and died
+    in a manufactured car crash when Wheelie was about six; he lost his arm in the same
+    crash. His brother stepped up to look after him. Tetra kept him from retreating
+    completely, and he joined Generation Red through Hi-Stick over a shared love of
+    poetry. He is very cautious about drawing attention to himself.
+  npcType: RecurringNPC
+  faction: Generation_Red
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    4
+    tech:         3
+    cool:         3
+    willpower:    3
+    luck:         2
+    move:         3
+    body:         3
+    empathy:      5
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 6  }
+    - !append { skill: Concentration,       rank: 5  }
+    - !append { skill: Contortionist,       rank: 8  }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: Evasion,             rank: 6  }
+    - !append { skill: FirstAid,            rank: 7  }
+    - !append { skill: Handgun,       rank: 8  }
+    - !append { skill: HumanPerception,     rank: 8  }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LibrarySearch,       rank: 10 }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: Persuasion,          rank: 8  }
+    - !append { skill: Science,             rank: 8  }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Streetwise,          rank: 5  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_MedicalGradeCyberarm
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

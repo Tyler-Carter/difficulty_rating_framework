@@ -1,0 +1,318 @@
+# =============================================================================
+# records/npcs/danger_gal_sightseers.yml
+# Sightseers NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 5 NPCs: Endo, Gaze, Racer, Glare, Swirl
+# =============================================================================
+
+
+NPC.Sightseers_Endo:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Endo"
+  description: "The Heart of the Pack"
+  lore: >
+    Endo has a kind heart — albeit one plated with subdermal armor — and a habit of landing in
+    sticky situations. He got his start as a mobile enforcer protecting locals of Santo Domingo from
+    outside influence. His beliefs push him to move scavenged cyberware and weaponry from the city
+    center to poorer communities on the outskirts, and he was the catalyst for the Sightseers.
+  npcType: RecurringNPC
+  faction: Sightseers
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    7
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         5
+    move:         4
+    body:         6
+    empathy:      5
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11        # Subdermal Armor → minimum SP 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: BasicTech,           rank: 8 }
+    - !append { skill: Brawling,            rank: 14 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: DriveLandVehicle,    rank: 14 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HeavyWeapons,        rank: 14 }
+    - !append { skill: HumanPerception,     rank: 9 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: Perception,          rank: 7 }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: Stealth,             rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Sightseers_Gaze:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Gaze"
+  description: "The Fist of the Pack"
+  lore: >
+    Endo's got a habit of giving Pack members handles based on their eyes — the instant he saw
+    the cybereye and targeting scope, Gaze's fate was sealed. Initially hired to intimidate enemies
+    and de-escalate by any means necessary, Gaze and his rifle have become an integral part of the
+    Sightseers' security. His assault rifle rarely leaves his hands.
+  npcType: RecurringNPC
+  faction: Sightseers
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    5
+    tech:         4
+    cool:         4
+    willpower:    5
+    luck:         4
+    move:         4
+    body:         7
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Autofire,            rank: 14 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Education,           rank: 6 }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HumanPerception,     rank: 6 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 6 }
+    - !append { skill: MeleeCombat,         rank: 1 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: ShoulderArms,        rank: 14 }
+    - !append { skill: Stealth,             rank: 7 }
+    - !append { skill: Weaponstech,         rank: 1 }
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Sightseers_Racer:
+  $base: NPC.Base_GangElite
+  name: "Racer Rajavi"
+  handle: "Racer"
+  description: "The Leader of the Pack"
+  lore: >
+    Racer Rajavi would tell you her job is moving goods to make ends meet and that all she wants
+    is to live long enough to see another sunrise from the driver's seat. Her track record says
+    otherwise — she works hard to improve the lives of those around her. As far as she's concerned,
+    her Kombi's living quarters are all the home she needs.
+  npcType: RecurringNPC
+  faction: Sightseers
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     6
+    dexterity:    8
+    tech:         3
+    cool:         4
+    willpower:    5
+    luck:         4
+    move:         4
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: DriveLandVehicle,    rank: 12 }
+    - !append { skill: Education,           rank: 6 }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 9 }
+    - !append { skill: Handgun,       rank: 12 }
+    - !append { skill: HumanPerception,     rank: 7 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 8 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: ShoulderArms,        rank: 14 }
+    - !append { skill: Stealth,             rank: 12 }
+    - !append { skill: Tracking,            rank: 10 }
+    - !append { skill: Trading,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Standard
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Sightseers_Glare:
+  $base: NPC.Base_GangGrunt
+  name: ""
+  handle: "Glare"
+  description: "The Eyes of the Pack"
+  lore: >
+    After being captured and blinded by the Red Chrome Legion early in his Solo career, Glare
+    replaced his eyes with medical-grade cyberware. Less than a day later, he was on a roof
+    picking off gangers with his pneumatic bolt gun. He made a name for himself as a streetmerc,
+    taking special interest in occasional pro-bono work eliminating scavs and boosters.
+  npcType: RecurringNPC
+  faction: Sightseers
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    6
+    tech:         3
+    cool:         3
+    willpower:    4
+    luck:         3
+    move:         3
+    body:         4
+    empathy:      4
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 9 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 5 }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 6 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 5 }
+    - !append { skill: ShoulderArms,        rank: 12 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Tracking,            rank: 1 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_KiroshiOptics
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Sightseers_Swirl:
+  $base: NPC.Base_GangGrunt
+  name: ""
+  handle: "Swirl"
+  description: "The Newbie of the Pack"
+  lore: >
+    Swirl is the youngest member and most recent addition to the Sightseers, eager to prove her
+    worth. She's spent most of her youth hopping from one Nomad Pack to another, never quite
+    fitting in — largely due to her proclivity for pocketing every shiny object she sets her eyes
+    on. Endo pulled her out of an NCPD chase and nicknamed her for her mesmerizing shift tacts.
+  npcType: RecurringNPC
+  faction: Sightseers
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    6
+    tech:         4
+    cool:         3
+    willpower:    3
+    luck:         2
+    move:         4
+    body:         3
+    empathy:      4
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 7
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,           rank: 8 }
+    - !append { skill: Brawling,            rank: 8 }
+    - !append { skill: Concentration,       rank: 5 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 6 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 8 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 5 }
+    - !append { skill: PickLock,            rank: 10 }
+    - !append { skill: PickPocket,          rank: 10 }
+    - !append { skill: Stealth,             rank: 8 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

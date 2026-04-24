@@ -1,0 +1,312 @@
+# =============================================================================
+# prototypes/weapons/_base.yml
+# Weapon prototype chain for Cyberpunk RED TTRPG.
+#
+# Prototype hierarchy:
+#
+#   Weapons.Base_Weapon              <- universal root; all weapons inherit from here
+#     |- Weapons.Base_Pistol         <- light pistols (1d6)
+#     |- Weapons.Base_HeavyPistol    <- heavy pistols (3d6)
+#     |- Weapons.Base_VeryHeavyPistol
+#     |- Weapons.Base_SMG
+#     |- Weapons.Base_HeavySMG
+#     |- Weapons.Base_Shotgun
+#     |- Weapons.Base_AssaultRifle
+#     |- Weapons.Base_SniperRifle
+#     |- Weapons.Base_GrenadeLauncher
+#     |- Weapons.Base_RocketLauncher
+#     |- Weapons.Base_FlamethrowerWeapon
+#     |- Weapons.Base_LightMelee
+#     |- Weapons.Base_MediumMelee
+#     |- Weapons.Base_HeavyMelee
+#     |- Weapons.Base_VeryHeavyMelee
+#     '- Weapons.Base_Brawling
+#
+# Stats sourced from CP:RED Core Rulebook pp. 340-351.
+# =============================================================================
+
+
+# =============================================================================
+# UNIVERSAL WEAPON ROOT
+# =============================================================================
+
+Weapons.Base_Weapon:
+  $type: Weapon
+
+  # --- Identity (all overridden at leaf) ---
+  name:         ''
+  description:  ''
+  lore:         ''
+
+  # --- Classification ---
+  weaponType:       Pistol      # overridden at every archetype
+  weaponCategory:   Standard    # overridden where needed (Military, Exotic, Melee)
+  damageTypes:      [Physical]  # overridden for Thermal (flamethrower), Electric (stun)
+  rarity:           Standard    # overridden at leaf
+
+  # --- Core combat stats ---
+  damage:           "1d6"
+  rateOfFire:       1
+  handsRequired:    1
+  concealable:      false
+
+  # --- Ranged-only fields (0 / false for melee) ---
+  effectiveRange:   0
+  magazineCapacity: 0
+  armorPiercing:    false
+
+  # --- Melee-only fields (0 for ranged) ---
+  attackRange:      0
+
+  # --- Modifier stacks ---
+  statModifiers:      []
+  statModifierGroups: []
+  abilities:          []
+  modSlots:           []
+
+  # --- Economy ---
+  cost: 0
+
+
+# =============================================================================
+# RANGED WEAPON ARCHETYPES
+# =============================================================================
+
+Weapons.Base_Pistol:
+  # Light pistol — RED Core Rulebook p. 340
+  $base: Weapons.Base_Weapon
+  weaponType:       Pistol
+  weaponCategory:   Standard
+  damage:           "1d6"
+  rateOfFire:       2
+  handsRequired:    1
+  concealable:      true
+  effectiveRange:   25
+  magazineCapacity: 8
+  armorPiercing:    false
+  cost:             50
+
+
+Weapons.Base_HeavyPistol:
+  # Heavy pistol — RED Core Rulebook p. 340
+  $base: Weapons.Base_Weapon
+  weaponType:       HeavyPistol
+  weaponCategory:   Standard
+  damage:           "3d6"
+  rateOfFire:       2
+  handsRequired:    1
+  concealable:      true
+  effectiveRange:   25
+  magazineCapacity: 8
+  armorPiercing:    false
+  cost:             100
+
+
+Weapons.Base_VeryHeavyPistol:
+  # Very heavy pistol — RED Core Rulebook p. 340
+  $base: Weapons.Base_Weapon
+  weaponType:       VeryHeavyPistol
+  weaponCategory:   Standard
+  damage:           "4d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   25
+  magazineCapacity: 8
+  armorPiercing:    false
+  cost:             100
+
+
+Weapons.Base_SMG:
+  # Submachinegun — RED Core Rulebook p. 341
+  $base: Weapons.Base_Weapon
+  weaponType:       SMG
+  weaponCategory:   Standard
+  damage:           "2d6"
+  rateOfFire:       1
+  handsRequired:    1
+  concealable:      true
+  effectiveRange:   25
+  magazineCapacity: 30
+  armorPiercing:    false
+  cost:             500
+
+
+Weapons.Base_HeavySMG:
+  # Heavy submachinegun — RED Core Rulebook p. 341
+  $base: Weapons.Base_Weapon
+  weaponType:       HeavySMG
+  weaponCategory:   Standard
+  damage:           "3d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   50
+  magazineCapacity: 40
+  armorPiercing:    false
+  cost:             1000
+
+
+Weapons.Base_Shotgun:
+  # Shotgun — RED Core Rulebook p. 341
+  $base: Weapons.Base_Weapon
+  weaponType:       Shotgun
+  weaponCategory:   Standard
+  damage:           "5d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   25
+  magazineCapacity: 4
+  armorPiercing:    false
+  cost:             500
+
+
+Weapons.Base_AssaultRifle:
+  # Assault rifle — RED Core Rulebook p. 341
+  $base: Weapons.Base_Weapon
+  weaponType:       AssaultRifle
+  weaponCategory:   Standard
+  damage:           "5d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   400
+  magazineCapacity: 25
+  armorPiercing:    false
+  cost:             1000
+
+
+Weapons.Base_SniperRifle:
+  # Sniper rifle — RED Core Rulebook p. 342; AP by default
+  $base: Weapons.Base_Weapon
+  weaponType:       SniperRifle
+  weaponCategory:   Standard
+  damage:           "5d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   400
+  magazineCapacity: 4
+  armorPiercing:    true
+  cost:             1500
+
+
+Weapons.Base_GrenadeLauncher:
+  # Grenade launcher — RED Core Rulebook p. 342
+  $base: Weapons.Base_Weapon
+  weaponType:       GrenadeLauncher
+  weaponCategory:   Standard
+  damage:           "6d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   150
+  magazineCapacity: 2
+  armorPiercing:    false
+  cost:             1000
+
+
+Weapons.Base_RocketLauncher:
+  # Rocket launcher — RED Core Rulebook p. 342
+  $base: Weapons.Base_Weapon
+  weaponType:       RocketLauncher
+  weaponCategory:   Standard
+  damage:           "8d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   200
+  magazineCapacity: 1
+  armorPiercing:    false
+  cost:             2000
+
+
+Weapons.Base_FlamethrowerWeapon:
+  # Flamethrower — RED Core Rulebook p. 342; thermal damage
+  $base: Weapons.Base_Weapon
+  weaponType:       FlamethrowerWeapon
+  weaponCategory:   Standard
+  damageTypes:      [Thermal]
+  damage:           "2d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  effectiveRange:   10
+  magazineCapacity: 4
+  armorPiercing:    false
+  cost:             1000
+
+
+# =============================================================================
+# MELEE WEAPON ARCHETYPES
+# =============================================================================
+
+Weapons.Base_LightMelee:
+  # Light melee weapon — small blades, knives; one-handed, concealable
+  $base: Weapons.Base_Weapon
+  weaponType:       LightMelee
+  weaponCategory:   Melee
+  damage:           "1d6"
+  rateOfFire:       2
+  handsRequired:    1
+  concealable:      true
+  attackRange:      1
+  cost:             50
+
+
+Weapons.Base_MediumMelee:
+  # Medium melee weapon — knives, hatchets, most one-handed blades
+  # RED Core Rulebook p. 343
+  $base: Weapons.Base_Weapon
+  weaponType:       MediumMelee
+  weaponCategory:   Melee
+  damage:           "2d6"
+  rateOfFire:       2
+  handsRequired:    1
+  concealable:      false
+  attackRange:      1
+  cost:             100
+
+
+Weapons.Base_HeavyMelee:
+  # Heavy melee weapon — two-handed or over-sized (sledge, axe)
+  # RED Core Rulebook p. 343
+  $base: Weapons.Base_Weapon
+  weaponType:       HeavyMelee
+  weaponCategory:   Melee
+  damage:           "3d6"
+  rateOfFire:       2
+  handsRequired:    2
+  concealable:      false
+  attackRange:      1
+  cost:             200
+
+
+Weapons.Base_VeryHeavyMelee:
+  # Very heavy melee weapon — chainsaw, monoblade; AP by default
+  # RED Core Rulebook p. 343
+  $base: Weapons.Base_Weapon
+  weaponType:       VeryHeavyMelee
+  weaponCategory:   Melee
+  damage:           "4d6"
+  rateOfFire:       1
+  handsRequired:    2
+  concealable:      false
+  attackRange:      1
+  armorPiercing:    true
+  cost:             500
+
+
+Weapons.Base_Brawling:
+  # Unarmed / martial arts — fists, feet, elbows
+  # RED Core Rulebook p. 343; handsRequired 0 = no weapon needed
+  $base: Weapons.Base_Weapon
+  weaponType:       Brawling
+  weaponCategory:   Melee
+  damage:           "2d6"
+  rateOfFire:       2
+  handsRequired:    0
+  concealable:      true
+  attackRange:      1
+  cost:             0

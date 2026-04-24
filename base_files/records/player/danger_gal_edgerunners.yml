@@ -1,0 +1,1168 @@
+# =============================================================================
+# records/npcs/danger_gal_edgerunners.yml
+# Edgerunners NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 16 NPCs: Tetsuo, Crab Lord, Tia Pu'ao, Backhand, Jumpshot, 24/7, Derby,
+#          Forty, Grease, Redeye, Saber, Torch, Crasher, Flasher, Hammer,
+#          Leverage
+# =============================================================================
+
+
+# =============================================================================
+# EDGERUNNERS — INDEPENDENT MERCENARIES
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Tetsuo — Great with a Knife (Boss, Solo)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Tetsuo:
+  $base: NPC.Base_Boss
+  name: "Ryu Sakai"
+  handle: "Tetsuo"
+  description: "Great with a Knife — elite Solo and celebrity chef with a hidden past."
+  lore: >
+    Night City's hottest traditional Japanese restaurant Daiseikō has more on
+    the menu than sushi. Head chef "Ryu Sakai" didn't exist before the restaurant
+    opened — his data trail was retroactively inserted into the right databases.
+    Tetsuo disappeared from the Japanese Edgerunner scene with a substantial
+    score stolen from the Yakuza in Chiba prefecture.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     8
+    dexterity:    8
+    tech:         6
+    cool:         6
+    willpower:    6
+    luck:         6
+    move:         5
+    body:         7
+    empathy:      5
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 15
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,          rank: 16 }
+    - !append { skill: Brawling,           rank: 14 }
+    - !append { skill: Bribery,            rank: 10 }
+    - !append { skill: Bureaucracy,        rank: 10 }
+    - !append { skill: Business,           rank: 1 }
+    - !append { skill: Concentration,      rank: 8 }
+    - !append { skill: ConversationCool,   rank: 7 }
+    - !append { skill: DriveLandVehicle,   rank: 10 }
+    - !append { skill: Education,          rank: 8 }
+    - !append { skill: EnduranceSTR,       rank: 10 }
+    - !append { skill: Evasion,            rank: 16 }
+    - !append { skill: FirstAid,           rank: 8 }
+    - !append { skill: Handgun,      rank: 16 }
+    - !append { skill: HumanPerception,    rank: 9 }
+    - !append { skill: Interrogation,      rank: 10 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 8 }
+    - !append { skill: MartialArts,        rank: 16 }
+    - !append { skill: MeleeCombat,        rank: 16 }
+    - !append { skill: Perception,         rank: 12 }
+    - !append { skill: PersonalGrooming,   rank: 9 }
+    - !append { skill: Persuasion,         rank: 10 }
+    - !append { skill: ResistTortureDrugs, rank: 10 }
+    - !append { skill: Science,            rank: 14 }
+    - !append { skill: Stealth,            rank: 16 }
+    - !append { skill: Streetwise,         rank: 12 }
+    - !append { skill: Tactics,            rank: 12 }
+    - !append { skill: Trading,            rank: 10 }
+    - !append { skill: WardrobeStyle,      rank: 9 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_HardenedShielding
+    - !append Cyberware.DangerGal_Cyberarm_HardenedShielding_SubdermalGrip
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_x2_OlfactoryBoost_Sandevistan_TactileBoost
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent_SmartgunLink
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.Kendachi_MonoThree
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Crab Lord — Night City Street Legend (Hardened Mini-Boss, Netrunner/Tech)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_CrabLord:
+  $base: NPC.Base_MiniBoss
+  name: ""
+  handle: "Crab Lord"
+  description: "Night City Street Legend — drone-warfare Netrunner and living urban myth."
+  lore: >
+    An urban legend some believe is a title passed down through generations of
+    Edgerunners — but the original CrAB Lord is still running. He rarely
+    leaves the field himself, preferring to stay secure within his portable
+    NET Architecture's drone control range while his remote drones do the work.
+  npcType: RecurringNPC
+  npcRole: Netrunner_NPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 8
+    reflexes:     7
+    dexterity:    7
+    tech:         8
+    cool:         7
+    willpower:    5
+    luck:         5
+    move:         3
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 15
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,              rank: 9 }
+    - !append { skill: BasicTech,              rank: 14 }
+    - !append { skill: Brawling,               rank: 9 }
+    - !append { skill: Bureaucracy,            rank: 12 }
+    - !append { skill: Concentration,          rank: 1 }
+    - !append { skill: ConversationCool,       rank: 6 }
+    - !append { skill: Cybertech,              rank: 14 }
+    - !append { skill: DriveLandVehicle,       rank: 10 }
+    - !append { skill: Education,              rank: 12 }
+    - !append { skill: Electronics_SecurityTech, rank: 14 }
+    - !append { skill: Evasion,                rank: 9 }
+    - !append { skill: FirstAid,               rank: 12 }
+    - !append { skill: Gamble,                 rank: 1 }
+    - !append { skill: Handgun,          rank: 12 }
+    - !append { skill: HumanPerception,        rank: 8 }
+    - !append { skill: LipReading,             rank: 12 }
+    - !append { skill: LinguisticsBase,        rank: 12 }
+    - !append { skill: LocalExpert,            rank: 12 }
+    - !append { skill: MeleeCombat,            rank: 15 }
+    - !append { skill: Perception,             rank: 12 }
+    - !append { skill: Persuasion,             rank: 9 }
+    - !append { skill: Stealth,                rank: 9 }
+    - !append { skill: Streetwise,             rank: 15 }
+    - !append { skill: Tactics,                rank: 10 }
+    - !append { skill: Trading,                rank: 10 }
+    - !append { skill: Weaponstech,            rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+    - !append Cyberware.DangerGal_Cyberdeck_Excellent
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Tia Pu'ao — Auntie Fist (Hardened Mini-Boss, Solo)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_TiaPuao:
+  $base: NPC.Base_MiniBoss
+  name: "Tía Puño"
+  handle: "Tia Pu'ao"
+  description: "Auntie Fist — explosives-specialist Solo and Edgerunner den mother."
+  lore: >
+    Tía Puño used to work for Militech but proved a disciplinary problem when
+    a new superior didn't understand her protective streak and ended up with a
+    broken jaw. She still works for Militech on a strictly freelance basis.
+    Her specialty is explosive ordinance, always punching through obstacles
+    one way or another.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    5
+    tech:         6
+    cool:         6
+    willpower:    7
+    luck:         5
+    move:         6
+    body:         8
+    empathy:      5
+
+  derivedStats:
+    maxHP: 50
+    currentHP: 50
+    armor: 15
+
+  deathSaveThreshold: 8
+
+  skills:
+    - !append { skill: Athletics,          rank: 10 }
+    - !append { skill: BasicTech,          rank: 13 }
+    - !append { skill: Brawling,           rank: 15 }
+    - !append { skill: Concentration,      rank: 1 }
+    - !append { skill: ConversationCool,   rank: 8 }
+    - !append { skill: Education,          rank: 7 }
+    - !append { skill: Electronics_SecurityTech, rank: 10 }
+    - !append { skill: Evasion,            rank: 15 }
+    - !append { skill: Handgun,      rank: 14 }
+    - !append { skill: HeavyWeapons,       rank: 10 }
+    - !append { skill: HumanPerception,    rank: 9 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: MartialArts,        rank: 15 }
+    - !append { skill: Perception,         rank: 9 }
+    - !append { skill: PersonalGrooming,   rank: 8 }
+    - !append { skill: Persuasion,         rank: 8 }
+    - !append { skill: Stealth,            rank: 7 }
+    - !append { skill: WardrobeStyle,      rank: 8 }
+    - !append { skill: Weaponstech,        rank: 13 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_RealSkinCovering_Toolhand
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_PainEditor
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Backhand — Freelance Tech (Hardened Lieutenant, Tech)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Backhand:
+  $base: NPC.Base_Elite
+  name: "Cicely Feng"
+  handle: "Backhand"
+  description: "Freelance Tech — gets things done, doesn't care who it ticks off."
+  lore: >
+    People started calling Cicely Feng "Backhand" early in her career for her
+    gift of praising and punishing with the same phrase. She took it as a badge
+    of honor. A freelance Tech par excellence: when you want it done, and done
+    right, and don't overly care about anyone's feelings, she's the one to call.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     5
+    dexterity:    5
+    tech:         7
+    cool:         5
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 10
+
+  skills:
+    - !append { skill: Athletics,              rank: 7 }
+    - !append { skill: Autofire,               rank: 13 }
+    - !append { skill: BasicTech,              rank: 13 }
+    - !append { skill: Brawling,               rank: 7 }
+    - !append { skill: Concentration,          rank: 8 }
+    - !append { skill: ConversationCool,       rank: 8 }
+    - !append { skill: Cybertech,              rank: 13 }
+    - !append { skill: Education,              rank: 10 }
+    - !append { skill: Electronics_SecurityTech, rank: 13 }
+    - !append { skill: Evasion,                rank: 1 }
+    - !append { skill: FirstAid,               rank: 9 }
+    - !append { skill: Handgun,          rank: 13 }
+    - !append { skill: HumanPerception,        rank: 8 }
+    - !append { skill: Interrogation,          rank: 7 }
+    - !append { skill: LinguisticsBase,        rank: 10 }
+    - !append { skill: LocalExpert,            rank: 8 }
+    - !append { skill: Perception,             rank: 10 }
+    - !append { skill: PersonalGrooming,       rank: 9 }
+    - !append { skill: Persuasion,             rank: 9 }
+    - !append { skill: Stealth,                rank: 7 }
+    - !append { skill: WardrobeStyle,          rank: 9 }
+    - !append { skill: Weaponstech,            rank: 1 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ArtificialShoulderMount
+    - !append Cyberware.DangerGal_Cyberarm_Techscanner_Toolhand
+
+  primaryEquipment:
+    weapon: Weapons.HeavySMG_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Jumpshot — Leaping into the News (Hardened Lieutenant, Media)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Jumpshot:
+  $base: NPC.Base_Elite
+  name: "Angela Banks"
+  handle: "Jumpshot"
+  description: "Leaping into the News — dedicated freelance journalist at Never Blink News."
+  lore: >
+    Angela Banks earned her handle when she literally jumped from an AV-4 with
+    her camera rolling to capture NCPD brutality near South Night City. When her
+    bosses shelved the footage, she released it herself and went freelance.
+    Jumpshot will go to great lengths to get the story — and then she absolutely
+    will tell it.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    5
+    tech:         4
+    cool:         6
+    willpower:    6
+    luck:         5
+    move:         7
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,          rank: 9 }
+    - !append { skill: Brawling,           rank: 13 }
+    - !append { skill: Concentration,      rank: 8 }
+    - !append { skill: ConversationCool,   rank: 9 }
+    - !append { skill: Deduction,          rank: 9 }
+    - !append { skill: Education,          rank: 7 }
+    - !append { skill: Evasion,            rank: 13 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 13 }
+    - !append { skill: HumanPerception,    rank: 1 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LibrarySearch,      rank: 10 }
+    - !append { skill: LipReading,         rank: 9 }
+    - !append { skill: LocalExpert,        rank: 1 }
+    - !append { skill: Perception,         rank: 10 }
+    - !append { skill: Persuasion,         rank: 12 }
+    - !append { skill: Photography_Film,   rank: 12 }
+    - !append { skill: Stealth,            rank: 7 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberleg_JumpBoosters
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# 24/7 — Never Blink News (Lieutenant, Media)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_TwoFourSeven:
+  $base: NPC.Base_Elite
+  name: "24/7"
+  handle: "24/7"
+  description: "Never Blink News — one-person pirate media crusade for unvarnished truth."
+  lore: >
+    The name and logo of Never Blink News (NBN! 24/7!) suggest a large operation,
+    but NBN is just one guy: journalist, anchorman, researcher, and often camera
+    and soundman all at once. 24/7 quit Corp-run news in protest over media
+    censorship and now runs his own pirate channel, refusing pay-offs and
+    publishing what others suppress.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    4
+    tech:         4
+    cool:         7
+    willpower:    6
+    luck:         4
+    move:         5
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,          rank: 6 }
+    - !append { skill: Brawling,           rank: 6 }
+    - !append { skill: Concentration,      rank: 8 }
+    - !append { skill: ConversationCool,   rank: 10 }
+    - !append { skill: Deduction,          rank: 1 }
+    - !append { skill: Education,          rank: 7 }
+    - !append { skill: Evasion,            rank: 13 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 13 }
+    - !append { skill: HumanPerception,    rank: 1 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LipReading,         rank: 12 }
+    - !append { skill: LocalExpert,        rank: 12 }
+    - !append { skill: Perception,         rank: 10 }
+    - !append { skill: Persuasion,         rank: 12 }
+    - !append { skill: Photography_Film,   rank: 12 }
+    - !append { skill: Stealth,            rank: 6 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_VoiceStressAnalyzer
+    - !append Cyberware.DangerGal_EMPThreading
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Derby — Star Jammer (Lieutenant, Solo)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Derby:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Derby"
+  description: "Star Jammer — ex-roller derby fighter with subdermal upgrades."
+  lore: >
+    Known as "Demolition" Derby, she started on the roller derby circuit in
+    Night City and knows how to play to a crowd as well as she can clothesline
+    an opponent. Derby learned things outside the rink can be even more dangerous,
+    and has been upgrading herself for more lucrative mercenary work.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     6
+    dexterity:    4
+    tech:         4
+    cool:         6
+    willpower:    5
+    luck:         4
+    move:         6
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11   # Subdermal Armor → minimum 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Acting,             rank: 8 }
+    - !append { skill: Athletics,          rank: 12 }
+    - !append { skill: Brawling,           rank: 13 }
+    - !append { skill: Concentration,      rank: 9 }
+    - !append { skill: ConversationCool,   rank: 8 }
+    - !append { skill: Dancing,            rank: 8 }
+    - !append { skill: Education,          rank: 6 }
+    - !append { skill: EnduranceSTR,       rank: 8 }
+    - !append { skill: Evasion,            rank: 12 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 12 }
+    - !append { skill: HumanPerception,    rank: 8 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: MeleeCombat,        rank: 9 }
+    - !append { skill: Perception,         rank: 6 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: ResistTortureDrugs, rank: 10 }
+    - !append { skill: Stealth,            rank: 6 }
+    - !append { skill: Streetwise,         rank: 9 }
+    - !append { skill: WardrobeStyle,      rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink
+    - !append Cyberware.DangerGal_SubdermalArmor
+    - !append Cyberware.DangerGal_SubdermalGrip
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard_SmartgunLink
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Forty — Making Music and Raising Hell (Lieutenant, Rockerboy)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Forty:
+  $base: NPC.Base_Elite
+  name: "Forty"
+  handle: "Forty"
+  description: "Making Music and Raising Hell — Rockerboy with a grudge against the Corps."
+  lore: >
+    Forty's dad was Adam Dore, a musician's musician who taught his kid to sing
+    and play from childhood — before a predatory DMS contract broke him under
+    Corporate indentured servitude. Forty took her dad's files, lessons, and a
+    serious grudge forward to do her own thing, reinventing herself as an
+    independent artist.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 4
+    reflexes:     5
+    dexterity:    5
+    tech:         4
+    cool:         6
+    willpower:    6
+    luck:         4
+    move:         4
+    body:         4
+    empathy:      6
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Acting,             rank: 8 }
+    - !append { skill: Athletics,          rank: 7 }
+    - !append { skill: Brawling,           rank: 9 }
+    - !append { skill: Bribery,            rank: 8 }
+    - !append { skill: Concentration,      rank: 8 }
+    - !append { skill: ConversationCool,   rank: 8 }
+    - !append { skill: Dancing,            rank: 9 }
+    - !append { skill: Education,          rank: 8 }
+    - !append { skill: Evasion,            rank: 1 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 13 }
+    - !append { skill: HumanPerception,    rank: 12 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 6 }
+    - !append { skill: Perception,         rank: 6 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: Persuasion,         rank: 12 }
+    - !append { skill: PlayInstrument,     rank: 12 }
+    - !append { skill: Stealth,            rank: 7 }
+    - !append { skill: WardrobeStyle,      rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_AudioRecorder
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_MedicalGrade_Cyberleg
+    - !append Cyberware.DangerGal_LightTattoo_x3
+    - !append Cyberware.DangerGal_Techair
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Grease — Up-and-Coming Fixer (Lieutenant, Fixer)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Grease:
+  $base: NPC.Base_Elite
+  name: "Grease"
+  handle: "Grease"
+  description: "Up-and-Coming Fixer — smooth operator focused on getting the job done."
+  lore: >
+    Grease is like his namesake: all about greasing the wheels, all business.
+    Get people and things together, get the job done, take the money and go.
+    That professional attitude makes him an up-and-coming Fixer, though he
+    keeps a low profile — "Poking your head up is a good way to get it shot off."
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    4
+    tech:         5
+    cool:         6
+    willpower:    6
+    luck:         4
+    move:         4
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Acting,             rank: 8 }
+    - !append { skill: Athletics,          rank: 6 }
+    - !append { skill: BasicTech,          rank: 7 }
+    - !append { skill: Brawling,           rank: 6 }
+    - !append { skill: Business,           rank: 9 }
+    - !append { skill: Concentration,      rank: 9 }
+    - !append { skill: ConversationCool,   rank: 12 }
+    - !append { skill: Education,          rank: 8 }
+    - !append { skill: Evasion,            rank: 12 }
+    - !append { skill: FirstAid,           rank: 7 }
+    - !append { skill: Handgun,      rank: 13 }
+    - !append { skill: HumanPerception,    rank: 10 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: Perception,         rank: 9 }
+    - !append { skill: PersonalGrooming,   rank: 9 }
+    - !append { skill: Persuasion,         rank: 10 }
+    - !append { skill: Stealth,            rank: 8 }
+    - !append { skill: Streetwise,         rank: 10 }
+    - !append { skill: Tactics,            rank: 7 }
+    - !append { skill: Trading,            rank: 12 }
+    - !append { skill: WardrobeStyle,      rank: 9 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_BugDetector_InternalAgent_VoiceStressAnalyzer
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Redeye — Runs the Edge and Your Games (Lieutenant, Netrunner)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Redeye:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Redeye"
+  description: "Runs the Edge and Your Games — daring Netrunner and tabletop RPG veteran."
+  lore: >
+    Redeye never felt she belonged: in her Corporate family, in their planned
+    career for her, or in being assigned male at birth. A natural coder from
+    childhood, she slipped out of Corporate-land at the first opportunity, hit
+    Night City's clubs and code-havens, and never looked back.
+  npcType: RecurringNPC
+  npcRole: Netrunner_NPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    4
+    tech:         5
+    cool:         5
+    willpower:    4
+    luck:         4
+    move:         5
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,              rank: 6 }
+    - !append { skill: BasicTech,              rank: 1 }
+    - !append { skill: Brawling,               rank: 6 }
+    - !append { skill: Concentration,          rank: 10 }
+    - !append { skill: ConversationCool,       rank: 6 }
+    - !append { skill: Cybertech,              rank: 1 }
+    - !append { skill: Education,              rank: 12 }
+    - !append { skill: Electronics_SecurityTech, rank: 1 }
+    - !append { skill: Evasion,                rank: 10 }
+    - !append { skill: FirstAid,               rank: 7 }
+    - !append { skill: Handgun,          rank: 1 }
+    - !append { skill: HumanPerception,        rank: 6 }
+    - !append { skill: LinguisticsBase,        rank: 10 }
+    - !append { skill: LibrarySearch,          rank: 12 }
+    - !append { skill: LocalExpert,            rank: 8 }
+    - !append { skill: Perception,             rank: 8 }
+    - !append { skill: Persuasion,             rank: 7 }
+    - !append { skill: Stealth,                rank: 9 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+    - !append Cyberware.DangerGal_ShiftTacts_x2
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Saber — Freelance Corporate Troubleshooter (Lieutenant, Exec)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Saber:
+  $base: NPC.Base_Elite
+  name: "Denny Haulk"
+  handle: "Saber"
+  description: "Freelance Corporate Troubleshooter — hired to fix messes, no matter who it ticks off."
+  lore: >
+    Denny Haulk's somewhat argumentative nature meant he never fit into a
+    Corporate hierarchy. He turned the flaw to advantage as the freelancer
+    companies hire to fix their messes. After losing both arms saving an Exec
+    from assassination, the grateful client funded his new cyberarms and
+    connected him with further clients.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    5
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         4
+    move:         5
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11   # Subdermal Armor → minimum 11
+
+  deathSaveThreshold: 10
+
+  skills:
+    - !append { skill: Athletics,          rank: 7 }
+    - !append { skill: Brawling,           rank: 9 }
+    - !append { skill: Bureaucracy,        rank: 10 }
+    - !append { skill: Business,           rank: 12 }
+    - !append { skill: Concentration,      rank: 7 }
+    - !append { skill: ConversationCool,   rank: 9 }
+    - !append { skill: Deduction,          rank: 9 }
+    - !append { skill: Education,          rank: 9 }
+    - !append { skill: Evasion,            rank: 13 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 1 }
+    - !append { skill: HumanPerception,    rank: 7 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: MeleeCombat,        rank: 13 }
+    - !append { skill: Perception,         rank: 9 }
+    - !append { skill: PersonalGrooming,   rank: 10 }
+    - !append { skill: Persuasion,         rank: 9 }
+    - !append { skill: Stealth,            rank: 7 }
+    - !append { skill: WardrobeStyle,      rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_PopupMeleeHeavyWeapon
+    - !append Cyberware.DangerGal_Cyberarm_PopupShield
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  secondaryEquipment:
+    weapon: Weapons.PopupHeavyMeleeWeapon
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Torch — Fire-Wielding Tech (Lieutenant, Tech)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Torch:
+  $base: NPC.Base_Elite
+  name: "João Barbosa Alves"
+  handle: "Torch"
+  description: "Fire-Wielding Tech — repair shop owner and believer in fixing what you own."
+  lore: >
+    João "Torch" Barbosa Alves owns Torch's Total Repairs on the south end of
+    the Upper Marina and lives by the maxim "if you can't fix it, you don't
+    really own it." He earned his handle from wielding a blowtorch and
+    soldering iron, but also maintains a working flamethrower for field work.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     4
+    dexterity:    5
+    tech:         7
+    cool:         4
+    willpower:    4
+    luck:         4
+    move:         4
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,              rank: 7 }
+    - !append { skill: BasicTech,              rank: 13 }
+    - !append { skill: Brawling,               rank: 7 }
+    - !append { skill: Business,               rank: 10 }
+    - !append { skill: ConcealRevealObject,    rank: 8 }
+    - !append { skill: ConversationCool,       rank: 7 }
+    - !append { skill: Cybertech,              rank: 9 }
+    - !append { skill: Education,              rank: 8 }
+    - !append { skill: Electronics_SecurityTech, rank: 1 }
+    - !append { skill: Evasion,                rank: 9 }
+    - !append { skill: FirstAid,               rank: 9 }
+    - !append { skill: Handgun,          rank: 12 }
+    - !append { skill: HeavyWeapons,           rank: 13 }
+    - !append { skill: HumanPerception,        rank: 8 }
+    - !append { skill: LinguisticsBase,        rank: 10 }
+    - !append { skill: LocalExpert,            rank: 10 }
+    - !append { skill: Perception,             rank: 8 }
+    - !append { skill: Persuasion,             rank: 6 }
+    - !append { skill: Stealth,                rank: 7 }
+    - !append { skill: Weaponstech,            rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_Toolhand
+    - !append Cyberware.DangerGal_Cybereye_MicroOptics
+    - !append Cyberware.DangerGal_Skinwatch
+
+  primaryEquipment:
+    weapon: Weapons.Flamethrower_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Crasher — Weddings and Funerals (Hardened Mook, Media)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Crasher:
+  $base: NPC.Base_Grunt
+  name: ""
+  handle: "Crasher"
+  description: "Weddings and Funerals — mercenary videographer, always has a camera."
+  lore: >
+    Short for "Wedding Crasher," Crasher is a have-camera-will-travel mercenary.
+    He'll shoot whatever you need on video, provided the money's right and
+    there's ideally a buffet involved. Smart enough to keep a personal archive
+    of potentially useful footage — he never deletes anything incriminating.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     5
+    dexterity:    4
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         3
+    move:         4
+    body:         4
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,          rank: 6 }
+    - !append { skill: Brawling,           rank: 6 }
+    - !append { skill: Concentration,      rank: 7 }
+    - !append { skill: ConversationCool,   rank: 8 }
+    - !append { skill: Education,          rank: 6 }
+    - !append { skill: Evasion,            rank: 8 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 12 }
+    - !append { skill: HumanPerception,    rank: 10 }
+    - !append { skill: LinguisticsBase,    rank: 8 }
+    - !append { skill: LocalExpert,        rank: 8 }
+    - !append { skill: Perception,         rank: 8 }
+    - !append { skill: Persuasion,         rank: 9 }
+    - !append { skill: Photography_Film,   rank: 10 }
+    - !append { skill: Stealth,            rank: 6 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_EMPThreading
+
+  primaryEquipment:
+    weapon: Weapons.MediumPistol_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Flasher — He'll Show You His Goods (Hardened Mook, Fixer)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Flasher:
+  $base: NPC.Base_Grunt
+  name: "Mal Devincher"
+  handle: "Flasher"
+  description: "He'll Show You His Goods — small-time street hustler with a coat full of wares."
+  lore: >
+    Flasher is one of those shifty hustlers found all over Night City, always
+    on the lookout for anything he can sell. Strictly small-time, but don't
+    underestimate his value as an information source — he's always hustling
+    and sees everything the street offers.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    4
+    tech:         4
+    cool:         5
+    willpower:    4
+    luck:         3
+    move:         4
+    body:         4
+    empathy:      4
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,          rank: 6 }
+    - !append { skill: Brawling,           rank: 6 }
+    - !append { skill: Bribery,            rank: 9 }
+    - !append { skill: ConcealRevealObject, rank: 10 }
+    - !append { skill: Concentration,      rank: 6 }
+    - !append { skill: ConversationCool,   rank: 8 }
+    - !append { skill: Education,          rank: 7 }
+    - !append { skill: Evasion,            rank: 12 }
+    - !append { skill: FirstAid,           rank: 6 }
+    - !append { skill: Handgun,      rank: 12 }
+    - !append { skill: HumanPerception,    rank: 8 }
+    - !append { skill: LinguisticsBase,    rank: 9 }
+    - !append { skill: LocalExpert,        rank: 7 }
+    - !append { skill: Perception,         rank: 7 }
+    - !append { skill: Persuasion,         rank: 9 }
+    - !append { skill: Stealth,            rank: 6 }
+    - !append { skill: Trading,            rank: 9 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_InternalAgent
+    - !append Cyberware.DangerGal_Cybereye_Chyron
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Hammer — All the World's a Nail (Hardened Mook, Solo)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Hammer:
+  $base: NPC.Base_Grunt
+  name: "Harlan Briggs"
+  handle: "Hammer"
+  description: "All the World's a Nail — ex-PMC grunt turned up-and-coming street muscle."
+  lore: >
+    Harlan Briggs joined private military to drag himself out of poverty,
+    only to find that taking orders and being put on the frontline wasn't
+    all that. After discipline problems and a lack of advancement beyond
+    cannon fodder, Hammer went into business for himself as a direct and
+    forceful problem-solver.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 3
+    reflexes:     6
+    dexterity:    5
+    tech:         4
+    cool:         4
+    willpower:    5
+    luck:         3
+    move:         4
+    body:         5
+    empathy:      3
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,          rank: 7 }
+    - !append { skill: Brawling,           rank: 10 }
+    - !append { skill: Concentration,      rank: 7 }
+    - !append { skill: ConversationCool,   rank: 5 }
+    - !append { skill: Education,          rank: 5 }
+    - !append { skill: Evasion,            rank: 10 }
+    - !append { skill: FirstAid,           rank: 8 }
+    - !append { skill: Handgun,      rank: 12 }
+    - !append { skill: HeavyWeapons,       rank: 10 }
+    - !append { skill: LinguisticsBase,    rank: 7 }
+    - !append { skill: LocalExpert,        rank: 5 }
+    - !append { skill: MeleeCombat,        rank: 10 }
+    - !append { skill: Perception,         rank: 8 }
+    - !append { skill: Persuasion,         rank: 6 }
+    - !append { skill: Stealth,            rank: 7 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye_TargetingScope
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Poor_ExtendedMagazine
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Leverage — Edgerunner by Accident (Hardened Mook, Tech)
+# ---------------------------------------------------------------------------
+NPC.Edgerunners_Leverage:
+  $base: NPC.Base_Grunt
+  name: "Leverage"
+  handle: "Leverage"
+  description: "Edgerunner by Accident — Corporate Tech who fell into the Edgerunning life."
+  lore: >
+    Leverage was working late as an on-site Corporate Tech when he unexpectedly
+    found himself in the middle of a group of Edgerunners sneaking into the
+    building. He helped them out to screw over his bosses and save his own skin.
+    Liked it so much he couldn't stop thinking about it — so he quit and became
+    an Edgerunner himself.
+  npcType: RecurringNPC
+  faction: Edgerunner
+  attitudeGroup: Friendly
+
+  attributes:
+    intelligence: 4
+    reflexes:     3
+    dexterity:    4
+    tech:         6
+    cool:         4
+    willpower:    4
+    luck:         3
+    move:         4
+    body:         6
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,              rank: 6 }
+    - !append { skill: BasicTech,              rank: 12 }
+    - !append { skill: Brawling,               rank: 8 }
+    - !append { skill: Bureaucracy,            rank: 6 }
+    - !append { skill: Concentration,          rank: 6 }
+    - !append { skill: ConversationCool,       rank: 6 }
+    - !append { skill: Education,              rank: 6 }
+    - !append { skill: Electronics_SecurityTech, rank: 10 }
+    - !append { skill: Evasion,                rank: 6 }
+    - !append { skill: FirstAid,               rank: 8 }
+    - !append { skill: Handgun,          rank: 8 }
+    - !append { skill: HumanPerception,        rank: 6 }
+    - !append { skill: LinguisticsBase,        rank: 8 }
+    - !append { skill: LocalExpert,            rank: 6 }
+    - !append { skill: MeleeCombat,            rank: 12 }
+    - !append { skill: Perception,             rank: 6 }
+    - !append { skill: Persuasion,             rank: 6 }
+    - !append { skill: Stealth,                rank: 6 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ContraceptiveImplant
+
+  primaryEquipment:
+    weapon: Weapons.MediumPistol_Poor
+    hand: Holstered
+
+  secondaryEquipment:
+    weapon: Weapons.VeryHeavyMeleeWeapon_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false

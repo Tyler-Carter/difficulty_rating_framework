@@ -1,0 +1,858 @@
+# =============================================================================
+# records/npcs/danger_gal_maelstrom.yml
+# Maelstrom NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 11 NPCs: Crusher, Warlock, The Pit, Quake, Flenser, Joe Pitt, Ripper,
+#          Drop, Raguel, Ghoul, Maelstrom Medtech Mook
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# CRUSHER — Cyberpsycho Urban Legend
+# Hardened Boss
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Crusher:
+  $base: NPC.Base_HardenedBoss
+  name: ""
+  handle: "Crusher"
+  description: "Cyberpsycho Urban Legend"
+  lore: >
+    Crusher became Maelstrom's leader when its founder died after Arasaka Tower fell.
+    He rallied survivors, fought through burning streets, and dueled a rival gang
+    leader for what became Maelstrom's Totentanz headquarters. In 2027, during a
+    cyberpsychotic episode, he slaughtered a StormTech convoy and vanished into the
+    Hot Zone. He makes seemingly random reappearances — Maelstrom's personal angry god.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 7
+    reflexes:     8
+    dexterity:    8
+    tech:         7
+    cool:         8
+    willpower:    8
+    luck:         7
+    move:         8
+    body:         15
+    empathy:      0
+
+  derivedStats:
+    maxHP: 70
+    currentHP: 70
+    armor: 15
+
+  deathSaveThreshold: 15
+
+  skills:
+    - !append { skill: Athletics,             rank: 16 }
+    - !append { skill: Brawling,              rank: 16 }
+    - !append { skill: ConcealRevealObject,   rank: 7  }
+    - !append { skill: Concentration,         rank: 16 }
+    - !append { skill: ConversationCool,      rank: 2  }
+    - !append { skill: DriveLandVehicle,      rank: 10 }
+    - !append { skill: Education,             rank: 9  }
+    - !append { skill: Electronics_SecurityTech, rank: 7 }
+    - !append { skill: EnduranceSTR,          rank: 13 }
+    - !append { skill: Evasion,               rank: 14 }
+    - !append { skill: FirstAid,              rank: 1  }
+    - !append { skill: Handgun,         rank: 14 }
+    - !append { skill: HeavyWeapons,          rank: 16 }
+    - !append { skill: HumanPerception,       rank: 2  }
+    - !append { skill: Interrogation,         rank: 12 }
+    - !append { skill: LinguisticsBase,       rank: 9  }
+    - !append { skill: LocalExpert,           rank: 15 }
+    - !append { skill: MartialArts,           rank: 16 }
+    - !append { skill: MeleeCombat,           rank: 16 }
+    - !append { skill: Perception,            rank: 15 }
+    - !append { skill: Persuasion,            rank: 10 }
+    - !append { skill: ResistTortureDrugs,    rank: 16 }
+    - !append { skill: ShoulderArms,          rank: 14 }
+    - !append { skill: Stealth,               rank: 16 }
+    - !append { skill: Streetwise,            rank: 16 }
+    - !append { skill: Tracking,              rank: 13 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_KendachiFlamethrower
+    - !append Cyberware.DangerGal_Cyberarm_PopupGrenadeLauncher
+    - !append Cyberware.DangerGal_Cyberaudio_LevelDamper
+    - !append Cyberware.DangerGal_Cybereye_AntiDazzle_LowLight
+    - !append Cyberware.DangerGal_Cyberleg_JumpBoosters
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+    - !append Cyberware.DangerGal_LinearFrame_Beta
+    - !append Cyberware.DangerGal_NeuralLink_Kerenzikov_PainEditor
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.KendachiFlamethrower_Popup
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# WARLOCK — Maelstrom Warlord
+# Boss
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Warlock:
+  $base: NPC.Base_Boss
+  name: ""
+  handle: "Warlock"
+  description: "Maelstrom Warlord"
+  lore: >
+    Warlock looks like a disposable ganger chump at first glance but wields a
+    surprising range of knowledge, social awareness, and presence to drive his
+    agenda even with Corporate agents. He joined the gang as a kid under Crusher,
+    then took the reins after Crusher's successor was killed by MAX-TAC. Warlock
+    organised Maelstrom's scav forces working the Hot Zone and consolidated the
+    gang's grip on Totentanz.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 7
+    reflexes:     7
+    dexterity:    7
+    tech:         3
+    cool:         8
+    willpower:    8
+    luck:         6
+    move:         6
+    body:         12
+    empathy:      2
+
+  derivedStats:
+    maxHP: 60
+    currentHP: 60
+    armor: 15
+
+  deathSaveThreshold: 12
+
+  skills:
+    - !append { skill: Athletics,             rank: 9  }
+    - !append { skill: Autofire,              rank: 1  }
+    - !append { skill: Brawling,              rank: 13 }
+    - !append { skill: Bribery,               rank: 12 }
+    - !append { skill: Business,              rank: 12 }
+    - !append { skill: Concentration,         rank: 16 }
+    - !append { skill: ConversationCool,      rank: 8  }
+    - !append { skill: Cybertech,             rank: 10 }
+    - !append { skill: Deduction,             rank: 10 }
+    - !append { skill: DriveLandVehicle,      rank: 10 }
+    - !append { skill: Education,             rank: 9  }
+    - !append { skill: EnduranceSTR,          rank: 16 }
+    - !append { skill: Evasion,               rank: 1  }
+    - !append { skill: FirstAid,              rank: 6  }
+    - !append { skill: Handgun,         rank: 15 }
+    - !append { skill: HumanPerception,       rank: 9  }
+    - !append { skill: Interrogation,         rank: 14 }
+    - !append { skill: LinguisticsBase,       rank: 12 }
+    - !append { skill: LocalExpert,           rank: 13 }
+    - !append { skill: MeleeCombat,           rank: 7  }
+    - !append { skill: Perception,            rank: 13 }
+    - !append { skill: Persuasion,            rank: 14 }
+    - !append { skill: ResistTortureDrugs,    rank: 16 }
+    - !append { skill: ShoulderArms,          rank: 1  }
+    - !append { skill: Stealth,               rank: 10 }
+    - !append { skill: Streetwise,            rank: 15 }
+    - !append { skill: Tactics,               rank: 15 }
+    - !append { skill: Trading,               rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_PopupHelbringer
+    - !append Cyberware.DangerGal_CyberaudioSuite_InternalAgent
+    - !append Cyberware.DangerGal_Cybereye_Chyron_LowLight
+    - !append Cyberware.DangerGal_Cybereye_LowLight_TargetingScope
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+    - !append Cyberware.DangerGal_LinearFrame_Sigma
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_PainEditor
+    - !append Cyberware.DangerGal_SubdermalArmor
+    - !append Cyberware.DangerGal_SubdermalPocket
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Popup
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# THE PIT — Pet Cyberpsycho
+# Hardened Mini-Boss
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_ThePit:
+  $base: NPC.Base_HardenedMiniBoss
+  name: ""
+  handle: "The Pit"
+  description: "Pet Cyberpsycho"
+  lore: >
+    Way down in the sub-sub-basement of Burleson Tower, a monster stalks. The gang
+    throws people down to fight it. Nobody wins. It used to be human. It believes
+    it's a monster. Joe Pitt had to bolt a mask on the thing because eating its
+    victims was making it sick. Gangers stand around watching and yelling
+    "Feed 'em to The Pit!" like it's funny.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 2
+    reflexes:     8
+    dexterity:    8
+    tech:         2
+    cool:         8
+    willpower:    8
+    luck:         5
+    move:         8
+    body:         13
+    empathy:      0
+
+  derivedStats:
+    maxHP: 65
+    currentHP: 65
+    armor: 15
+
+  deathSaveThreshold: 13
+
+  skills:
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Brawling,            rank: 18 }
+    - !append { skill: Concentration,       rank: 16 }
+    - !append { skill: ConversationCool,    rank: 2  }
+    - !append { skill: Education,           rank: 4  }
+    - !append { skill: EnduranceSTR,        rank: 18 }
+    - !append { skill: Evasion,             rank: 16 }
+    - !append { skill: FirstAid,            rank: 4  }
+    - !append { skill: Handgun,       rank: 12 }
+    - !append { skill: HumanPerception,     rank: 2  }
+    - !append { skill: LinguisticsBase,     rank: 6  }
+    - !append { skill: LocalExpert,         rank: 12 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 13 }
+    - !append { skill: ResistTortureDrugs,  rank: 16 }
+    - !append { skill: ShoulderArms,        rank: 12 }
+    - !append { skill: Stealth,             rank: 16 }
+    - !append { skill: Streetwise,          rank: 12 }
+    - !append { skill: Tactics,             rank: 6  }
+    - !append { skill: Tracking,            rank: 8  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberleg_GripFeet
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+    - !append Cyberware.DangerGal_LinearFrame_Sigma
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# QUAKE — Lord of the Hammer
+# Hardened Mini-Boss
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Quake:
+  $base: NPC.Base_HardenedMiniBoss
+  name: ""
+  handle: "Quake"
+  description: "Lord of the Hammer"
+  lore: >
+    The literal mailed fist of Maelstrom. Quake trusts Warlock implicitly and
+    follows his lead; in return he gets to lead the gang's rabble in riots and
+    throwdowns, especially against the Inquisitors. Everything about him — the
+    massive customised hammer, chunky linear frame, glossy black leathers, and
+    red underlighting — is there to draw in anti-cyberware extremists and terrify them.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    8
+    tech:         3
+    cool:         8
+    willpower:    7
+    luck:         5
+    move:         6
+    body:         12
+    empathy:      2
+
+  derivedStats:
+    maxHP: 60
+    currentHP: 60
+    armor: 15
+
+  deathSaveThreshold: 12
+
+  skills:
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 13 }
+    - !append { skill: ConversationCool,    rank: 4  }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: EnduranceSTR,        rank: 13 }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 16 }
+    - !append { skill: HumanPerception,     rank: 6  }
+    - !append { skill: Interrogation,       rank: 14 }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LibrarySearch,       rank: 10 }
+    - !append { skill: LocalExpert,         rank: 12 }
+    - !append { skill: MeleeCombat,         rank: 16 }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: Persuasion,          rank: 12 }
+    - !append { skill: ResistTortureDrugs,  rank: 13 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Streetwise,          rank: 15 }
+    - !append { skill: Tactics,             rank: 12 }
+    - !append { skill: Tracking,            rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_PopupHelbringer
+    - !append Cyberware.DangerGal_Cyberarm_PopupShield
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+    - !append Cyberware.DangerGal_LinearFrame_Sigma
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyMeleeWeapon_Excellent
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Popup
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# FLENSER — Maelstrom Intelligence Expert
+# Hardened Lieutenant
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Flenser:
+  $base: NPC.Base_HardenedGangElite
+  name: ""
+  handle: "Flenser"
+  description: "Maelstrom Intelligence Expert"
+  lore: >
+    In a gang known for roaring brawls and armoured heavyweights, Warlock's other
+    lieutenant is a stealthy, patient, clever spy. She stalks other gangs, deducing
+    their patterns, scouting their resources, and stealing their secrets. Warlock
+    keeps her profile intentionally low. She gets in through rooftops, crawls through
+    utility tunnels, and has even packed herself into cargo pods. She has evidence of
+    breaching government and NeoCorp systems.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     5
+    dexterity:    7
+    tech:         7
+    cool:         6
+    willpower:    5
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      3
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,                rank: 1  }
+    - !append { skill: Brawling,                 rank: 10 }
+    - !append { skill: Bribery,                  rank: 10 }
+    - !append { skill: Concentration,            rank: 10 }
+    - !append { skill: Contortionist,            rank: 10 }
+    - !append { skill: ConversationCool,         rank: 5  }
+    - !append { skill: Education,                rank: 7  }
+    - !append { skill: Electronics_SecurityTech, rank: 14 }
+    - !append { skill: Evasion,                  rank: 1  }
+    - !append { skill: FirstAid,                 rank: 9  }
+    - !append { skill: Handgun,            rank: 13 }
+    - !append { skill: HumanPerception,          rank: 5  }
+    - !append { skill: LinguisticsBase,          rank: 9  }
+    - !append { skill: LibrarySearch,            rank: 8  }
+    - !append { skill: LocalExpert,              rank: 9  }
+    - !append { skill: MeleeCombat,              rank: 1  }
+    - !append { skill: Perception,               rank: 1  }
+    - !append { skill: Persuasion,               rank: 8  }
+    - !append { skill: PickLock,                 rank: 12 }
+    - !append { skill: PickPocket,               rank: 12 }
+    - !append { skill: Stealth,                  rank: 13 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_Cyberdeck
+    - !append Cyberware.DangerGal_Cyberarm_PopupHeavyMelee
+    - !append Cyberware.DangerGal_Cybereye_Chyron_Virtuality
+    - !append Cyberware.DangerGal_Cybereye_Virtuality
+    - !append Cyberware.DangerGal_Cyberleg_GripFeet
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# JOE PITT — Maelstrom Tech Guru
+# Hardened Lieutenant
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_JoePitt:
+  $base: NPC.Base_HardenedGangElite
+  name: "Joe Pitt"
+  handle: "Joe Pitt"
+  description: "Maelstrom Tech Guru"
+  lore: >
+    The gang's resident engineer and tech lead. Joe built the active servo-hydraulic
+    supports that keep Burleson Tower standing, installs Flenser's security gadgets,
+    maintains cyberware and weapons, keeps Totentanz's deafening sound system running,
+    and tunes other gangers' bikes. Opinionated, sullen, and self-righteous, he does
+    extra work and grumbles when it goes unnoticed. He truly cares about Maelstrom.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    5
+    tech:         8
+    cool:         4
+    willpower:    5
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      3
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,                rank: 7  }
+    - !append { skill: Autofire,                 rank: 13 }
+    - !append { skill: BasicTech,                rank: 12 }
+    - !append { skill: Concentration,            rank: 9  }
+    - !append { skill: ConversationCool,         rank: 5  }
+    - !append { skill: Cybertech,                rank: 12 }
+    - !append { skill: Education,                rank: 8  }
+    - !append { skill: Electronics_SecurityTech, rank: 12 }
+    - !append { skill: Evasion,                  rank: 13 }
+    - !append { skill: FirstAid,                 rank: 10 }
+    - !append { skill: HumanPerception,          rank: 5  }
+    - !append { skill: LinguisticsBase,          rank: 10 }
+    - !append { skill: LocalExpert,              rank: 10 }
+    - !append { skill: Perception,               rank: 8  }
+    - !append { skill: Persuasion,               rank: 6  }
+    - !append { skill: Science,                  rank: 8  }
+    - !append { skill: ShoulderArms,             rank: 13 }
+    - !append { skill: Stealth,                  rank: 8  }
+    - !append { skill: Streetwise,               rank: 7  }
+    - !append { skill: Weaponstech,              rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CombatJaw
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# RIPPER — True Believer
+# Lieutenant
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Ripper:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Ripper"
+  description: "True Believer"
+  lore: >
+    Ripper rose to leadership when Maelstrom's scav army needed a full-time organiser.
+    As an enforcer under Quake, his sadism pointed outward. His new job herding
+    disposable streetrats into radioactive Hot Zone deathtraps offers even better
+    opportunities for cruelty. He entices scavvers with the chance to earn Maelstrom
+    membership; perhaps one in twenty survive. He has developed pseudo-mystical
+    rituals for scavvers to endure.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    6
+    tech:         4
+    cool:         6
+    willpower:    5
+    luck:         4
+    move:         5
+    body:         6
+    empathy:      1
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: BasicTech,           rank: 12 }
+    - !append { skill: Brawling,            rank: 1  }
+    - !append { skill: ConcealRevealObject, rank: 8  }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 4  }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: EnduranceSTR,        rank: 7  }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: Gamble,              rank: 7  }
+    - !append { skill: Handgun,       rank: 9  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: Interrogation,       rank: 9  }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: MeleeCombat,         rank: 13 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 1  }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Streetwise,          rank: 8  }
+    - !append { skill: Weaponstech,         rank: 6  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_Wolvers
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_PainEditor
+    - !append Cyberware.DangerGal_SyntheticFleshWeave
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# DROP — Cosplaying as a Sniper
+# Hardened Mook
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Drop:
+  $base: NPC.Base_HardenedGangGrunt
+  name: ""
+  handle: "Drop"
+  description: "Cosplaying as a Sniper"
+  lore: >
+    Drop dresses like a Central Am vet thirty years older than they are. Lightly
+    cybered so far, they spent their hard-earned EB on the best cybereyes they
+    could afford. They work Burleson Tower's sniper nests, carrying a cheap
+    knockoff of a NeoSov AR with a decent scope. They dream of being on an elite
+    HALO commando squad and every third word is sniper slang.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    4
+    tech:         3
+    cool:         4
+    willpower:    4
+    luck:         3
+    move:         5
+    body:         5
+    empathy:      3
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 9  }
+    - !append { skill: Brawling,            rank: 7  }
+    - !append { skill: Concentration,       rank: 8  }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LocalExpert,         rank: 9  }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: ShoulderArms,        rank: 12 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Streetwise,          rank: 8  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye_LowLight_x2
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Poor
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# RAGUEL — Recent Convert
+# Hardened Mook
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Raguel:
+  $base: NPC.Base_HardenedGangGrunt
+  name: ""
+  handle: "Raguel"
+  description: "Recent Convert"
+  lore: >
+    A former Inquisitor who infiltrated the Heart of the Metal Devil and was
+    corrupted by it. He dropped off the radar in a NeoLuddite fascist colony
+    outside Portland and popped up in Night City with cheap implants. He faithfully
+    dead-dropped gang secrets to his Inquisitor bosses for the first six months.
+    After getting his new arms, he stopped. He talks about Maelstrom's rituals
+    like they mean something and points to his cybereye saying, "Sometimes you
+    have to cut until you see the truth."
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    6
+    tech:         2
+    cool:         5
+    willpower:    4
+    luck:         3
+    move:         6
+    body:         6
+    empathy:      0
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Acting,              rank: 8  }
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 9  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 2  }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 4  }
+    - !append { skill: HumanPerception,     rank: 2  }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: Persuasion,          rank: 7  }
+    - !append { skill: PickLock,            rank: 8  }
+    - !append { skill: Stealth,             rank: 9  }
+    - !append { skill: Streetwise,          rank: 7  }
+    - !append { skill: WardrobeStyle,       rank: 5  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_x2
+    - !append Cyberware.DangerGal_Cybereye_Chyron
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.VeryHeavyMeleeWeapon_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# GHOUL — Bottom of the Barrel
+# Mook
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_Ghoul:
+  $base: NPC.Base_GangGrunt
+  name: ""
+  handle: "Ghoul"
+  description: "Bottom of the Barrel"
+  lore: >
+    Started as a Hot Zone scavver named Digger. After surviving irradiation, two
+    tunnel collapses, and nanoswarm poisoning, he caught Ripper's attention with a
+    big haul of Kiroshi optics. For his final Test, Ripper offered him a heated
+    knife and told him to retrieve it from molten aluminum with his bare hand.
+    He passed. Now a full Maelstrom member, if low-level.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 3
+    reflexes:     5
+    dexterity:    5
+    tech:         2
+    cool:         2
+    willpower:    5
+    luck:         2
+    move:         5
+    body:         5
+    empathy:      1
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 9  }
+    - !append { skill: BasicTech,           rank: 8  }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 3  }
+    - !append { skill: Education,           rank: 5  }
+    - !append { skill: EnduranceSTR,        rank: 8  }
+    - !append { skill: Evasion,             rank: 9  }
+    - !append { skill: FirstAid,            rank: 4  }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 3  }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: MeleeCombat,         rank: 10 }
+    - !append { skill: Perception,          rank: 9  }
+    - !append { skill: Persuasion,          rank: 4  }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: Stealth,             rank: 7  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm
+    - !append Cyberware.DangerGal_TechHair
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.MediumMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# MAELSTROM MEDTECH MOOK — Faction Medic
+# Hardened Mook / Medtech
+# ---------------------------------------------------------------------------
+NPC.Maelstrom_MedtechMook:
+  $base: NPC.Base_HardenedMook
+  name: ""
+  handle: "Maelstrom Medtech Mook"
+  description: "Faction Medic"
+  lore: >
+    Being a ripperdoc for the Maelstrom might be more dangerous than being an actual
+    member. Still, no matter how many they feed to The Pit, there is somehow always
+    another failed med student or out-of-work EMT ready to try their hand at being
+    a cyberdoc for the city's most chromed-out gang.
+  npcType: RecurringNPC
+  faction: Maelstrom
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    5
+    tech:         7
+    cool:         3
+    willpower:    4
+    luck:         3
+    move:         4
+    body:         4
+    empathy:      3
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 11
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: Brawling,            rank: 7  }
+    - !append { skill: Concentration,       rank: 1  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Cybertech,           rank: 14 }
+    - !append { skill: Education,           rank: 10 }
+    - !append { skill: Evasion,             rank: 7  }
+    - !append { skill: FirstAid,            rank: 9  }
+    - !append { skill: Handgun,       rank: 6  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: Paramedic,           rank: 14 }
+    - !append { skill: Perception,          rank: 7  }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: Stealth,             rank: 7  }
+    - !append { skill: Surgery,             rank: 1  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_ToolHand_Scratchers
+    - !append Cyberware.DangerGal_Cybereye_MicroOptics
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.Base_LightMelee_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false

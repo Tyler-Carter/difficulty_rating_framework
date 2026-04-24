@@ -1,0 +1,853 @@
+# =============================================================================
+# records/npcs/danger_gal_ncpd.yml
+# NCPD Precinct #1 NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 11 NPCs: Caliber, Hellhound, Escobar, Grinder, Cavalry, Golden Boy,
+#          Sarge, Shepard, Gustav, Pitbull, Cherub
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# CALIBER — Sergeant Alexander Marconi
+# Boss (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Caliber:
+  $base: NPC.Base_Boss
+  name: "Alexander Marconi"
+  handle: "Caliber"
+  description: "Sergeant Alexander Marconi"
+  lore: >
+    A consummate professional with an excellent kill record: 34 out of 36 shots
+    taken. Fellow officers value him on overwatch, yet he refuses even to use a
+    spotter, violating TAC policy — and gets away with it. He has no social life
+    and has never triggered a required psych evaluation. At least twelve unsolved
+    long-range assassinations share his M.O. in the Precinct area. He may be a
+    deep-plant assassin in police clothing.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 8
+    reflexes:     8
+    dexterity:    8
+    tech:         6
+    cool:         6
+    willpower:    7
+    luck:         6
+    move:         6
+    body:         6
+    empathy:      2
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Autofire,            rank: 14 }
+    - !append { skill: BasicTech,           rank: 10 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 15 }
+    - !append { skill: ConversationCool,    rank: 4  }
+    - !append { skill: Deduction,           rank: 10 }
+    - !append { skill: DriveLandVehicle,    rank: 1  }
+    - !append { skill: Education,           rank: 10 }
+    - !append { skill: Electronics_SecurityTech, rank: 1 }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 16 }
+    - !append { skill: FirstAid,            rank: 8  }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HumanPerception,     rank: 4  }
+    - !append { skill: Interrogation,       rank: 9  }
+    - !append { skill: LinguisticsBase,     rank: 12 }
+    - !append { skill: LocalExpert,         rank: 13 }
+    - !append { skill: MartialArts,         rank: 12 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 14 }
+    - !append { skill: Persuasion,          rank: 8  }
+    - !append { skill: ResistTortureDrugs,  rank: 13 }
+    - !append { skill: ShoulderArms,        rank: 18 }
+    - !append { skill: Stealth,             rank: 14 }
+    - !append { skill: Tactics,             rank: 13 }
+    - !append { skill: Tracking,            rank: 1  }
+    - !append { skill: Weaponstech,         rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_RadioComm_Scrambler
+    - !append Cyberware.DangerGal_Cybereye_ImageEnhance
+    - !append Cyberware.DangerGal_Cybereye_ImageEnhance_TargetingScope
+    - !append Cyberware.DangerGal_Cyberleg_JumpBoosters
+    - !append Cyberware.DangerGal_EnhancedAntibodies
+    - !append Cyberware.DangerGal_NeuralLink_Sandevistan
+    - !append Cyberware.DangerGal_ToxinBinders
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# HELLHOUND — Detective William Mauser
+# Hardened Mini-Boss (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Hellhound:
+  $base: NPC.Base_HardenedMiniBoss
+  name: "William Mauser"
+  handle: "Hellhound"
+  description: "Detective William Mauser"
+  lore: >
+    Like his namesake, once Bill Mauser is on a case he does not let go. Utterly
+    incorruptible, he uses his brains before his gun but will resort to strong-arm
+    tactics to loosen lips. He focuses on high-level crime — serial killers and
+    potential cyberpsychos. If he thinks you are interfering with an investigation
+    he will have you barred from every crime scene in Precinct 1. His medical file
+    is strangely redacted; he may be fighting obsessive cyberpsychosis.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 7
+    reflexes:     7
+    dexterity:    6
+    tech:         4
+    cool:         7
+    willpower:    8
+    luck:         5
+    move:         5
+    body:         7
+    empathy:      1
+
+  derivedStats:
+    maxHP: 50
+    currentHP: 50
+    armor: 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Concentration,       rank: 10 }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Criminology,         rank: 12 }
+    - !append { skill: Cybertech,           rank: 8  }
+    - !append { skill: Deduction,           rank: 13 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 9  }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: Handgun,       rank: 16 }
+    - !append { skill: HumanPerception,     rank: 1  }
+    - !append { skill: Interrogation,       rank: 14 }
+    - !append { skill: LinguisticsBase,     rank: 1  }
+    - !append { skill: LocalExpert,         rank: 13 }
+    - !append { skill: MartialArts,         rank: 14 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 1  }
+    - !append { skill: Pilot_AerialVehicle, rank: 10 }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Streetwise,          rank: 12 }
+    - !append { skill: Tracking,            rank: 13 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_AudioRecorder_InternalAgent_Scrambler
+    - !append Cyberware.DangerGal_Cybereye_Chyron_ImageEnhance
+    - !append Cyberware.DangerGal_Cybereye_ImageEnhance_TargetingScope
+    - !append Cyberware.DangerGal_EnhancedAntibodies
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_OlfactoryBoost_ReflexCoprocessor
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# ESCOBAR — Detective Philip Escobar
+# Mini-Boss (NCPD / INTERPOL)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Escobar:
+  $base: NPC.Base_MiniBoss
+  name: "Philip Escobar"
+  handle: "Escobar"
+  description: "Detective Philip Escobar"
+  lore: >
+    An INTERPOL agent with the Fugitive Investigative Support Division, working
+    alongside the NCPD on cases involving criminals moving across international
+    borders. As a man of the world, he understands quid pro quo. Not exactly corrupt,
+    he won't hesitate to cut deals and share data to further his investigations.
+    He can be a great source of information, so long as you have something he needs
+    in exchange — like somewhere to dispose of a body.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 7
+    reflexes:     5
+    dexterity:    6
+    tech:         6
+    cool:         7
+    willpower:    5
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      6
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 8  }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Bribery,             rank: 10 }
+    - !append { skill: ConcealRevealObject, rank: 14 }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 12 }
+    - !append { skill: Criminology,         rank: 12 }
+    - !append { skill: Dancing,             rank: 14 }
+    - !append { skill: Deduction,           rank: 10 }    # from Cryptography field
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 1  }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 8  }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HumanPerception,     rank: 12 }
+    - !append { skill: Interrogation,       rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 1  }
+    - !append { skill: LibrarySearch,       rank: 12 }
+    - !append { skill: LocalExpert,         rank: 16 }
+    - !append { skill: MeleeCombat,         rank: 14 }
+    - !append { skill: Perception,          rank: 13 }
+    - !append { skill: PersonalGrooming,    rank: 10 }
+    - !append { skill: Persuasion,          rank: 14 }
+    - !append { skill: Photography_Film,    rank: 10 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Streetwise,          rank: 10 }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Biomonitor
+    - !append Cyberware.DangerGal_Cybereye_MicroVideo
+    - !append Cyberware.DangerGal_Cybersnake
+    - !append Cyberware.DangerGal_SubdermalPocket
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# GRINDER — Lieutenant Jessie Brasso
+# Hardened Lieutenant (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Grinder:
+  $base: NPC.Base_HardenedLieutenant
+  name: "Jessie Brasso"
+  handle: "Grinder"
+  description: "Lieutenant Jessie Brasso"
+  lore: >
+    Lieutenant Brasso has led Precinct 1's TAC Squad for over two years — nearly
+    twenty in cop years. He implemented a rigorous training regimen and leads the
+    exercises himself. In the field, his cool-headedness has saved lives, though
+    he has been accused of being insufficiently aggressive. He always takes time to
+    assess opponents' capabilities before engaging. MAX-TAC has recently offered
+    him a position.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    6
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         5
+    move:         5
+    body:         7
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Autofire,            rank: 13 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Criminology,         rank: 9  }
+    - !append { skill: Deduction,           rank: 9  }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 8  }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 8  }
+    - !append { skill: Interrogation,       rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: Perception,          rank: 1  }
+    - !append { skill: Persuasion,          rank: 9  }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Tactics,             rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Biomonitor
+    - !append Cyberware.DangerGal_EnhancedAntibodies
+    - !append Cyberware.DangerGal_NeuralLink_SubdermalGrip
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Excellent
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# CAVALRY — Officer Suri Navarro
+# Lieutenant (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Cavalry:
+  $base: NPC.Base_Elite
+  name: "Suri Navarro"
+  handle: "Cavalry"
+  description: "Officer Suri Navarro"
+  lore: >
+    As close to the cop ideal as you will get in Precinct 1: honest, a believer
+    in the public trust, and an icon to her fellow officers. She earned her handle
+    being first on scene to a whole lot of Officer Down calls. She still believes
+    in the work after five years in Patrol Division and will cooperate with outside
+    agencies — though she will arrest you for needless property damage afterwards.
+    Her wife's gambling debts have put the family in serious financial trouble.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    5
+    tech:         4
+    cool:         5
+    willpower:    6
+    luck:         4
+    move:         6
+    body:         6
+    empathy:      3
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: Autofire,            rank: 13 }
+    - !append { skill: Brawling,            rank: 1  }
+    - !append { skill: Concentration,       rank: 8  }
+    - !append { skill: ConversationCool,    rank: 9  }
+    - !append { skill: Criminology,         rank: 12 }
+    - !append { skill: Deduction,           rank: 10 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: Evasion,             rank: 1  }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: Interrogation,       rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 8  }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: Persuasion,          rank: 7  }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 7  }
+    - !append { skill: Tracking,            rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_InternalAgent_Scrambler
+    - !append Cyberware.DangerGal_HiddenHolster
+    - !append Cyberware.DangerGal_SubdermalPocket
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# GOLDEN BOY — Officer Dennis Gant
+# Lieutenant (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_GoldenBoy:
+  $base: NPC.Base_Elite
+  name: "Dennis Gant"
+  handle: "Golden Boy"
+  description: "Officer Dennis Gant"
+  lore: >
+    A media darling thanks to his good looks and action-hero mentality, recently
+    featured in screamsheets citywide. A serious adrenaline junkie who lives for
+    the jag of being an "Extreme Lawman." His jacket confirms a former synthcoke
+    habit. His reckless impulses have garnered fame at serious risk to himself,
+    and several innocent bystanders have been injured during his adventures.
+    Superiors have quietly taken note.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     8
+    dexterity:    7
+    tech:         3
+    cool:         4
+    willpower:    3
+    luck:         4
+    move:         6
+    body:         6
+    empathy:      3
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 9  }
+    - !append { skill: Autofire,            rank: 10 }
+    - !append { skill: Brawling,            rank: 1  }
+    - !append { skill: Concentration,       rank: 5  }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Deduction,           rank: 5  }
+    - !append { skill: DriveLandVehicle,    rank: 12 }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 12 }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: Perception,          rank: 6  }
+    - !append { skill: PersonalGrooming,    rank: 12 }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: ShoulderArms,        rank: 15 }
+    - !append { skill: Stealth,             rank: 9  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Chemskin
+    - !append Cyberware.DangerGal_MrStudSexualImplant
+    - !append Cyberware.DangerGal_NeuralLink_Kerenzikov
+    - !append Cyberware.DangerGal_TechHair
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Poor
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.MediumPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# SARGE — Sergeant Titus Malloy
+# Lieutenant (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Sarge:
+  $base: NPC.Base_Elite
+  name: "Titus Malloy"
+  handle: "Sarge"
+  description: "Sergeant Titus Malloy"
+  lore: >
+    An NCPD cop for over thirty years, predating the Nuke and serving throughout
+    the reconstruction. He looks out for his officers, is good for the occasional
+    favour or cover-up, and is on good terms with several gangs and Corporations —
+    meaning he has taken a whole lot of eb from them. He is the inside source for
+    much of the classified data in the Danger Gal dossier on Precinct 1 personnel.
+    Nearing retirement with a golden parachute built from payoffs.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    5
+    tech:         2
+    cool:         7
+    willpower:    5
+    luck:         4
+    move:         4
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: Brawling,            rank: 7  }
+    - !append { skill: Bribery,             rank: 10 }
+    - !append { skill: Bureaucracy,         rank: 9  }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 9  }
+    - !append { skill: Criminology,         rank: 1  }
+    - !append { skill: Deduction,           rank: 10 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: Evasion,             rank: 9  }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: Handgun,       rank: 15 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: Interrogation,       rank: 12 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 1  }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 13 }
+    - !append { skill: ShoulderArms,        rank: 10 }
+    - !append { skill: Stealth,             rank: 7  }
+    - !append { skill: Streetwise,          rank: 1  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Biomonitor
+    - !append Cyberware.DangerGal_Cybereye_Chyron_LowLight
+    - !append Cyberware.DangerGal_Cybereye_LowLight
+    - !append Cyberware.DangerGal_EnhancedAntibodies
+    - !append Cyberware.DangerGal_Skinwatch
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# SHEPARD — Officer Elena Korda
+# Lieutenant (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Shepard:
+  $base: NPC.Base_Elite
+  name: "Elena Korda"
+  handle: "Shepard"
+  description: "Officer Elena Korda"
+  lore: >
+    A widow — her cop husband died in the line of duty. One of eight K-9 units
+    assigned to Precinct 1, she and her dog Gustav are an inseparable team. She
+    tracks his cybercam through her Chyron and communicates with him via Agent;
+    that connection seemingly never breaks even off duty. She and Gustav primarily
+    hunt weapon caches and bombs; they have a good record for turning over ganger
+    stockpiles and locating explosives before detonation.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    6
+    tech:         3
+    cool:         5
+    willpower:    4
+    luck:         4
+    move:         4
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Autofire,            rank: 13 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: ConcealRevealObject, rank: 1  }
+    - !append { skill: Concentration,       rank: 8  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Criminology,         rank: 10 }
+    - !append { skill: Deduction,           rank: 10 }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: Evasion,             rank: 1  }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 12 }
+    - !append { skill: HumanPerception,     rank: 6  }
+    - !append { skill: Interrogation,       rank: 7  }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: Perception,          rank: 1  }
+    - !append { skill: Persuasion,          rank: 7  }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Tracking,            rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_CyberaudioSuite_AmplifiedHearing_HomingTracer_InternalAgent
+    - !append Cyberware.DangerGal_Cybereye_Chyron
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.MediumPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# GUSTAV — Custom Security Canine
+# Hardened Mook / Police K-9 Unit
+# NB: police dog companion — no weapon equipment; cyberware represents K-9 augmentations
+# ---------------------------------------------------------------------------
+NPC.NCPD_Gustav:
+  $base: NPC.Base_HardenedMook
+  name: "Gustav"
+  handle: "Gustav"
+  description: "Custom Security Canine"
+  lore: >
+    Biotechnica's Custom Security Canine — a Gun Dog subtype trained to locate
+    weapon propellants and explosives. Redesigned from the genetic level up from
+    Biotechnica's earlier Digital Watchdog offering. Partnered with Officer Korda
+    (Shepard). Their record for locating ganger weapon stockpiles and disarming
+    bombs before detonation is excellent. He apparently spoke more words than his
+    partner during their Night City Today interview.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 2
+    reflexes:     7
+    dexterity:    8
+    tech:         2
+    cool:         2
+    willpower:    4
+    luck:         3
+    move:         7
+    body:         5
+    empathy:      2
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 8  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: HumanPerception,     rank: 8  }
+    - !append { skill: LinguisticsBase,     rank: 6  }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Tracking,            rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.Base_Brawling
+    hand: Primary
+
+  cyberware:
+    - !append Cyberware.DangerGal_CombatJaw
+    - !append Cyberware.DangerGal_CyberaudioSuite_InternalAgent
+    - !append Cyberware.DangerGal_Cybereye_MicroVideo
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_OlfactoryBoost
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# PITBULL — Officer Judy Warren
+# Hardened Mook (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Pitbull:
+  $base: NPC.Base_HardenedMook
+  name: "Judy Warren"
+  handle: "Pitbull"
+  description: "Officer Judy Warren"
+  lore: >
+    A recent Training Program graduate who became a cop so she could legally pound
+    on people if they didn't do what she told them to. Her favourite assignment is
+    riot duty. She has a couple of Excessive Force write-ups already and her informal
+    station-house handle is Bullshit. Her acquisition of Muscle and Bone Lace sent
+    up red flags; she may be indebted to the Red Chrome Legion.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     5
+    dexterity:    6
+    tech:         3
+    cool:         3
+    willpower:    3
+    luck:         3
+    move:         5
+    body:         10
+    empathy:      2
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 11
+
+  deathSaveThreshold: 10
+
+  skills:
+    - !append { skill: Athletics,           rank: 8  }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Bribery,             rank: 5  }
+    - !append { skill: Concentration,       rank: 5  }
+    - !append { skill: ConversationCool,    rank: 4  }
+    - !append { skill: Criminology,         rank: 6  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 4  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: MartialArts,         rank: 8  }
+    - !append { skill: Perception,          rank: 6  }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: Stealth,             rank: 8  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+
+  primaryEquipment:
+    weapon: Weapons.Base_HeavyMelee
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# CHERUB — Officer Ranbir Majumdar
+# Mook (NCPD)
+# ---------------------------------------------------------------------------
+NPC.NCPD_Cherub:
+  $base: NPC.Base_NCPD_Officer
+  name: "Ranbir Majumdar"
+  handle: "Cherub"
+  description: "Officer Ranbir Majumdar"
+  lore: >
+    Fresh out of the NCPD Training Program, bright-eyed and full of ideals about
+    making a difference and serving the public. Assigned to patrol in the University
+    District to find his Street Legs. He has a chip on his shoulder regarding
+    private security that might extend to Danger Gal operatives. Two incidents of
+    freezing up are in his jacket — possibly freshman jitters, but three would
+    suggest a pattern. He has not shot any bystanders yet.
+  npcType: RecurringNPC
+  faction: NCPD
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     4
+    dexterity:    4
+    tech:         2
+    cool:         2
+    willpower:    4
+    luck:         2
+    move:         4
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Deduction,           rank: 7  }
+    - !append { skill: Education,           rank: 7  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 4  }
+    - !append { skill: Handgun,       rank: 12 }
+    - !append { skill: HumanPerception,     rank: 9  }
+    - !append { skill: Interrogation,       rank: 4  }
+    - !append { skill: LinguisticsBase,     rank: 9  }
+    - !append { skill: LocalExpert,         rank: 7  }
+    - !append { skill: Perception,          rank: 9  }
+    - !append { skill: Persuasion,          rank: 4  }
+    - !append { skill: Stealth,             rank: 6  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Biomonitor
+    - !append Cyberware.DangerGal_GraftedMuscleAndBoneLace
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

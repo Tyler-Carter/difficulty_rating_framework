@@ -1,0 +1,865 @@
+# =============================================================================
+# prototypes/npc/_base.yml
+# NPC prototype chain for Cyberpunk TTRPG.
+#
+# Prototype hierarchy:
+#
+#   NPC.Base_NPC                        <- universal root; all NPC inherit from here
+#     |- NPC.Base_Grunt                 <- disposable combatant (Mook / Normal tier)
+#     |     |- NPC.Base_GangGrunt
+#     |     |     '- NPC.Base_Bozo_Grunt
+#     |     |- NPC.Base_CorpoSec_Grunt
+#     |     '- NPC.Base_NCPD_Officer
+#     |- NPC.Base_HardenedMook          <- Hardened Mook tier (DGD p.152: +6 STAT, max 7)
+#     |     '- NPC.Base_HardenedGangGrunt
+#     |           '- NPC.Base_Bozo_HardenedGrunt
+#     |- NPC.Base_Elite                 <- seasoned combatant (Tough / Elite / Lieutenant tier)
+#     |     |- NPC.Base_GangElite
+#     |     '- NPC.Base_CorpoSec_Elite
+#     |- NPC.Base_HardenedLieutenant    <- Hardened Lieutenant tier (DGD p.152: +4 STAT)
+#     |     '- NPC.Base_HardenedGangElite
+#     |- NPC.Base_Sniper                <- ranged specialist
+#     |- NPC.Base_Netrunner_NPC         <- hacking NPC
+#     |- NPC.Base_Medtech_NPC           <- support / healer NPC
+#     |- NPC.Base_MiniBoss              <- mid-tier named threat
+#     |     '- NPC.Base_HardenedMiniBoss  <- Hardened Mini-Boss tier (DGD p.152: +2 STAT)
+#     |- NPC.Base_Boss                  <- major threat
+#     |     |- NPC.Base_Bozo_Boss
+#     |     '- NPC.Base_HardenedBoss    <- Hardened Boss tier (DGD p.152: +5 STAT, unlimited CW)
+#     |           '- NPC.Base_Bozo_HardenedBoss
+#     '- NPC.Base_NamedNPC              <- story-critical (example of a narrative only char)
+#
+# Stat assignment philosophy (RED Core Rulebook pp. 411-413):
+#   NPC do NOT go through full PC character creation. The GM assigns stats
+#   appropriate to threat level and narrative role.
+#   HP formula is the same as PCs: 10 + (5 * ceil((BODY+WILL)/2)).
+#   Skill totals listed here are FINAL totals (attribute + rank combined),
+#   matching how RED presents NPC stat blocks in the rulebook.
+# =============================================================================
+
+
+# =============================================================================
+# UNIVERSAL NPC ROOT
+# =============================================================================
+
+NPC.Base_NPC:
+  $type: NPC
+
+  # --- Identity (all overridden at leaf) ---
+  name:           ''
+  handle:         ''
+  description:    ''
+  age:            ''
+  culturalOrigin: ''
+  lore:           ''
+
+  # --- Classification ---
+  npcType:        EncounterNPC
+  npcRole:        Grunt
+  npcRarity:      Normal
+  faction:        Neutral
+  attitudeGroup:  Hostile
+
+  # --- Attributes (minimum defaults; override at tier or leaf as needed) ---
+  attributes:
+    intelligence: 2
+    reflexes:     2
+    dexterity:    2
+    tech:         2
+    cool:         2
+    willpower:    2
+    luck:         2
+    move:         2
+    body:         2
+    empathy:      2
+
+  # Death Save base threshold (RED p. 64; some cyberware modifies this)
+  deathSaveThreshold: 10
+
+  # Derived stats — initialised to floor; resolver recomputes after attribute assignment
+  # HP formula:       10 + (5 * ceil((BODY + WILL) / 2))
+  # Run formula:      MOVE x 3
+  # Humanity formula: EMP * 10 (then subtract humanityCost of installed cyberware)
+  # Armor is gained through cyberware or items being equipped, base is 0
+  derivedStats:
+    maxHP:          20
+    currentHP:      20
+    armor:          0
+    luckPool:       2
+    run:            6
+
+  # --- Skills, abilities, cyberware (empty; overridden at tier or leaf) ---
+  skills:         []
+  abilities:      []
+  statModifiers:  []
+  cyberware:      []
+
+  # --- Equipment (empty at root; set at tier or leaf level) ---
+  armorRecord:        ''           # Armor record ID
+  primaryEquipment:
+    weapon:           ''
+    hand:             Primary
+    equipCondition:   []
+  secondaryEquipment:
+    weapon:           ''
+    hand:             Holstered
+
+  # --- Loot / encounter flags ---
+  dropsWeapon:    false
+  otherDrops:     []
+  isInvulnerable: false
+
+
+# =============================================================================
+# GRUNT TIER  (Mook / Normal)
+# =============================================================================
+
+NPC.Base_Grunt:
+  $base: NPC.Base_NPC
+  npcRole:        Grunt
+  npcRarity:      Normal
+
+  attributes:
+    intelligence: 4
+    reflexes:     5
+    dexterity:    5
+    tech:         2
+    cool:         4
+    willpower:    4
+    luck:         3
+    move:         5
+    body:         5
+    empathy:      3
+
+  # HP: 10 + (5 * ceil((5+4)/2)) = 10 + (5*5) = 35
+  maxHP:          35
+  currentHP:      35
+  armor:          7
+
+  skills:
+    - { skill: Handgun,         rank: 10 }  # DEX 5 + skill 5
+    - { skill: Brawling,        rank: 8  }  # REF 5 + skill 3
+    - { skill: Perception,      rank: 8  }  # REF 5 + skill 3
+    - { skill: Stealth,         rank: 6  }  # REF 5 + skill 1
+    - { skill: Athletics,       rank: 8  }  # REF 5 + skill 3
+
+  dropsWeapon:    true
+
+
+NPC.Base_GangGrunt:
+  $base: NPC.Base_Grunt
+  description: "Standard street gang member. Moderate cyberware."
+  attributes:
+    tech:         1
+    cool:         5
+    willpower:    3
+  armor:          4
+
+
+NPC.Base_CorpoSec_Grunt:
+  $base: NPC.Base_Grunt
+  description: "Entry-level corporate security."
+  faction:        Neutral       # leaf record overrides to specific corp
+
+  attributes:
+    intelligence: 5
+    tech:         4
+    cool:         4
+    willpower:    5
+
+  maxHP:          35
+  currentHP:      35
+  armor:          11
+
+  skills:
+    - { skill: Handgun,         rank: 11 }  # DEX 4 + skill 7
+    - { skill: ShoulderArms,    rank: 11 }  # REF 4 + skill 7
+    - { skill: Perception,      rank: 9  }  # INT 5 + skill 4
+    - { skill: Athletics,       rank: 9  }  # DEX 4 + skill 5
+    - { skill: Brawling,        rank: 8  }  # DEX 4 + skill 3
+    - { skill: Tactics,         rank: 6  }  # INT 5 + skill 1
+
+
+NPC.Base_NCPD_Officer:
+  $base: NPC.Base_Grunt
+  description: "Night City Police Department patrol officer. Forcing Justice, one mook at a time."
+  faction:        NCPD
+  attitudeGroup:  Neutral
+
+  attributes:
+    intelligence: 5
+    cool:         5
+    willpower:    5
+
+  maxHP:          35
+  currentHP:      35
+  armor:          11
+
+  skills:
+    - { skill: Handgun,         rank: 11 }  # REF 4 + skill 7
+    - { skill: Brawling,        rank: 9  }  # DEX 4 + skill 5
+    - { skill: Perception,      rank: 9  }  # INT 5 + skill 4
+    - { skill: Interrogation,   rank: 9  }  # COOL 5 + skill 4
+  
+
+
+# =============================================================================
+# ELITE TIER  (Tough / Elite)
+# =============================================================================
+
+NPC.Base_Elite:
+  $base: NPC.Base_NPC
+  npcRole:        Elite
+  npcRarity:      Tough
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    7
+    tech:         5
+    cool:         6
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      4
+
+  # HP: 10 + (5 * ceil((7+6)/2)) = 10 + (5*7) = 45
+  maxHP:          45
+  currentHP:      45
+  armor:          15            # Medium Armor Jacket SP 15
+
+  skills:
+    - { skill: Handgun,         rank: 14 }  # REF 7 + skill 7
+    - { skill: ShoulderArms,    rank: 14 }  # REF 7 + skill 7
+    - { skill: Brawling,        rank: 12 }  # DEX 7 + skill 5
+    - { skill: MeleeWeapon,     rank: 12 }  # DEX 7 + skill 5
+    - { skill: Perception,      rank: 12 }  # INT 6 + skill 6
+    - { skill: Athletics,       rank: 12 }  # DEX 7 + skill 5
+    - { skill: Evasion,         rank: 12 }  # DEX 7 + skill 5
+    - { skill: Tactics,         rank: 11 }  # INT 6 + skill 5
+    - { skill: Stealth,         rank: 10 }  # DEX 7 + skill 3
+
+  dropsWeapon:    true
+
+
+NPC.Base_GangElite:
+  $base: NPC.Base_Elite
+  description: "Veteran gang lieutenant. Augmented, dangerous, territorial."
+  npcRarity:      Elite
+
+  attributes:
+    body:         8
+    reflexes:     7
+    cool:         7
+
+  # HP: 10 + (5 * ceil((8+6)/2)) = 10 + (5*7) = 45
+  maxHP:          45
+  currentHP:      45
+
+
+NPC.Base_CorpoSec_Elite:
+  $base: NPC.Base_Elite
+  description: "Corporate special operations. Full kit, coordinated tactics."
+  npcRarity:      Elite
+  faction:        Neutral       # leaf record overrides to specific corp
+
+  attributes:
+    intelligence: 7
+    tech:         6
+    willpower:    7
+
+  # HP: 10 + (5 * ceil((7+7)/2)) = 10 + (5*7) = 45
+  maxHP:          45
+  currentHP:      45
+  armor:          18
+
+  skills:
+    - { skill: Handgun,                   rank: 14 }
+    - { skill: ShoulderArms,              rank: 15 }
+    - { skill: HeavyWeapons,              rank: 13 }
+    - { skill: ResistTorture_Drugs,       rank: 13 }
+    - { skill: Perception,                rank: 13 }
+    - { skill: Athletics,                 rank: 13 }
+    - { skill: Evasion,                   rank: 12 }
+    - { skill: Electronics_SecurityTech,  rank: 11 }
+
+
+# =============================================================================
+# SNIPER
+# =============================================================================
+
+NPC.Base_Sniper:
+  $base: NPC.Base_Elite
+  npcRole: Sniper
+  description: "Ranged specialist. Positioned before combat begins; prefers not to be found."
+
+  attributes:
+    dexterity:    8
+    reflexes:     7
+    cool:         7
+    intelligence: 6
+    body:         5
+    move:         4
+
+  # HP: 10 + (5 * ceil((5+6)/2)) = 10 + (5*6) = 40
+  maxHP:          40
+  currentHP:      40
+  armor:          11
+
+  skills:
+    - { skill: ShoulderArms,        rank: 16 }  # DEX 8 + skill 8
+    - { skill: Perception,          rank: 14 }
+    - { skill: Stealth,             rank: 13 }
+    - { skill: WildernessSurvival,  rank: 11 }
+    - { skill: Handgun,             rank: 11 }  # fallback sidearm
+
+
+# =============================================================================
+# NETRUNNER NPC
+# =============================================================================
+
+NPC.Base_Netrunner_NPC:
+  $base: NPC.Base_NPC
+  npcRole:        Netrunner_NPC
+  npcRarity:      Tough
+  description: >
+    Hacking NPC. Operates via a cyberdeck; rarely engages in direct combat.
+    Can deploy ICE nodes (see prototypes/networks/_base.yaml) to protect
+    their access point or suppress the party Netrunner's Momentum.
+
+  attributes:
+    intelligence: 8
+    tech:         7
+    reflexes:     4
+    dexterity:    4
+    cool:         5
+    willpower:    6
+    luck:         5
+    move:         4
+    body:         3
+    empathy:      5
+
+  # HP: 10 + (5 * ceil((3+6)/2)) = 10 + (5*5) = 35
+  maxHP:          35
+  currentHP:      35
+  armor:          7
+
+  skills:
+    - { skill: Electronics_SecurityTech,  rank: 15 }
+    - { skill: BasicTech,                 rank: 14 }
+    - { skill: Cybertech,                 rank: 14 }
+    - { skill: LibrarySearch,             rank: 13 }
+    - { skill: Cryptography,              rank: 13 }
+    - { skill: Perception,                rank: 10 }
+    - { skill: Handgun,                   rank: 8  }
+
+
+# =============================================================================
+# MEDTECH NPC
+# =============================================================================
+
+NPC.Base_Medtech_NPC:
+  $base: NPC.Base_NPC
+  npcRole:        Medtech_NPC
+  npcRarity:      Normal
+  description: >
+    Support NPC. Will attempt to revive or stabilise downed allies each round.
+    Treat as a priority target to prevent enemy healing.
+
+  attributes:
+    intelligence: 7
+    tech:         7
+    reflexes:     4
+    dexterity:    4
+    cool:         5
+    willpower:    5
+    luck:         4
+    move:         5
+    body:         4
+    empathy:      6
+
+  # HP: 10 + (5 * ceil((4+5)/2)) = 10 + (5*5) = 35
+  maxHP:          35
+  currentHP:      35
+  armor:          7
+
+  skills:
+    - { skill: Paramedic,       rank: 14 }
+    - { skill: FirstAid,        rank: 14 }
+    - { skill: Cybertech,       rank: 12 }
+    - { skill: Perception,      rank: 9  }
+    - { skill: Handgun,         rank: 8  }
+
+
+# =============================================================================
+# BOSS
+# =============================================================================
+
+NPC.Base_Boss:
+  $base: NPC.Base_NPC
+  npcRole:        Boss
+  npcRarity:      Boss
+  description: >
+    Major named threat. Built to survive multiple rounds of concentrated fire.
+    Should have at least one distinctive ability or cyberware entry that
+    differentiates it mechanically from elites.
+
+  attributes:
+    intelligence: 7
+    reflexes:     8
+    dexterity:    8
+    tech:         6
+    cool:         8
+    willpower:    8
+    luck:         6
+    move:         7
+    body:         9
+    empathy:      4
+
+  # HP: 10 + (5 * ceil((9+8)/2)) = 10 + (5*9) = 55
+  maxHP:          55
+  currentHP:      55
+  armor:          18
+
+  skills:
+    - { skill: Handgun,         rank: 16 }
+    - { skill: ShoulderArms,    rank: 16 }
+    - { skill: MeleeCombat,     rank: 16 }
+    - { skill: Brawling,        rank: 16 }
+    - { skill: Perception,      rank: 14 }
+    - { skill: Dodge,           rank: 14 }
+    - { skill: Athletics,       rank: 15 }
+    - { skill: Tactics,         rank: 14 }
+    - { skill: Intimidation,    rank: 14 }
+
+  dropsWeapon:    true
+  isInvulnerable: false
+
+# =============================================================================
+# MINI-BOSS  (between Elite and Boss — "Mini-Boss" level in Danger Gal Dossier)
+# =============================================================================
+
+NPC.Base_MiniBoss:
+  $base: NPC.Base_Elite
+  npcRole:    Boss
+  npcRarity:  Elite
+  description: >
+    Mid-tier named threat. More dangerous than a standard Elite but not a
+    full encounter anchor. Should have one distinctive skill, weapon, or
+    piece of cyberware that marks them as a priority target.
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    7
+    tech:         5
+    cool:         7
+    willpower:    7
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      4
+
+  # HP: 10 + (5 * ceil((7+7)/2)) = 10 + (5*7) = 45
+  maxHP:          45
+  currentHP:      45
+  armor:          15
+
+  skills:
+    - { skill: Handgun,    rank: 14 }
+    - { skill: ShoulderArms,     rank: 14 }
+    - { skill: Brawling,         rank: 12 }
+    - { skill: Perception,       rank: 12 }
+    - { skill: Athletics,        rank: 12 }
+    - { skill: Evasion,          rank: 12 }
+    - { skill: Tactics,          rank: 11 }
+    - { skill: Intimidation,     rank: 11 }
+    - { skill: Stealth,          rank: 10 }
+
+  dropsWeapon:    true
+
+
+# =============================================================================
+# BOZO GANG  (Danger Gal Dossier)
+# =============================================================================
+
+NPC.Base_Bozo_Grunt:
+  $base: NPC.Base_GangGrunt
+  description: >
+    Standard Bozo gang member. Heavy biosculpting, zero empathy, berserk
+    disposition. Treat as an unpredictable hazard rather than a tactical actor.
+  attitudeGroup:  Berserk
+
+  attributes:
+    reflexes:     5
+    dexterity:    5
+    body:         6
+    cool:         4
+    empathy:      0
+
+  # HP: 10 + (5 * ceil((6+3)/2)) = 10 + (5*5) = 35
+  maxHP:          35
+  currentHP:      35
+  armor:          7
+
+  skills:
+    - { skill: Brawling,         rank: 10 }
+    - { skill: MeleeCombat,      rank: 10 }
+    - { skill: Athletics,        rank: 9  }
+    - { skill: Evasion,          rank: 8  }
+    - { skill: Perception,       rank: 7  }
+    - { skill: Handgun,    rank: 8  }
+
+  dropsWeapon:    true
+
+
+NPC.Base_Bozo_Boss:
+  $base: NPC.Base_Boss
+  description: >
+    Bozo gang leader. Maximal body modification, surgical skills, zero
+    empathy, absolutely berserk. The "joke" is always lethal.
+  attitudeGroup:  Berserk
+
+  attributes:
+    empathy:      0
+
+  dropsWeapon:    true
+
+
+# =============================================================================
+# TRAUMA TEAM  (Danger Gal Dossier)
+# =============================================================================
+
+NPC.Base_TraumaTeam_Guard:
+  $base: NPC.Base_Elite
+  description: >
+    Trauma Team armed escort. Paramilitary trained, high-quality kit,
+    medically cross-trained. Protects the medtech and the patient at all costs.
+  faction:        Trauma_Team
+  npcRole:        Bodyguard
+  npcRarity:      Tough
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    7
+    tech:         5
+    cool:         6
+    willpower:    6
+    luck:         4
+    move:         6
+    body:         7
+    empathy:      5
+
+  # HP: 10 + (5 * ceil((7+6)/2)) = 10 + (5*7) = 45
+  maxHP:          45
+  currentHP:      45
+  armor:          15
+
+  skills:
+    - { skill: ShoulderArms,           rank: 14 }
+    - { skill: Handgun,          rank: 12 }
+    - { skill: Perception,             rank: 12 }
+    - { skill: Athletics,              rank: 12 }
+    - { skill: Evasion,                rank: 11 }
+    - { skill: Tactics,                rank: 11 }
+    - { skill: FirstAid,               rank: 10 }
+    - { skill: Stealth,                rank: 9  }
+
+  dropsWeapon:    true
+
+
+NPC.Base_TraumaTeam_Medtech:
+  $base: NPC.Base_Medtech_NPC
+  description: >
+    Trauma Team field medic. Primary role is emergency extraction and
+    stabilisation; secondary role is self-defence when the escort is overwhelmed.
+  faction:        Trauma_Team
+
+  attributes:
+    intelligence: 7
+    tech:         8
+    reflexes:     5
+    dexterity:    5
+    cool:         5
+    willpower:    6
+    luck:         4
+    move:         5
+    body:         4
+    empathy:      6
+
+  # HP: 10 + (5 * ceil((4+6)/2)) = 10 + (5*5) = 35
+  maxHP:          35
+  currentHP:      35
+  armor:          11
+
+  skills:
+    - { skill: Paramedic,              rank: 16 }
+    - { skill: Surgery,                rank: 14 }
+    - { skill: FirstAid,               rank: 14 }
+    - { skill: MedicalTech,            rank: 13 }
+    - { skill: Cybertech,              rank: 12 }
+    - { skill: Perception,             rank: 10 }
+    - { skill: ShoulderArms,           rank: 10 }
+    - { skill: Evasion,                rank: 9  }
+    - { skill: Handgun,          rank: 8  }
+
+
+# =============================================================================
+# DANGER GAL OPERATIVE  (Danger Gal Dossier)
+# =============================================================================
+
+NPC.Base_DangerGal_Operative:
+  $base: NPC.Base_Elite
+  description: >
+    Danger Gal private security operative. Balanced professional — high COOL
+    and solid combat stats. Context-dependent attitude; not gratuitously hostile.
+  faction:        Danger_Gal
+  attitudeGroup:  Neutral
+  npcRole:        Bodyguard
+  npcRarity:      Tough
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    7
+    tech:         5
+    cool:         7
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         6
+    empathy:      6
+
+  # HP: 10 + (5 * ceil((6+6)/2)) = 10 + (5*6) = 40
+  maxHP:          40
+  currentHP:      40
+  armor:          11
+
+  skills:
+    - { skill: Handgun,    rank: 14 }
+    - { skill: ShoulderArms,     rank: 14 }
+    - { skill: Perception,       rank: 13 }
+    - { skill: Evasion,          rank: 12 }
+    - { skill: Athletics,        rank: 12 }
+    - { skill: Stealth,          rank: 11 }
+    - { skill: Tactics,          rank: 10 }
+    - { skill: HumanPerception,  rank: 10 }
+    - { skill: Persuasion,       rank: 9  }
+
+  dropsWeapon:    true
+
+
+# =============================================================================
+# NAMED NPC
+# =============================================================================
+
+NPC.Base_NamedNPC:
+  $base: NPC.Base_NPC
+  npcRole:        NamedNPC
+  npcRarity:      Tough
+  npcType:        RecurringNPC
+  description: >
+    Story-critical NPC. May or may not be a combatant.
+    Stats should reflect the character's background and narrative role.
+    Leaf records are expected to fully specify the attribute block.
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    6
+    tech:         5
+    cool:         7
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      6
+
+  # HP: 10 + (5 * ceil((5+6)/2)) = 10 + (5*6) = 40
+  maxHP:          40
+  currentHP:      40
+  armor:          7
+
+  attitudeGroup:  Neutral
+  isInvulnerable: false
+
+
+# =============================================================================
+# HARDENED TIERS  (Danger Gal Dossier pp. 149-152)
+#
+# A "Hardened" NPC is a boosted version of the standard tier, used when the
+# Crew is combat-optimised (i.e., every player is built for fighting).
+# Each tier receives additional STAT points, a higher Cyberware budget, and an
+# expanded Gear budget; some may also have a Role Ability at a higher rank.
+#
+# Stat budgets (per DGD p.152):
+#   Hardened Mook      — +6 STAT pts (max STAT 7); +200eb Gear; +500eb Cyberware;
+#                        may have Role Ability Rank 2
+#   Hardened Lieutenant— +4 STAT pts (max STAT 8); +300eb Gear; +500eb Cyberware;
+#                        likely has Role Ability Rank 4
+#   Hardened Mini-Boss — +2 STAT pts (max STAT 8); +800eb Gear; +1,200eb Cyberware;
+#                        may have Role Ability Rank 6
+#   Hardened Boss      — +5 STAT pts (max STAT 8); +5,000eb Gear; unlimited Cyberware;
+#                        may have Role Ability Rank 8; likely cyberpsycho (EMP 0)
+#
+# All attribute values below are prototype defaults. Leaf records override freely.
+# =============================================================================
+
+
+# =============================================================================
+# HARDENED MOOK
+# =============================================================================
+
+NPC.Base_HardenedMook:
+  $base: NPC.Base_Grunt
+  npcRarity:  HardenedMook
+  # +6 STAT points above standard Mook budget; max STAT raised to 7
+  # Gear budget: 500eb (PQ allowed); Cyberware budget: 1,000eb
+
+  attributes:
+    intelligence: 5    # +1 from Grunt default (4)
+    reflexes:     6    # +1 from Grunt default (5)
+    cool:         5    # +1 from Grunt default (4)
+    willpower:    5    # +1 from Grunt default (4)
+    body:         7    # +2 from Grunt default (5); reaches max STAT 7
+
+  # HP: 10 + (5 * ceil((7+5)/2)) = 10 + (5*6) = 40
+  maxHP:      40
+  currentHP:  40
+  armor:      11       # Light Armorjack SP 11 is typical for Hardened Mooks
+
+
+NPC.Base_HardenedGangGrunt:
+  $base: NPC.Base_GangGrunt
+  npcRarity:  HardenedMook
+  # Gang-flavoured Hardened Mook. Inherits GangGrunt's cool 5, tech 1, willpower 3.
+  # +6 STAT points above Mook budget applied here; max STAT 7.
+
+  attributes:
+    reflexes:     6    # +1
+    dexterity:    6    # +1
+    willpower:    5    # +2 from GangGrunt default (3)
+    body:         7    # +2 from GangGrunt default (5); reaches max STAT 7
+
+  # HP: 10 + (5 * ceil((7+5)/2)) = 10 + (5*6) = 40
+  maxHP:      40
+  currentHP:  40
+  armor:      11
+
+
+# =============================================================================
+# HARDENED LIEUTENANT
+# =============================================================================
+
+NPC.Base_HardenedLieutenant:
+  $base: NPC.Base_Elite
+  npcRarity:  HardenedLieutenant
+  # +4 STAT points above standard Lieutenant budget; max STAT remains 8
+  # Gear budget: 1,000eb (no Excellent Quality restriction lifted); Cyberware: 1,500eb
+  # Likely has Role Ability Rank 4
+
+  attributes:
+    reflexes:     8    # +1 from Elite default (7); reaches max STAT 8
+    body:         8    # +1 from Elite default (7); reaches max STAT 8
+    cool:         7    # +1 from Elite default (6)
+    willpower:    7    # +1 from Elite default (6)
+
+  # HP: 10 + (5 * ceil((8+7)/2)) = 10 + (5*8) = 50
+  maxHP:      50
+  currentHP:  50
+  armor:      15
+
+
+NPC.Base_HardenedGangElite:
+  $base: NPC.Base_GangElite
+  npcRarity:  HardenedLieutenant
+  # Gang-flavoured Hardened Lieutenant. Inherits GangElite's body 8, reflexes 7, cool 7.
+  # +4 STAT points applied to remaining stats.
+
+  attributes:
+    intelligence: 7    # +1 from GangElite default (6)
+    willpower:    7    # +1 from Elite default (6)
+    tech:         6    # +1 from Elite default (5)
+    empathy:      5    # +1 from Elite default (4)
+
+  # HP: 10 + (5 * ceil((8+7)/2)) = 10 + (5*8) = 50
+  maxHP:      50
+  currentHP:  50
+  armor:      15
+
+
+# =============================================================================
+# HARDENED MINI-BOSS
+# =============================================================================
+
+NPC.Base_HardenedMiniBoss:
+  $base: NPC.Base_MiniBoss
+  npcRarity:  HardenedMiniBoss
+  # +2 STAT points above standard Mini-Boss budget; max STAT remains 8
+  # Gear budget: 2,000eb; Cyberware budget: 3,200eb
+  # May have Role Ability Rank 6
+
+  attributes:
+    reflexes:     8    # +1 from MiniBoss default (7); reaches max STAT 8
+    body:         8    # +1 from MiniBoss default (7); reaches max STAT 8
+
+  # HP: 10 + (5 * ceil((8+7)/2)) = 10 + (5*8) = 50
+  maxHP:      50
+  currentHP:  50
+  armor:      15
+
+
+# =============================================================================
+# HARDENED BOSS
+# =============================================================================
+
+NPC.Base_HardenedBoss:
+  $base: NPC.Base_Boss
+  npcRarity:  HardenedBoss
+  # +5 STAT points above standard Boss budget; max STAT remains 8
+  # Gear budget: 8,300eb; Cyberware budget: unlimited
+  # May have Role Ability Rank 8
+  # EMP likely 0 if 30+ cyberware pieces installed (cyberpsycho threshold)
+
+  attributes:
+    intelligence: 8    # +1 from Boss default (7); reaches max STAT 8
+    tech:         7    # +1 from Boss default (6)
+    move:         8    # +1 from Boss default (7); reaches max STAT 8
+    luck:         7    # +1 from Boss default (6)
+    empathy:      5    # +1 from Boss default (4); leaf records may set to 0 for cyberpsycho
+
+  # HP: 10 + (5 * ceil((9+8)/2)) = 10 + (5*9) = 55
+  maxHP:      55
+  currentHP:  55
+  armor:      18
+
+
+# =============================================================================
+# BOZO GANG — HARDENED TIERS
+# =============================================================================
+
+NPC.Base_Bozo_HardenedGrunt:
+  $base: NPC.Base_Bozo_Grunt
+  npcRarity:  HardenedMook
+  # Bozo gang Hardened Mook. Inherits Berserk attitudeGroup and empathy 0.
+  # +6 STAT points above Mook budget; max STAT 7.
+
+  attributes:
+    reflexes:     6    # +1 from Bozo_Grunt default (5)
+    dexterity:    6    # +1 from Bozo_Grunt default (5)
+    willpower:    5    # +2 from Bozo_Grunt default (3)
+    body:         7    # +1 from Bozo_Grunt default (6); reaches max STAT 7
+
+  # HP: 10 + (5 * ceil((7+5)/2)) = 10 + (5*6) = 40
+  maxHP:      40
+  currentHP:  40
+  armor:      11
+
+
+NPC.Base_Bozo_HardenedBoss:
+  $base: NPC.Base_HardenedBoss
+  # Bozo gang Hardened Boss. Inherits all Hardened Boss stat boosts.
+  attitudeGroup:  Berserk
+  empathy:        0

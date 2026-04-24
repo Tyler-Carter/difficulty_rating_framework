@@ -1,0 +1,388 @@
+# =============================================================================
+# records/npcs/danger_gal_team_monster.yml
+# Team Monster NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 6 NPCs: Cereal, Isolate, Lucky, Nox, Paladin, Too Tall
+# =============================================================================
+
+
+NPC.TeamMonster_Cereal:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Cereal"
+  description: "Hack Night City!"
+  lore: >
+    Sometimes terror doesn't come from knowing what an opponent will do — sometimes it comes from
+    not knowing what they'll do next. Cereal is "all out of bubble gum," and for someone who
+    repeatedly says he doesn't want to resort to violence, it sure seems like he wakes up choosing
+    it. He began with minor pranks escalating to full-on corporate data-hacking.
+  npcType: RecurringNPC
+  faction: Team_Monster
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 7
+    reflexes:     6
+    dexterity:    6
+    tech:         7
+    cool:         3
+    willpower:    5
+    luck:         5
+    move:         3
+    body:         6
+    empathy:      5
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,               rank: 12 }
+    - !append { skill: BasicTech,               rank: 13 }
+    - !append { skill: Brawling,                rank: 8 }
+    - !append { skill: ConcealRevealObject,     rank: 12 }
+    - !append { skill: Concentration,           rank: 7 }
+    - !append { skill: ConversationCool,        rank: 7 }
+    - !append { skill: Education,               rank: 13 }
+    - !append { skill: Electronics_SecurityTech,rank: 13 }
+    - !append { skill: Evasion,                 rank: 13 }
+    - !append { skill: FirstAid,                rank: 10 }
+    - !append { skill: HumanPerception,         rank: 7 }
+    - !append { skill: LinguisticsBase,         rank: 1 }
+    - !append { skill: LibrarySearch,           rank: 10 }
+    - !append { skill: LocalExpert,             rank: 9 }
+    - !append { skill: MeleeCombat,             rank: 13 }
+    - !append { skill: Perception,              rank: 9 }
+    - !append { skill: Persuasion,              rank: 5 }
+    - !append { skill: Stealth,                 rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TeamMonster_Isolate:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Isolate"
+  description: "No Longer a Red Shirt"
+  lore: >
+    Isolate grew up in Georgia, son to a legendary freedom fighter. SovOil drove his family off
+    their land and into a burgeoning insurgent movement. Growing up in constant warfare, Isolate
+    honed his weapon and combat skills to a razor's edge, establishing a deadly reputation as an
+    elite sniper before decamping to Night City after his father's insurgent cell fell.
+  npcType: RecurringNPC
+  faction: Team_Monster
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    6
+    tech:         4
+    cool:         5
+    willpower:    5
+    luck:         5
+    move:         6
+    body:         6
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 10 }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 6 }
+    - !append { skill: Interrogation,       rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 1 }
+    - !append { skill: ResistTortureDrugs,  rank: 1 }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 12 }
+    - !append { skill: Tactics,             rank: 12 }
+
+  primaryEquipment:
+    weapon: Weapons.SniperRifle_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TeamMonster_Lucky:
+  $base: NPC.Base_Elite
+  name: "Luciano Galanti"
+  handle: "Lucky"
+  description: "High-Flying Healer"
+  lore: >
+    Luciano "Lucky" Galanti got his start working with a well-known salvage crew, flying whatever
+    they needed. He's always had a knack for getting out of the worst situations alive. After the
+    salvage crew fell apart, he picked up piloting work for Trauma Team and leveled up his medical
+    skills, before taking those combined skills to Night City Fixers as an Edgerunner.
+  npcType: RecurringNPC
+  faction: Team_Monster
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    6
+    tech:         6
+    cool:         3
+    willpower:    5
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 8 }
+    - !append { skill: Brawling,            rank: 8 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 10 }
+    - !append { skill: Cybertech,           rank: 10 }
+    - !append { skill: Deduction,           rank: 10 }
+    - !append { skill: Education,           rank: 12 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 8 }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HumanPerception,     rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 8 }
+    - !append { skill: MedicalTech,         rank: 9 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 5 }
+    - !append { skill: Pilot_AerialVehicle, rank: 12 }
+    - !append { skill: ResistTortureDrugs,  rank: 9 }
+    - !append { skill: Science,             rank: 10 }
+    - !append { skill: Stealth,             rank: 8 }
+    - !append { skill: Surgery,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TeamMonster_Nox:
+  $base: NPC.Base_Elite
+  name: "Nox Arya"
+  handle: "Nox"
+  description: "ET Power-Belting Synth Pop Star"
+  lore: >
+    Nox Arya is a young Rockerboy who's gained quite a name for herself in recent years, playing
+    in several well-known Night City clubs. With her self-described music style as "extraterrestrial
+    power-belting synth pop," Nox's shows are nothing short of a hallucinogenic experience. Off-stage,
+    Nox is more down-to-earth with humble beginnings.
+  npcType: RecurringNPC
+  faction: Team_Monster
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    6
+    tech:         3
+    cool:         7
+    willpower:    4
+    luck:         5
+    move:         5
+    body:         5
+    empathy:      6
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 11       # Subdermal Armor → minimum SP 11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 8 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 8 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 5 }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 12 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: PersonalGrooming,    rank: 1 }
+    - !append { skill: Persuasion,          rank: 12 }
+    - !append { skill: PlayInstrument,      rank: 12 }
+    - !append { skill: Stealth,             rank: 8 }
+    - !append { skill: Streetwise,          rank: 12 }
+    - !append { skill: WardrobeStyle,       rank: 1 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TeamMonster_Paladin:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Paladin"
+  description: "Beast of a Battler"
+  lore: >
+    They always say it's the quiet ones you should be wary of. Paladin is a man of few words, and
+    should he speak them, they'll either make you laugh, or they will be the last words you ever
+    hear. A former Militech soldier with a reputation for being business-minded and following a
+    mission plan to the letter. No problem too big, no emotions in the way.
+  npcType: RecurringNPC
+  faction: Team_Monster
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    7
+    tech:         4
+    cool:         4
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         7
+    empathy:      3
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Autofire,            rank: 13 }
+    - !append { skill: Brawling,            rank: 9 }
+    - !append { skill: Concentration,       rank: 8 }
+    - !append { skill: ConversationCool,    rank: 5 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 6 }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HeavyWeapons,        rank: 12 }
+    - !append { skill: HumanPerception,     rank: 5 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 9 }
+    - !append { skill: Tactics,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TeamMonster_TooTall:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Too Tall"
+  description: "Big Man, Big Bomb"
+  lore: >
+    Standing at nearly 7 feet, Too Tall's powerful frame allows for easy use of heavy weapons,
+    which he wields with expertise. He's been called a "DaVinci" when it comes to sea-going vessels
+    due to his near encyclopedic knowledge of them. Thorough and efficient, he found a niche in the
+    Aldecaldos as a naval expert in a Nation full of land Nomads.
+  npcType: RecurringNPC
+  faction: Team_Monster
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    5
+    tech:         6
+    cool:         4
+    willpower:    6
+    luck:         5
+    move:         5
+    body:         7
+    empathy:      4
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 7 }
+    - !append { skill: Concentration,       rank: 8 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 8 }
+    - !append { skill: HeavyWeapons,        rank: 12 }
+    - !append { skill: HumanPerception,     rank: 6 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: MeleeCombat,         rank: 1 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: Pilot_AerialVehicle, rank: 12 }
+    - !append { skill: Stealth,             rank: 7 }
+    - !append { skill: Trading,             rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.RocketLauncher_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false

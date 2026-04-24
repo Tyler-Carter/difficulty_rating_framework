@@ -1,0 +1,863 @@
+# =============================================================================
+# records/npcs/danger_gal_bozos.yml
+# The Bozos NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 11 NPCs: Big Top, Blammo, Jester, Tomfool, Centwit, Dead Ringer (Blue),
+#          Dead Ringer (Pink), Finale, Burt The Squirt, Dunce, The Fool
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# Big Top — Scalpel-Wielding Ringleader
+# Hardened Boss → NPC.Base_Bozo_HardenedBoss
+# ---------------------------------------------------------------------------
+NPC.Bozos_BigTop:
+  $base: NPC.Base_Bozo_HardenedBoss
+  name: ""
+  handle: "Big Top"
+  description: "Bozo ringleader; Medtech (Medicine 8). Biosculpted, heavily cyberwareD ringleader who instigated the Bozo civil war."
+  lore: >
+    Big Top isn't the mythical Great Bozo — he rails against him, calling him stale and unfunny. In his
+    mind he is the future: louder, flashier, crueler. He instigated the Hilaria 2045 event by biosculpting
+    and Braindance-mindwashing captured civilians before releasing them on the Forlorn Hope, sparking the
+    Bozo civil war. Obviously trained as a Medtech; has been seen operating in the streets on friend and
+    foe alike.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 6
+    reflexes:     8
+    dexterity:    6
+    tech:         7
+    cool:         8
+    willpower:    7
+    luck:         7
+    move:         7
+    body:         8
+    empathy:      0
+
+  derivedStats:
+    maxHP:   50
+    currentHP: 50
+    armor:   15   # Multiple Hardened Shielding cyberarms
+
+  deathSaveThreshold: 10   # DS field blank; default 10
+
+  skills:
+    - !append { skill: Athletics,              rank: 10 }
+    - !append { skill: Brawling,               rank: 12 }
+    - !append { skill: Bribery,                rank: 12 }
+    - !append { skill: ConcealRevealObject,    rank: 10 }
+    - !append { skill: Concentration,          rank: 12 }
+    - !append { skill: ConversationCool,       rank: 6  }
+    - !append { skill: Cybertech,              rank: 16 }
+    - !append { skill: Education,              rank: 10 }
+    - !append { skill: Electronics_SecurityTech, rank: 15 }
+    - !append { skill: EnduranceSTR,           rank: 12 }
+    - !append { skill: Evasion,                rank: 12 }
+    - !append { skill: Handgun,          rank: 16 }
+    - !append { skill: HumanPerception,        rank: 4  }
+    - !append { skill: Interrogation,          rank: 14 }
+    - !append { skill: LinguisticsBase,        rank: 10 }
+    - !append { skill: LipReading,             rank: 8  }
+    - !append { skill: LocalExpert,            rank: 10 }
+    - !append { skill: MedicalTech,            rank: 10 }
+    - !append { skill: MeleeCombat,            rank: 16 }
+    - !append { skill: PersonalGrooming,       rank: 10 }
+    - !append { skill: Paramedic,              rank: 14 }
+    - !append { skill: Perception,             rank: 12 }
+    - !append { skill: Persuasion,             rank: 14 }
+    - !append { skill: ResistTortureDrugs,     rank: 13 }
+    - !append { skill: Streetwise,             rank: 12 }
+    - !append { skill: Surgery,                rank: 17 }
+    - !append { skill: Tactics,               rank: 1  }
+    - !append { skill: Trading,                rank: 12 }
+    - !append { skill: WardrobeStyle,          rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBodysculpting
+    - !append Cyberware.DangerGal_ArtificialShoulderMount_ExtraLimbs
+    - !append Cyberware.DangerGal_Chemskin
+    - !append Cyberware.DangerGal_Cyberarm_HardenedShielding_PopupIMIChainknife_x2
+    - !append Cyberware.DangerGal_Cyberarm_HardenedShielding_PopupIMIChainknife_Medscanner
+    - !append Cyberware.DangerGal_Cyberarm_HardenedShielding_PopupIMIChainknife_MicroWaldo
+    - !append Cyberware.DangerGal_CyberaudioSuite_AmplifiedHearing_HomingTracer_VoiceStressAnalyzer
+    - !append Cyberware.DangerGal_Cybereye_AntiDazzle_MicroOptics
+    - !append Cyberware.DangerGal_Cybereye_AntiDazzle_TargetingScope
+    - !append Cyberware.DangerGal_EnhancedAntibodies
+    - !append Cyberware.DangerGal_NasalFilters
+    - !append Cyberware.DangerGal_NeuralLink_BraindanceRecorder_ChipwareSocket_InterfacePlugs_PainEditor
+    - !append Cyberware.DangerGal_FleshWeave
+
+  primaryEquipment:
+    weapon: Weapons.Base_HeavyMelee
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.PopupIMIChainknife
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Blammo — OG Bozo
+# Boss → NPC.Base_Bozo_Boss
+# ---------------------------------------------------------------------------
+NPC.Bozos_Blammo:
+  $base: NPC.Base_Bozo_Boss
+  name: ""
+  handle: "Blammo"
+  description: "OG Bozo legend; Solo (Combat Awareness 6). Old enough to have been there at the very beginning."
+  lore: >
+    He was there in the early days, when the Bozos took the joke shops and drove cars full of armed clowns
+    into the malls. Rumor has it he came up with the poison pie bit. NCPD DNA analysis on blood left at
+    three crime scenes over decades matched a different name each time. Despite his legend, Blammo refuses
+    command; instead he acts as an instigator, pushing young Bozos to greater heights of insanity.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 7
+    reflexes:     8
+    dexterity:    8
+    tech:         5
+    cool:         5
+    willpower:    5
+    luck:         6
+    move:         8
+    body:         8
+    empathy:      0
+
+  derivedStats:
+    maxHP:   45
+    currentHP: 45
+    armor:   11   # Subdermal Pocket only; no heavy armour — Subdermal Armor not listed, use default Boss 15 → but no Subdermal Armor cyberware present; standard Boss tier = 15; however explicit subdermal pocket ≠ armor. Use tier default 15.
+
+  deathSaveThreshold: 8
+
+  skills:
+    - !append { skill: Athletics,            rank: 15 }
+    - !append { skill: Brawling,             rank: 16 }
+    - !append { skill: Bribery,              rank: 14 }
+    - !append { skill: ConcealRevealObject,  rank: 14 }
+    - !append { skill: Concentration,        rank: 1  }
+    - !append { skill: ConversationCool,     rank: 2  }
+    - !append { skill: Dancing,              rank: 10 }
+    - !append { skill: Demolitions,          rank: 10 }
+    - !append { skill: Education,            rank: 9  }
+    - !append { skill: EnduranceSTR,         rank: 10 }
+    - !append { skill: Evasion,              rank: 16 }
+    - !append { skill: FirstAid,             rank: 7  }
+    - !append { skill: HeavyWeapons,         rank: 16 }
+    - !append { skill: HumanPerception,      rank: 2  }
+    - !append { skill: Interrogation,        rank: 14 }
+    - !append { skill: LinguisticsBase,      rank: 9  }
+    - !append { skill: LocalExpert,          rank: 12 }
+    - !append { skill: MeleeCombat,          rank: 14 }
+    - !append { skill: Perception,           rank: 12 }
+    - !append { skill: Persuasion,           rank: 10 }
+    - !append { skill: ResistTortureDrugs,   rank: 12 }
+    - !append { skill: ShoulderArms,         rank: 16 }
+    - !append { skill: Stealth,              rank: 10 }
+    - !append { skill: Tactics,             rank: 1  }
+    - !append { skill: Trading,              rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBodysculpting
+    - !append Cyberware.DangerGal_AudioVox
+    - !append Cyberware.DangerGal_CyberaudioSuite_AudioRecorder_LevelDamper_VoiceStressAnalyzer
+    - !append Cyberware.DangerGal_Cybereye_AntiDazzle_LowLight_IR_UV_x2
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_PainEditor_ReflexCoProcessor
+    - !append Cyberware.DangerGal_SubdermalPocket_x5
+
+  primaryEquipment:
+    weapon: Weapons.RocketLauncher_Excellent_ExtendedClip
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.Shotgun_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Jester — Bouncing Bozo Beauty
+# Mini-Boss → NPC.Base_MiniBoss
+# ---------------------------------------------------------------------------
+NPC.Bozos_Jester:
+  $base: NPC.Base_MiniBoss
+  name: "Jade Sky"
+  handle: "Jester"
+  description: "Bozo Mini-Boss; Rockerboy (Charismatic Impact 4). Former acrobatic fire-spinner; lost both legs in a theater fire."
+  lore: >
+    Once one of Night City's greatest acrobatic fire-spinners. During a helium-balloon performance a fire
+    ignited the gas, killing ninety-four and costing Jade both legs. She vanished, then resurfaced as
+    Jester, sporting cyberlegs installed by Big Top himself. Her favourite prank is performing as a street
+    busker, luring in a crowd, then watching circus-mates rush from the shadows. Lives for spectacle —
+    takes more risks when there is an audience.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 4
+    reflexes:     8
+    dexterity:    7
+    tech:         3
+    cool:         6
+    willpower:    5
+    luck:         5
+    move:         8
+    body:         6
+    empathy:      3
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   15
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Acting,              rank: 14 }
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Brawling,            rank: 14 }
+    - !append { skill: ConcealRevealObject, rank: 9  }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: Contortionist,       rank: 14 }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Dancing,             rank: 13 }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 16 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 16 }
+    - !append { skill: HumanPerception,     rank: 7  }
+    - !append { skill: Interrogation,       rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: MeleeCombat,         rank: 16 }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: PersonalGrooming,    rank: 10 }
+    - !append { skill: Persuasion,          rank: 8  }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: Stealth,             rank: 9  }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Chemskin
+    - !append Cyberware.DangerGal_Cyberleg_JumpBooster_Talon_x2
+    - !append Cyberware.DangerGal_NeuralLink_Sandevistan_Mk1
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.IMIChainknife
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Tomfool — Bozo Brawler
+# Hardened Lieutenant → NPC.Base_HardenedLieutenant
+# ---------------------------------------------------------------------------
+NPC.Bozos_Tomfool:
+  $base: NPC.Base_HardenedLieutenant
+  name: "Tom Smart"
+  handle: "Tomfool"
+  description: "Bozo Hardened Lieutenant; Solo (Combat Awareness 4). Former underground bloodsport killer clown."
+  lore: >
+    Tom Smart had the clown biosculpt before the Bozos — it was his gimmick in the underground bloodsport
+    scene. The Bozos tried to recruit him but he refused unless one of their number could beat him in the
+    ring; none could. After Hilaria 2045, Big Top visited Tom. Whatever was offered bought his loyalty.
+    He is now lead combatant for Big Top's circus in street brawls, softening enemies with an air cannon
+    before closing in with Judo.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    7
+    tech:         3
+    cool:         6
+    willpower:    5
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      0
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   11   # Subdermal Armor cyberware → minimum 11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Acting,             rank: 10 }
+    - !append { skill: Athletics,          rank: 14 }
+    - !append { skill: Concentration,      rank: 7  }
+    - !append { skill: ConversationCool,   rank: 5  }
+    - !append { skill: Education,          rank: 6  }
+    - !append { skill: EnduranceSTR,       rank: 1  }
+    - !append { skill: Evasion,            rank: 14 }
+    - !append { skill: FirstAid,           rank: 5  }
+    - !append { skill: HumanPerception,    rank: 7  }
+    - !append { skill: LinguisticsBase,    rank: 8  }
+    - !append { skill: LocalExpert,        rank: 6  }
+    - !append { skill: MartialArts,        rank: 14 }
+    - !append { skill: Perception,         rank: 10 }
+    - !append { skill: Persuasion,         rank: 10 }
+    - !append { skill: ResistTortureDrugs, rank: 10 }
+    - !append { skill: ShoulderArms,       rank: 13 }
+    - !append { skill: Stealth,            rank: 9  }
+    - !append { skill: WardrobeStyle,      rank: 8  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBodysculpting
+    - !append Cyberware.DangerGal_Cyberarm
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.Base_Brawling
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Centwit — Clown Gone Bad
+# Lieutenant → NPC.Base_Elite
+# ---------------------------------------------------------------------------
+NPC.Bozos_Centwit:
+  $base: NPC.Base_Elite
+  name: "Terry Claymora"
+  handle: "Centwit"
+  description: "Bozo Lieutenant; Solo (Combat Awareness 4). Third-generation clown; terrorises the Voodoo Boys since 2020."
+  lore: >
+    Terry Claymora comes from an actual clown legacy — third-generation member of the Claymoras, a clown
+    family going back a century. His father died in Night City, mistaken for a Bozo and assassinated by
+    the Voodoo Boys. An apprentice clown, Terry fled into the Combat Zone and the Bozos found him. He
+    joined, took the name Centwit, and has been hitting the Voodoo Boys from the shadows ever since.
+    Not a full member of Big Top's circus but helps out on occasion.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    6
+    tech:         3
+    cool:         4
+    willpower:    5
+    luck:         4
+    move:         6
+    body:         6
+    empathy:      0
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Acting,              rank: 10 }
+    - !append { skill: Athletics,           rank: 13 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: ConcealRevealObject, rank: 9  }
+    - !append { skill: Concentration,       rank: 9  }
+    - !append { skill: Contortionist,       rank: 10 }
+    - !append { skill: ConversationCool,    rank: 7  }
+    - !append { skill: Dancing,             rank: 8  }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 13 }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LocalExpert,         rank: 8  }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: Persuasion,          rank: 8  }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: Trading,             rank: 6  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBodysculpting
+    - !append Cyberware.DangerGal_Cybereye_LowLight_IR_UV_x2
+    - !append Cyberware.DangerGal_NeuralLink_Kerenzikov
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.BrawlingAttack
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Dead Ringer (Blue) — The Blue One
+# Lieutenant → NPC.Base_Elite
+# ---------------------------------------------------------------------------
+NPC.Bozos_DeadRinger_Blue:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Dead Ringer"
+  description: "Bozo Lieutenant (Blue-haired twin). Loud, flashy distraction; loves poison grenades and looting corpses."
+  lore: >
+    The louder of the twin Dead Ringers. Always telling jokes, impossible to ignore — she loves the
+    attention. In a fight she juggles poison grenades or vials, runs around the field, and sets fire to
+    things, all while giggling and cracking wise. She is the distraction. Laces her Scratchers with
+    poison and prefers looting your corpse once you are twitching on the ground.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 4
+    reflexes:     6
+    dexterity:    6
+    tech:         4
+    cool:         6
+    willpower:    4
+    luck:         4
+    move:         6
+    body:         5
+    empathy:      0
+
+  derivedStats:
+    maxHP:   35
+    currentHP: 35
+    armor:   11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Acting,              rank: 1  }
+    - !append { skill: Athletics,           rank: 13 }
+    - !append { skill: Brawling,            rank: 8  }
+    - !append { skill: ConcealRevealObject, rank: 6  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: Contortionist,       rank: 1  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Dancing,             rank: 8  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 7  }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LibrarySearch,       rank: 12 }
+    - !append { skill: LipReading,          rank: 10 }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: PersonalGrooming,    rank: 10 }
+    - !append { skill: Perception,          rank: 7  }
+    - !append { skill: Persuasion,          rank: 1  }
+    - !append { skill: ResistTortureDrugs,  rank: 8  }
+    - !append { skill: Stealth,             rank: 8  }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBiosculpting
+    - !append Cyberware.DangerGal_NeuralLink_ReflexCoProcessor
+    - !append Cyberware.DangerGal_Scratchers
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.Scratchers
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Dead Ringer (Pink) — The Pink One
+# Lieutenant → NPC.Base_Elite
+# ---------------------------------------------------------------------------
+NPC.Bozos_DeadRinger_Pink:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Dead Ringer"
+  description: "Bozo Lieutenant (Pink-haired twin). Silent pickpocket; coats Scratchers with biotoxin."
+  lore: >
+    Where her sister is all flash and pizazz, the pink-haired Dead Ringer is the spooky, silent sort.
+    She never tells jokes — never says a word. Sometimes she giggles, but mostly she creeps silently,
+    fingers slipping into pockets. If you see the blue sister, check your possessions. Fond of giving
+    her mark's weapons to other Bozos so they can be killed with their own gear.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 4
+    reflexes:     6
+    dexterity:    6
+    tech:         6
+    cool:         4
+    willpower:    4
+    luck:         4
+    move:         6
+    body:         5
+    empathy:      0
+
+  derivedStats:
+    maxHP:   35
+    currentHP: 35
+    armor:   11
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: Brawling,            rank: 8  }
+    - !append { skill: ConcealRevealObject, rank: 6  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: Contortionist,       rank: 10 }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 6  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 8  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LipReading,          rank: 6  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: PersonalGrooming,    rank: 9  }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: PickLock,            rank: 14 }
+    - !append { skill: PickPocket,          rank: 15 }
+    - !append { skill: ResistTortureDrugs,  rank: 7  }
+    - !append { skill: Stealth,             rank: 12 }
+    - !append { skill: WardrobeStyle,       rank: 9  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBodysculpting
+    - !append Cyberware.DangerGal_NeuralLink_ReflexCoProcessor
+    - !append Cyberware.DangerGal_Scratchers
+
+  primaryEquipment:
+    weapon: Weapons.Base_LightMelee_Excellent
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.Base_LightMelee_Excellent
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Finale — Silent But Deadly
+# Lieutenant → NPC.Base_Elite
+# ---------------------------------------------------------------------------
+NPC.Bozos_Finale:
+  $base: NPC.Base_Elite
+  name: "Kane Nove"
+  handle: "Finale"
+  description: "Bozo Lieutenant. Jaw wired shut by a ripperdoc; channels permanent rage into combat."
+  lore: >
+    A street punk who mouthed off to a local ripperdoc. The ripperdoc had his muscle hold Kane down and
+    wired his jaw shut — he can sort of chew and grunt but not much more. Big Top's circus fished him out
+    of the bay and found his predicament hilarious; they named him Finale and signed him up. His rage only
+    increases. Big Top has promised to free his jaw when he has "earned his tongue".
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    7
+    tech:         3
+    cool:         4
+    willpower:    4
+    luck:         4
+    move:         6
+    body:         6
+    empathy:      0
+
+  derivedStats:
+    maxHP:   35
+    currentHP: 35
+    armor:   11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 13 }
+    - !append { skill: Autofire,            rank: 13 }
+    - !append { skill: Brawling,            rank: 15 }
+    - !append { skill: ConcealRevealObject, rank: 8  }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Dancing,             rank: 12 }
+    - !append { skill: Demolitions,         rank: 5  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 8  }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: Handgun,       rank: 9  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LipReading,          rank: 6  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: Perception,          rank: 7  }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: ResistTortureDrugs,  rank: 6  }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 9  }
+    - !append { skill: Streetwise,          rank: 7  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye_LowLight_IR_UV_x2
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Standard
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.BrawlingAttack
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Burt The Squirt — An Acid Wit
+# Hardened Mook → NPC.Base_Bozo_HardenedGrunt
+# ---------------------------------------------------------------------------
+NPC.Bozos_BurtTheSquirt:
+  $base: NPC.Base_Bozo_HardenedGrunt
+  name: "Burt Batail"
+  handle: "Burt The Squirt"
+  description: "Bozo Hardened Mook. Acid-obsessed; lost his hair in an industrial accident and has been chemically destructive ever since."
+  lore: >
+    After losing all his hair in an industrial accident, Burt became obsessed with acid — experimenting
+    to perfectly recreate the mixture that took his hair. He wants to inflict permanent baldness on Night
+    City. He joined the Bozos because they promised him an unlimited supply of chemicals. Carries a gun
+    loaded with acid rounds and will always target the enemy with the best hair first.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 3
+    reflexes:     6
+    dexterity:    4
+    tech:         5
+    cool:         5
+    willpower:    5
+    luck:         3
+    move:         5
+    body:         7
+    empathy:      1
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   7
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: BasicTech,           rank: 8  }
+    - !append { skill: Brawling,            rank: 7  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 3  }
+    - !append { skill: Education,           rank: 5  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 7  }
+    - !append { skill: Handgun,       rank: 12 }
+    - !append { skill: HumanPerception,     rank: 3  }
+    - !append { skill: Interrogation,       rank: 10 }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LocalExpert,         rank: 5  }
+    - !append { skill: Perception,          rank: 5  }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: Stealth,             rank: 6  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ExoticBodysculpting
+    - !append Cyberware.DangerGal_Cybereye_ColorShift_x2
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Dunce — A Fool No More
+# Mook → NPC.Base_Bozo_Grunt
+# ---------------------------------------------------------------------------
+NPC.Bozos_Dunce:
+  $base: NPC.Base_Bozo_Grunt
+  name: "Sion Bannerkin"
+  handle: "Dunce"
+  description: "Bozo Mook. Graduated from Fool to full Bozo after surviving Hilaria 2045; wields a spiked baseball bat."
+  lore: >
+    One Fool made it through Hilaria 2045 to become a full Bozo. Dunce insists "it's all in his smile."
+    During the fight at the Forlorn Hope he lost both guns in the sewage but a baseball bat he found
+    in the muck saved his life. He stumbled away covered in blood, sewage, and glitter with a hole in
+    his chest. As a reward, Big Top fixed him up and melted a mask onto his face. Will always go for
+    the nose.
+  npcType: RecurringNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 2
+    reflexes:     4
+    dexterity:    5
+    tech:         2
+    cool:         4
+    willpower:    3
+    luck:         2
+    move:         5
+    body:         5
+    empathy:      3
+
+  derivedStats:
+    maxHP:   30
+    currentHP: 30
+    armor:   7
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 7  }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: ConcealRevealObject, rank: 4  }
+    - !append { skill: Concentration,       rank: 7  }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Dancing,             rank: 7  }
+    - !append { skill: Education,           rank: 4  }
+    - !append { skill: EnduranceSTR,        rank: 6  }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 4  }
+    - !append { skill: Handgun,       rank: 8  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 6  }
+    - !append { skill: LocalExpert,         rank: 4  }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 4  }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: Stealth,             rank: 7  }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# The Fool — Tears of a Clown
+# Mook → NPC.Base_Bozo_Grunt
+# Generic Bozo initiate template; not a specific person
+# ---------------------------------------------------------------------------
+NPC.Bozos_TheFool:
+  $base: NPC.Base_Bozo_Grunt
+  name: ""
+  handle: "The Fool"
+  description: "Generic Bozo initiate template. Fresh meat in the Good Luck Bag mask; pushed to the front line as a human shield."
+  lore: >
+    There's always a Fool on a Bozo battlefield. The Fool isn't a specific person but a form of initiation.
+    The Bozos give "less promising" recruits a mask known as the Good Luck Bag and push them to the front.
+    Fresh meat makes a good shield. If a Fool survives until the next recruit arrives, they hand off the
+    mask and earn the biosculpting needed to become a proper Bozo. The bag is taken from a corpse more
+    often than it is handed over willingly.
+  npcType: EncounterNPC
+  faction: Bozos
+  attitudeGroup: Berserk
+
+  attributes:
+    intelligence: 3
+    reflexes:     5
+    dexterity:    3
+    tech:         2
+    cool:         3
+    willpower:    4
+    luck:         2
+    move:         6
+    body:         4
+    empathy:      3
+
+  derivedStats:
+    maxHP:   30
+    currentHP: 30
+    armor:   7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 8  }
+    - !append { skill: Brawling,            rank: 8  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Education,           rank: 5  }
+    - !append { skill: EnduranceSTR,        rank: 5  }
+    - !append { skill: Evasion,             rank: 8  }
+    - !append { skill: FirstAid,            rank: 4  }
+    - !append { skill: Gamble,              rank: 5  }
+    - !append { skill: Handgun,       rank: 1  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 7  }
+    - !append { skill: LocalExpert,         rank: 5  }
+    - !append { skill: MeleeCombat,         rank: 8  }
+    - !append { skill: Perception,          rank: 5  }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: PlayInstrument,      rank: 4  }
+    - !append { skill: Stealth,             rank: 5  }
+    - !append { skill: Streetwise,          rank: 7  }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Poor
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

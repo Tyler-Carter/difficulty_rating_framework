@@ -1,0 +1,394 @@
+# =============================================================================
+# records/npcs/danger_gal_trauma_team.yml
+# Trauma Team NC4-2 NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 6 NPCs: Cazadora, Penitent, Stick, Twist, Rockabye, Paddles
+# =============================================================================
+
+# Guard roles: Cazadora, Penitent, Twist
+# Medic roles: Stick, Rockabye, Paddles
+
+
+NPC.TraumaTeam_Cazadora:
+  $base: NPC.Base_TraumaTeam_Guard
+  name: ""
+  handle: "Cazadora"
+  description: "Squad Leader"
+  lore: >
+    Cazadora's a Spaniard by birth, out of the mountains of Guadalajara. She's from a long line
+    of bounty hunters who taught little Caz anatomy alongside her combat skills. Eighteen months
+    back she was on a solo mission in Night City when demolition charges went off; she led the
+    remaining survivors out of the rubble. Her subsequent therapy sessions identified a calling —
+    she joined Trauma Team.
+  npcType: RecurringNPC
+  faction: Trauma_Team
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     8
+    dexterity:    7
+    tech:         8
+    cool:         6
+    willpower:    7
+    luck:         5
+    move:         5
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 15
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: Autofire,            rank: 16 }
+    - !append { skill: Brawling,            rank: 15 }
+    - !append { skill: Bureaucracy,         rank: 7 }
+    - !append { skill: Concentration,       rank: 1 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 6 }
+    - !append { skill: Evasion,             rank: 15 }
+    - !append { skill: FirstAid,            rank: 10 }
+    - !append { skill: Handgun,       rank: 16 }
+    - !append { skill: HumanPerception,     rank: 9 }
+    - !append { skill: LinguisticsBase,     rank: 12 }
+    - !append { skill: LocalExpert,         rank: 6 }
+    - !append { skill: MedicalTech,         rank: 9 }
+    - !append { skill: Paramedic,           rank: 9 }
+    - !append { skill: Perception,          rank: 6 }
+    - !append { skill: PersonalGrooming,    rank: 8 }
+    - !append { skill: Persuasion,          rank: 9 }
+    - !append { skill: Pilot_AerialVehicle, rank: 12 }
+    - !append { skill: Stealth,             rank: 15 }
+    - !append { skill: Surgery,             rank: 10 }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavySMG_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TraumaTeam_Penitent:
+  $base: NPC.Base_TraumaTeam_Guard
+  name: ""
+  handle: "Penitent"
+  description: "Squad Gunner"
+  lore: >
+    This bloke loves all that goes bang. Fairly new to the squad, Cazadora insisted on a full
+    personal interview before she even let him put his application in. He worked in the past as
+    muscle-for-hire but seemed to be bad luck for his crews — deals went south, meetings blew up
+    (literally, on occasion), and people ended up dead.
+  npcType: RecurringNPC
+  faction: Trauma_Team
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 4
+    reflexes:     7
+    dexterity:    6
+    tech:         5
+    cool:         4
+    willpower:    4
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      5
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 15
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: Autofire,            rank: 14 }
+    - !append { skill: Brawling,            rank: 8 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 6 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 1 }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HeavyWeapons,        rank: 14 }
+    - !append { skill: HumanPerception,     rank: 7 }
+    - !append { skill: LinguisticsBase,     rank: 8 }
+    - !append { skill: LocalExpert,         rank: 6 }
+    - !append { skill: Perception,          rank: 6 }
+    - !append { skill: Persuasion,          rank: 6 }
+    - !append { skill: Pilot_AerialVehicle, rank: 10 }
+    - !append { skill: Stealth,             rank: 8 }
+    - !append { skill: Streetwise,          rank: 8 }
+    - !append { skill: Tactics,             rank: 8 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TraumaTeam_Stick:
+  $base: NPC.Base_TraumaTeam_Medtech
+  name: ""
+  handle: "Stick"
+  description: "Squad Meat Specialist"
+  lore: >
+    Stick and her brother Twist were born in Night City; Corp kids with an uncle in Trauma Team
+    middle management, so "Medic" was their destination. The wheels came off when Stick befriended
+    Paddles in training and the two decamped to REO Meatwagon. After the building collapse, her
+    family connections got her back into the Trauma Team fold.
+  npcType: RecurringNPC
+  faction: Trauma_Team
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    4
+    tech:         8
+    cool:         5
+    willpower:    4
+    luck:         5
+    move:         5
+    body:         4
+    empathy:      6
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 15
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 10 }
+    - !append { skill: Concentration,       rank: 12 }
+    - !append { skill: ConversationCool,    rank: 8 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 10 }
+    - !append { skill: HumanPerception,     rank: 9 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 12 }
+    - !append { skill: MedicalTech,         rank: 9 }
+    - !append { skill: Paramedic,           rank: 14 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 7 }
+    - !append { skill: ResistTortureDrugs,  rank: 12 }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 6 }
+    - !append { skill: Streetwise,          rank: 12 }
+    - !append { skill: Surgery,             rank: 14 }
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TraumaTeam_Twist:
+  $base: NPC.Base_TraumaTeam_Guard
+  name: ""
+  handle: "Twist"
+  description: "Squad Metal Specialist"
+  lore: >
+    No surprise Twist grew up with his sister Stick and learned the family business; but after
+    only a few months playing medic, he got bitten by the fame bug and made a play for stardom
+    as an independent Pop Media reporter under the name Flashes. His biggest story was about the
+    apartment collapse that nearly offed his sister. Two assassination attempts later, Flashes
+    ran for cover — now looking different as "Twist."
+  npcType: RecurringNPC
+  faction: Trauma_Team
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     6
+    dexterity:    4
+    tech:         8
+    cool:         7
+    willpower:    4
+    luck:         5
+    move:         4
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 15
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,           rank: 6 }
+    - !append { skill: Brawling,            rank: 6 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 10 }
+    - !append { skill: Cybertech,           rank: 12 }
+    - !append { skill: Deduction,           rank: 8 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 10 }
+    - !append { skill: HumanPerception,     rank: 12 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 8 }
+    - !append { skill: MedicalTech,         rank: 10 }
+    - !append { skill: Paramedic,           rank: 12 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 9 }
+    - !append { skill: Photography_Film,    rank: 10 }
+    - !append { skill: ResistTortureDrugs,  rank: 10 }
+    - !append { skill: ShoulderArms,        rank: 13 }
+    - !append { skill: Stealth,             rank: 6 }
+    - !append { skill: Streetwise,          rank: 12 }
+    - !append { skill: WardrobeStyle,       rank: 10 }
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Excellent
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TraumaTeam_Rockabye:
+  $base: NPC.Base_TraumaTeam_Medtech
+  name: ""
+  handle: "Rockabye"
+  description: "Squad Pilot"
+  lore: >
+    There's no dark secret here, just straight-up guilt. Rockabye delivered the explosives used
+    to nearly flatten Cazadora and company, though all seems forgiven. She still clearly feels bad
+    for her role in the attack. A spectacular and single-minded pilot — she gets her name from the
+    silky-smooth ride casualties get out of danger zones, yet she bombs into trouble spots like
+    a total demon.
+  npcType: RecurringNPC
+  faction: Trauma_Team
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 6
+    reflexes:     7
+    dexterity:    4
+    tech:         7
+    cool:         6
+    willpower:    5
+    luck:         5
+    move:         4
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 15
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 6 }
+    - !append { skill: BasicTech,           rank: 1 }
+    - !append { skill: Brawling,            rank: 6 }
+    - !append { skill: Concentration,       rank: 7 }
+    - !append { skill: ConversationCool,    rank: 7 }
+    - !append { skill: DriveLandVehicle,    rank: 12 }
+    - !append { skill: Education,           rank: 8 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 9 }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HeavyWeapons,        rank: 10 }
+    - !append { skill: HumanPerception,     rank: 7 }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 12 }
+    - !append { skill: Paramedic,           rank: 10 }
+    - !append { skill: Perception,          rank: 8 }
+    - !append { skill: Persuasion,          rank: 8 }
+    - !append { skill: Pilot_AerialVehicle, rank: 13 }
+    - !append { skill: Stealth,             rank: 6 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Excellent
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.TraumaTeam_Paddles:
+  $base: NPC.Base_TraumaTeam_Medtech
+  name: ""
+  handle: "Paddles"
+  description: "Squad Crash Cart Specialist"
+  lore: >
+    Paddles gets his name from his novel way of using his defibrillator in combat, a habit he
+    picked up in Combat Zone training missions. He's the one who convinced Stick to defect to
+    REO Meatwagon from Trauma Team — and collected a signing bonus for bringing the two of them
+    over. Stick presumably doesn't know. Of all the team, Paddles is the one to watch out for in
+    a fight, as he takes great pleasure in stunning any organic obstacle.
+  npcType: RecurringNPC
+  faction: Trauma_Team
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 3
+    reflexes:     8
+    dexterity:    6
+    tech:         5
+    cool:         3
+    willpower:    3
+    luck:         3
+    move:         4
+    body:         4
+    empathy:      3
+
+  derivedStats:
+    maxHP: 30
+    currentHP: 30
+    armor: 15
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 8 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Concentration,       rank: 5 }
+    - !append { skill: ConversationCool,    rank: 5 }
+    - !append { skill: Cybertech,           rank: 8 }
+    - !append { skill: Education,           rank: 5 }
+    - !append { skill: Evasion,             rank: 8 }
+    - !append { skill: FirstAid,            rank: 7 }
+    - !append { skill: HumanPerception,     rank: 5 }
+    - !append { skill: LinguisticsBase,     rank: 7 }
+    - !append { skill: LocalExpert,         rank: 5 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Paramedic,           rank: 10 }
+    - !append { skill: Perception,          rank: 5 }
+    - !append { skill: Persuasion,          rank: 12 }
+    - !append { skill: Stealth,             rank: 8 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.StunBaton_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false

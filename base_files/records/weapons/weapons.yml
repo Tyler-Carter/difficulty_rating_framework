@@ -1,0 +1,541 @@
+# =============================================================================
+# records/weapons/weapons.yml
+# Weapon leaf records for CPRED DR Framework
+# =============================================================================
+
+
+# =============================================================================
+# PRESET WEAPONS  (generic, source-agnostic)
+# =============================================================================
+
+Weapons.Preset_LightPistol_Standard:
+  $base: Weapons.Base_Pistol
+  name: "Light Pistol"
+  description: "A standard light pistol."
+  rarity: Standard
+
+Weapons.Preset_HeavyPistol_Standard:
+  $base: Weapons.Base_HeavyPistol
+  name: "Heavy Pistol"
+  description: "A standard heavy pistol."
+  rarity: Standard
+
+Weapons.Preset_VeryHeavyPistol_Excellent:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Very Heavy Pistol"
+  description: "An excellent-quality very heavy pistol."
+  rarity: Excellent
+
+Weapons.Preset_AssaultRifle_Military:
+  $base: Weapons.Base_AssaultRifle
+  name: "Military Assault Rifle"
+  description: "A military-grade assault rifle. Restricted."
+  rarity: Standard
+  weaponCategory: Military
+
+Weapons.Preset_MediumMelee_Knife:
+  $base: Weapons.Base_MediumMelee
+  name: "Knife"
+  description: "A standard combat knife."
+  rarity: Standard
+
+
+# =============================================================================
+# DANGER GAL DOSSIER WEAPONS
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# PISTOL (Pistol / "Medium Pistol")
+# ---------------------------------------------------------------------------
+
+Weapons.MediumPistol_Poor:
+  $base: Weapons.Base_Pistol
+  name: "Medium Pistol"
+  description: "A worn, unreliable pistol."
+  rarity: Poor
+  weaponType: Pistol
+
+Weapons.MediumPistol_Standard:
+  $base: Weapons.Base_Pistol
+  name: "Medium Pistol"
+  description: "A standard medium pistol."
+  rarity: Standard
+  weaponType: Pistol
+
+
+# ---------------------------------------------------------------------------
+# HEAVY PISTOL
+# ---------------------------------------------------------------------------
+
+Weapons.HeavyPistol_Poor:
+  $base: Weapons.Base_HeavyPistol
+  name: "Heavy Pistol"
+  description: "A worn, unreliable heavy pistol."
+  rarity: Poor
+
+Weapons.HeavyPistol_Standard:
+  $base: Weapons.Base_HeavyPistol
+  name: "Heavy Pistol"
+  description: "A standard heavy pistol."
+  rarity: Standard
+
+Weapons.HeavyPistol_Standard_SmartgunLink:
+  $base: Weapons.Base_HeavyPistol
+  name: "Heavy Pistol (Smartgun Link)"
+  description: "A standard heavy pistol fitted with a smartgun link."
+  rarity: Standard
+  modSlots:
+    - Mod.SmartgunLink
+
+Weapons.HeavyPistol_Excellent:
+  $base: Weapons.Base_HeavyPistol
+  name: "Heavy Pistol"
+  description: "An excellent-quality heavy pistol."
+  rarity: Excellent
+
+Weapons.HeavyPistol_Excellent_SmartgunLink:
+  $base: Weapons.Base_HeavyPistol
+  name: "Heavy Pistol (Smartgun Link)"
+  description: "An excellent-quality heavy pistol fitted with a smartgun link."
+  rarity: Excellent
+  modSlots:
+    - Mod.SmartgunLink
+
+
+# ---------------------------------------------------------------------------
+# VERY HEAVY PISTOL
+# ---------------------------------------------------------------------------
+
+Weapons.VeryHeavyPistol_Poor:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Very Heavy Pistol"
+  description: "A worn, unreliable very heavy pistol."
+  rarity: Poor
+
+Weapons.VeryHeavyPistol_Poor_ExtendedMagazine:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Very Heavy Pistol (Extended Magazine)"
+  description: "A worn very heavy pistol with an extended magazine."
+  rarity: Poor
+  magazineCapacity: 12
+  modSlots:
+    - Mod.ExtendedMagazine
+
+Weapons.VeryHeavyPistol_Standard:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Very Heavy Pistol"
+  description: "A standard very heavy pistol."
+  rarity: Standard
+
+Weapons.VeryHeavyPistol_Standard_SmartgunLink:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Very Heavy Pistol (Smartgun Link)"
+  description: "A standard very heavy pistol fitted with a smartgun link."
+  rarity: Standard
+  modSlots:
+    - Mod.SmartgunLink
+
+Weapons.VeryHeavyPistol_Excellent:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Very Heavy Pistol"
+  description: "An excellent-quality very heavy pistol."
+  rarity: Excellent
+
+
+# ---------------------------------------------------------------------------
+# SMG
+# ---------------------------------------------------------------------------
+
+Weapons.SMG_Standard:
+  $base: Weapons.Base_SMG
+  name: "SMG"
+  description: "A standard submachinegun."
+  rarity: Standard
+
+
+# ---------------------------------------------------------------------------
+# HEAVY SMG
+# ---------------------------------------------------------------------------
+
+Weapons.HeavySMG_Poor:
+  $base: Weapons.Base_HeavySMG
+  name: "Heavy SMG"
+  description: "A worn, unreliable heavy SMG."
+  rarity: Poor
+
+Weapons.HeavySMG_Standard:
+  $base: Weapons.Base_HeavySMG
+  name: "Heavy SMG"
+  description: "A standard heavy SMG."
+  rarity: Standard
+
+Weapons.HeavySMG_Excellent:
+  $base: Weapons.Base_HeavySMG
+  name: "Heavy SMG"
+  description: "An excellent-quality heavy SMG."
+  rarity: Excellent
+
+Weapons.HeavySMG_Excellent_DrumMagazine:
+  $base: Weapons.Base_HeavySMG
+  name: "Heavy SMG (Drum Magazine)"
+  description: "An excellent-quality heavy SMG with an extended drum magazine."
+  rarity: Excellent
+  magazineCapacity: 60
+  modSlots:
+    - Mod.DrumMagazine
+
+
+# ---------------------------------------------------------------------------
+# SHOTGUN
+# ---------------------------------------------------------------------------
+
+Weapons.Shotgun_Poor:
+  $base: Weapons.Base_Shotgun
+  name: "Shotgun"
+  description: "A worn, unreliable shotgun."
+  rarity: Poor
+
+Weapons.Shotgun_Standard:
+  $base: Weapons.Base_Shotgun
+  name: "Shotgun"
+  description: "A standard shotgun."
+  rarity: Standard
+
+Weapons.Shotgun_Excellent:
+  $base: Weapons.Base_Shotgun
+  name: "Shotgun"
+  description: "An excellent-quality shotgun."
+  rarity: Excellent
+
+
+# ---------------------------------------------------------------------------
+# ASSAULT RIFLE
+# ---------------------------------------------------------------------------
+
+Weapons.AssaultRifle_Poor:
+  $base: Weapons.Base_AssaultRifle
+  name: "Assault Rifle"
+  description: "A worn, unreliable assault rifle."
+  rarity: Poor
+
+Weapons.AssaultRifle_Standard:
+  $base: Weapons.Base_AssaultRifle
+  name: "Assault Rifle"
+  description: "A standard assault rifle."
+  rarity: Standard
+
+Weapons.AssaultRifle_Excellent:
+  $base: Weapons.Base_AssaultRifle
+  name: "Assault Rifle"
+  description: "An excellent-quality assault rifle."
+  rarity: Excellent
+
+
+# ---------------------------------------------------------------------------
+# SNIPER RIFLE
+# ---------------------------------------------------------------------------
+
+Weapons.SniperRifle_Standard:
+  $base: Weapons.Base_SniperRifle
+  name: "Sniper Rifle"
+  description: "A standard sniper rifle."
+  rarity: Standard
+
+Weapons.SniperRifle_Excellent:
+  $base: Weapons.Base_SniperRifle
+  name: "Sniper Rifle"
+  description: "An excellent-quality sniper rifle."
+  rarity: Excellent
+
+Weapons.SniperRifle_Excellent_SniperScope:
+  $base: Weapons.Base_SniperRifle
+  name: "Sniper Rifle (Sniper Scope)"
+  description: "An excellent sniper rifle fitted with a high-powered scope."
+  rarity: Excellent
+  modSlots:
+    - Mod.SniperScope
+
+Weapons.SniperRifle_Excellent_SmartgunLink_SnipingScope:
+  $base: Weapons.Base_SniperRifle
+  name: "Sniper Rifle (Smartgun Link + Sniping Scope)"
+  description: "An excellent sniper rifle with smartgun link and long-range sniping scope."
+  rarity: Excellent
+  modSlots:
+    - Mod.SmartgunLink
+    - Mod.SnipingScope
+
+
+# ---------------------------------------------------------------------------
+# GRENADE LAUNCHER
+# ---------------------------------------------------------------------------
+
+Weapons.GrenadeLauncher_Standard:
+  $base: Weapons.Base_GrenadeLauncher
+  name: "Grenade Launcher"
+  description: "A standard grenade launcher."
+  rarity: Standard
+
+
+# ---------------------------------------------------------------------------
+# ROCKET LAUNCHER
+# ---------------------------------------------------------------------------
+
+Weapons.RocketLauncher_Standard:
+  $base: Weapons.Base_RocketLauncher
+  name: "Rocket Launcher"
+  description: "A standard rocket launcher."
+  rarity: Standard
+
+Weapons.RocketLauncher_Excellent_ExtendedClip:
+  $base: Weapons.Base_RocketLauncher
+  name: "Rocket Launcher (Extended Clip)"
+  description: "An excellent rocket launcher with an extended clip."
+  rarity: Excellent
+  magazineCapacity: 2
+  modSlots:
+    - Mod.ExtendedClip
+
+
+# ---------------------------------------------------------------------------
+# FLAMETHROWER
+# ---------------------------------------------------------------------------
+
+Weapons.Flamethrower_Standard:
+  $base: Weapons.Base_FlamethrowerWeapon
+  name: "Flamethrower"
+  description: "A standard military flamethrower."
+  rarity: Standard
+
+
+# ---------------------------------------------------------------------------
+# LIGHT MELEE WEAPON
+# ---------------------------------------------------------------------------
+
+Weapons.LightMeleeWeapon:
+  $base: Weapons.Base_LightMelee
+  name: "Light Melee Weapon"
+  description: "A light melee weapon."
+  rarity: Standard
+
+Weapons.LightMeleeWeapon_Poor:
+  $base: Weapons.Base_LightMelee
+  name: "Light Melee Weapon"
+  description: "A worn, unreliable light melee weapon."
+  rarity: Poor
+
+Weapons.LightMeleeWeapon_Standard:
+  $base: Weapons.Base_LightMelee
+  name: "Light Melee Weapon"
+  description: "A standard light melee weapon."
+  rarity: Standard
+
+Weapons.LightMeleeWeapon_Excellent:
+  $base: Weapons.Base_LightMelee
+  name: "Light Melee Weapon"
+  description: "An excellent-quality light melee weapon."
+  rarity: Excellent
+
+
+# ---------------------------------------------------------------------------
+# MEDIUM MELEE WEAPON
+# ---------------------------------------------------------------------------
+
+Weapons.MediumMeleeWeapon_Standard:
+  $base: Weapons.Base_MediumMelee
+  name: "Medium Melee Weapon"
+  description: "A standard medium melee weapon."
+  rarity: Standard
+
+
+# ---------------------------------------------------------------------------
+# HEAVY MELEE WEAPON
+# ---------------------------------------------------------------------------
+
+Weapons.HeavyMeleeWeapon_Poor:
+  $base: Weapons.Base_HeavyMelee
+  name: "Heavy Melee Weapon"
+  description: "A worn, unreliable heavy melee weapon."
+  rarity: Poor
+
+Weapons.HeavyMeleeWeapon_Standard:
+  $base: Weapons.Base_HeavyMelee
+  name: "Heavy Melee Weapon"
+  description: "A standard heavy melee weapon."
+  rarity: Standard
+
+Weapons.HeavyMeleeWeapon_Standard_2:
+  $base: Weapons.Base_HeavyMelee
+  name: "Heavy Melee Weapon (Alt)"
+  description: "An alternative standard heavy melee weapon."
+  rarity: Standard
+
+Weapons.HeavyMeleeWeapon_Excellent:
+  $base: Weapons.Base_HeavyMelee
+  name: "Heavy Melee Weapon"
+  description: "An excellent-quality heavy melee weapon."
+  rarity: Excellent
+
+
+# ---------------------------------------------------------------------------
+# VERY HEAVY MELEE WEAPON
+# ---------------------------------------------------------------------------
+
+Weapons.VeryHeavyMeleeWeapon_Poor:
+  $base: Weapons.Base_VeryHeavyMelee
+  name: "Very Heavy Melee Weapon"
+  description: "A worn, unreliable very heavy melee weapon."
+  rarity: Poor
+
+Weapons.VeryHeavyMeleeWeapon_Excellent:
+  $base: Weapons.Base_VeryHeavyMelee
+  name: "Very Heavy Melee Weapon"
+  description: "An excellent-quality very heavy melee weapon."
+  rarity: Excellent
+
+
+# ---------------------------------------------------------------------------
+# STUN BATON
+# ---------------------------------------------------------------------------
+
+Weapons.StunBaton_Standard:
+  $base: Weapons.Base_HeavyMelee
+  name: "Stun Baton"
+  description: "A collapsible stun baton that delivers a paralyzing electric shock on contact."
+  rarity: Standard
+  weaponCategory: Exotic
+  damageTypes: [Electric]
+
+
+# =============================================================================
+# DANGER GAL DOSSIER — POPUP WEAPONS
+# Cyberarm-integrated weapons that deploy on activation.
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# =============================================================================
+
+Weapons.VeryHeavyPistol_Popup:
+  $base: Weapons.Base_VeryHeavyPistol
+  name: "Popup Very Heavy Pistol"
+  description: "A very heavy pistol integrated into a cyberarm popup housing. Deploys and retracts on activation."
+  rarity: Standard
+
+Weapons.KendachiFlamethrower_Popup:
+  $base: Weapons.Base_FlamethrowerWeapon
+  name: "Kendachi Flamethrower (Popup)"
+  description: "A Kendachi-brand flamethrower integrated into a cyberarm popup housing. Deploys and retracts on activation."
+  rarity: Standard
+  weaponCategory: Exotic
+
+Weapons.PopupIMIChainknife:
+  $base: Weapons.Base_MediumMelee
+  name: "IMI Chainknife (Popup)"
+  description: "An IMI-brand vibro-chainknife integrated into a cyberarm popup housing. Deploys and retracts on activation."
+  rarity: Standard
+  weaponCategory: Exotic
+
+Weapons.PopupHeavyMeleeWeapon:
+  $base: Weapons.Base_HeavyMelee
+  name: "Popup Heavy Melee Weapon"
+  description: "A heavy melee weapon integrated into a cyberarm popup housing. Deploys and retracts on activation."
+  rarity: Standard
+
+
+# =============================================================================
+# DANGER GAL DOSSIER — NAMED / EXOTIC WEAPONS
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# =============================================================================
+
+# --- Unarmed / Brawling ---
+
+Weapons.BrawlingAttack:
+  $base: Weapons.Base_Brawling
+  name: "Brawling Attack"
+  description: "An unarmed attack using brawling technique."
+  rarity: Standard
+
+Weapons.Brawling_Unarmed:
+  $base: Weapons.Base_Brawling
+  name: "Unarmed Strike"
+  description: "A basic unarmed strike."
+  rarity: Standard
+
+Weapons.MartialArtsAttack:
+  $base: Weapons.Base_Brawling
+  name: "Martial Arts Attack"
+  description: "An unarmed attack using trained martial arts technique."
+  rarity: Standard
+
+Weapons.MartialArts_Unarmed:
+  $base: Weapons.Base_Brawling
+  name: "Martial Arts Strike"
+  description: "A focused unarmed strike from martial arts practice."
+  rarity: Standard
+
+# --- Named light melee ---
+
+Weapons.Scratchers:
+  $base: Weapons.Base_LightMelee
+  name: "Scratchers"
+  description: "Biosculpted fingernail claws — hard enough to scratch through soft materials."
+  rarity: Standard
+  weaponCategory: Exotic
+
+# --- Named medium melee ---
+
+Weapons.IMIChainknife:
+  $base: Weapons.Base_MediumMelee
+  name: "IMI Chainknife"
+  description: "An IMI-brand vibrating chainknife. The micro-serrated edge cycles at high frequency."
+  rarity: Excellent
+  weaponCategory: Exotic
+
+# --- Named very heavy melee ---
+
+Weapons.ConarmHurricane_TUp:
+  $base: Weapons.Base_VeryHeavyMelee
+  name: "Conarm Hurricane T-Up"
+  description: "A Conarm Hurricane chainsaw variant — an industrial cutting tool repurposed as a devastating close-quarters weapon."
+  rarity: Excellent
+  weaponCategory: Exotic
+
+Weapons.Kendachi_MonoThree:
+  $base: Weapons.Base_VeryHeavyMelee
+  name: "Kendachi Mono-Three"
+  description: "A Kendachi monofilament blade — a near-invisible cutting edge that severs through almost any material."
+  rarity: Iconic
+  weaponCategory: Exotic
+
+# --- Named heavy melee ---
+
+Weapons.MilitechTacticalUmbrella_SmartLink:
+  $base: Weapons.Base_HeavyMelee
+  name: "Militech Tactical Umbrella (Smart Link)"
+  description: "A Militech-brand tactical umbrella with integrated smartlink — reinforced frame doubles as a brutal close-combat weapon."
+  rarity: Excellent
+  weaponCategory: Exotic
+  modSlots:
+    - Mod.SmartgunLink
+
+# --- Named ranged ---
+
+Weapons.ArasakaWA_Bullpup_AssaultWeapon:
+  $base: Weapons.Base_AssaultRifle
+  name: "Arasaka WA Bullpup"
+  description: "An Arasaka Weapons Assembly bullpup assault weapon — military grade, precision engineered."
+  rarity: Iconic
+  weaponCategory: Military
+
+Weapons.SanroHeloCutie_Standard:
+  $base: Weapons.Base_GrenadeLauncher
+  name: "Sanro Helo Cutie"
+  description: "A compact Sanro Helo Cutie grenade launcher — portable and concealable for its class."
+  rarity: Standard
+  weaponCategory: Exotic
+
+Weapons.ConstitutionalArms_MultiAmmo_Pistol:
+  $base: Weapons.Base_HeavyPistol
+  name: "Constitutional Arms Multi-Ammo Pistol"
+  description: "A Constitutional Arms pistol capable of switching between multiple ammunition types on the fly."
+  rarity: Excellent
+  weaponCategory: Exotic

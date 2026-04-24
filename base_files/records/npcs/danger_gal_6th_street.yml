@@ -1,0 +1,364 @@
+# =============================================================================
+# records/npcs/danger_gal_6th_street.yml
+# 6th Street NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 5 NPCs: Arbiter, Coldfire, Breacher, Knock!Knock!, Roof Diver
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# Arbiter — Squad Leader / Sniper
+# Mini-Boss → NPC.Base_MiniBoss
+# ---------------------------------------------------------------------------
+NPC.6thStreet_Arbiter:
+  $base: NPC.Base_MiniBoss
+  name: ""
+  handle: "Arbiter"
+  description: "6th Street Davis Squad leader; LawMan (Backup 4). Possibly one of the best snipers in Night City."
+  lore: >
+    X's son and leader of the 6th Street Davis Squad. Grew up under the tutelage of hundreds of veterans
+    over two decades. First and foremost a sniper — during his first mission he decimated a Raffen Shiv pack
+    with head shot after head shot from over 800 m away. His constant joking and chatter conceals sharp
+    tactical thinking focused on team cohesion.
+  npcType: RecurringNPC
+  faction: 6th_Street
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 7
+    reflexes:     8
+    dexterity:    5
+    tech:         4
+    cool:         8
+    willpower:    6
+    luck:         5
+    move:         4
+    body:         5
+    empathy:      4
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   15
+
+  deathSaveThreshold: 5
+
+  skills:
+    - !append { skill: Athletics,          rank: 12 }
+    - !append { skill: Brawling,           rank: 7  }
+    - !append { skill: Concentration,      rank: 1  }
+    - !append { skill: ConversationCool,   rank: 7  }
+    - !append { skill: Criminology,        rank: 12 }
+    - !append { skill: Deduction,          rank: 12 }
+    - !append { skill: Education,          rank: 1  }
+    - !append { skill: Evasion,            rank: 14 }
+    - !append { skill: FirstAid,           rank: 6  }
+    - !append { skill: HumanPerception,    rank: 12 }
+    - !append { skill: LinguisticsBase,    rank: 13 }
+    - !append { skill: LipReading,         rank: 1  }
+    - !append { skill: LocalExpert,        rank: 13 }
+    - !append { skill: PersonalGrooming,   rank: 13 }
+    - !append { skill: Perception,         rank: 13 }
+    - !append { skill: Persuasion,         rank: 15 }
+    - !append { skill: ShoulderArms,       rank: 16 }
+    - !append { skill: Stealth,            rank: 10 }
+    - !append { skill: Tactics,            rank: 12 }
+    - !append { skill: Tracking,           rank: 12 }
+    - !append { skill: WardrobeStyle,      rank: 13 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cybereye_AntiDazzle_ImageEnhance
+    - !append Cyberware.DangerGal_Cyberarm_GrappleHand_Techair
+
+  primaryEquipment:
+    weapon: Weapons.SniperRifle_Excellent_SniperScope
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Coldfire — Action Heroine
+# Hardened Lieutenant → NPC.Base_HardenedLieutenant
+# ---------------------------------------------------------------------------
+NPC.6thStreet_Coldfire:
+  $base: NPC.Base_HardenedLieutenant
+  name: ""
+  handle: "Coldfire"
+  description: "6th Street Davis Squad; Solo (Combat Awareness 4). Former Arasaka-linked operative; complex loyalties."
+  lore: >
+    Fought on the "wrong" side of the 4th Corporate War — daughter of middle Arasaka management who fled to
+    Japan, she stayed behind and went dark. Resurfaced as Coldfire roughly a decade later. Neither her ties
+    to Arasaka nor who at 6th Street knows her past have been confirmed. In battle she is described as a
+    goddamn action heroine: she once charged a Militech transport solo and neutralised it in seconds.
+  npcType: RecurringNPC
+  faction: 6th_Street
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     8
+    dexterity:    6
+    tech:         3
+    cool:         3
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         7
+    empathy:      4
+
+  derivedStats:
+    maxHP:   45
+    currentHP: 45
+    armor:   11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 12 }
+    - !append { skill: Autofire,            rank: 14 }
+    - !append { skill: Brawling,            rank: 8  }
+    - !append { skill: Bureaucracy,         rank: 9  }
+    - !append { skill: Concentration,       rank: 8  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Education,           rank: 10 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 5  }
+    - !append { skill: HumanPerception,     rank: 8  }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 10 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: ResistTortureDrugs,  rank: 12 }
+    - !append { skill: ShoulderArms,        rank: 14 }
+    - !append { skill: Stealth,             rank: 1  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberleg_JumpBooster_x2
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs_Sandevistan_Mk1
+
+  primaryEquipment:
+    weapon: Weapons.Base_AssaultRifle
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Breacher — Ground Leader
+# Lieutenant → NPC.Base_Elite
+# ---------------------------------------------------------------------------
+NPC.6thStreet_Breacher:
+  $base: NPC.Base_Elite
+  name: ""
+  handle: "Breacher"
+  description: "6th Street Davis Squad second-in-command; Solo (Combat Awareness 4). Former pro-boxer from Mexico City."
+  lore: >
+    A former pro-boxer from Mexico City who became a soldier when the 4th Corporate War erupted mid-tour.
+    Their manager died in the early fighting — his last words, "Fuck Arasaka!", became their motto. Second
+    in command of the Davis Squad, always in the heat of battle. A highly skilled covert operative with
+    extensive close-combat expertise in small arms, melee weapons, and boxing.
+  npcType: RecurringNPC
+  faction: 6th_Street
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     4
+    dexterity:    8
+    tech:         4
+    cool:         5
+    willpower:    4
+    luck:         4
+    move:         4
+    body:         7
+    empathy:      4
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   11
+
+  deathSaveThreshold: 7
+
+  skills:
+    - !append { skill: Athletics,           rank: 14 }
+    - !append { skill: Brawling,            rank: 14 }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 6  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: EnduranceSTR,        rank: 7  }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 6  }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 8  }
+    - !append { skill: Interrogation,       rank: 9  }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: MartialArts,         rank: 12 }
+    - !append { skill: MeleeCombat,         rank: 12 }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: PersonalGrooming,    rank: 8  }
+    - !append { skill: Persuasion,          rank: 10 }
+    - !append { skill: ResistTortureDrugs,  rank: 8  }
+    - !append { skill: Stealth,             rank: 10 }
+    - !append { skill: Streetwise,          rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink_Kerenzikov
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Knock!Knock! — Veteran in His Sunset Years
+# Hardened Mook → NPC.Base_HardenedMook
+# ---------------------------------------------------------------------------
+NPC.6thStreet_KnockKnock:
+  $base: NPC.Base_HardenedMook
+  name: ""
+  handle: "Knock!Knock!"
+  description: "6th Street Davis Squad; Solo (Combat Awareness 2). Oldest member; fought in all four Corporate Wars."
+  lore: >
+    The oldest member of Davis Squad, Knock!Knock! fought in all four Corporate Wars but gets slower each
+    decade. Their knowledge of Corporate War history is staggering, even if their skill set is focused
+    entirely on close-range combat. Patient and places civilian lives above those of the team — known to
+    stop mid-firefight to perform first aid on bystanders.
+  npcType: RecurringNPC
+  faction: 6th_Street
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 6
+    reflexes:     5
+    dexterity:    4
+    tech:         3
+    cool:         4
+    willpower:    3
+    luck:         3
+    move:         4
+    body:         9
+    empathy:      3
+
+  derivedStats:
+    maxHP:   40
+    currentHP: 40
+    armor:   11   # Grafted Muscle and Bone Lace → armor minimum 11
+
+  deathSaveThreshold: 9
+
+  skills:
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: Brawling,            rank: 6  }
+    - !append { skill: Concentration,       rank: 5  }
+    - !append { skill: ConversationCool,    rank: 5  }
+    - !append { skill: Education,           rank: 8  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 8  }
+    - !append { skill: HumanPerception,     rank: 5  }
+    - !append { skill: LinguisticsBase,     rank: 10 }
+    - !append { skill: LocalExpert,         rank: 8  }
+    - !append { skill: MeleeCombat,         rank: 10 }
+    - !append { skill: Perception,          rank: 10 }
+    - !append { skill: Persuasion,          rank: 6  }
+    - !append { skill: ShoulderArms,        rank: 10 }
+    - !append { skill: Stealth,             rank: 6  }
+    - !append { skill: Streetwise,          rank: 10 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_GraftedMuscleBoneLace
+
+  primaryEquipment:
+    weapon: Weapons.Shotgun_Poor
+    hand: TwoHanded
+
+  secondaryEquipment:
+    weapon: Weapons.HeavyMeleeWeapon_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Roof Diver — Squad Member
+# Mook → NPC.Base_Grunt
+# ---------------------------------------------------------------------------
+NPC.6thStreet_RoofDiver:
+  $base: NPC.Base_Grunt
+  name: ""
+  handle: "Roof Diver"
+  description: "6th Street Davis Squad member; LawMan (Backup 2). Native BosWasher veteran; received cyberarm heroically."
+  lore: >
+    A native BosWasher who served in the 4th Corporate War. Afterward drifted west doing convoy security
+    for Nomad Packs before settling in Night City and joining 6th Street. Received their cyberarm after
+    diving off a 40-story building to catch a falling squadmate — they saved the teammate but lost the arm
+    in the process.
+  npcType: RecurringNPC
+  faction: 6th_Street
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 4
+    reflexes:     4
+    dexterity:    4
+    tech:         3
+    cool:         3
+    willpower:    4
+    luck:         2
+    move:         3
+    body:         4
+    empathy:      4
+
+  derivedStats:
+    maxHP:   30
+    currentHP: 30
+    armor:   7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,           rank: 8  }
+    - !append { skill: Concentration,       rank: 6  }
+    - !append { skill: ConversationCool,    rank: 9  }
+    - !append { skill: Education,           rank: 6  }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 10 }
+    - !append { skill: Handgun,       rank: 10 }
+    - !append { skill: HumanPerception,     rank: 6  }
+    - !append { skill: LinguisticsBase,     rank: 8  }
+    - !append { skill: LocalExpert,         rank: 6  }
+    - !append { skill: Perception,          rank: 8  }
+    - !append { skill: Persuasion,          rank: 5  }
+    - !append { skill: ShoulderArms,        rank: 12 }
+    - !append { skill: Stealth,             rank: 6  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_Cyberarm_PopupMicrowaver
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Poor
+    hand: TwoHanded
+
+  dropsWeapon: true
+  isInvulnerable: false

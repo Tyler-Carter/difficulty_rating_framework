@@ -1,0 +1,154 @@
+# =============================================================================
+# records/npcs/danger_gal_incident_mission.yml
+# Incident Mission NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 2 NPCs: Darius, Nymph
+#
+# These are undercover Arasaka operatives introduced in "The Incident" mission
+# at the back of the supplement. They are antagonists whose faction allegiance
+# is concealed at first contact.
+# =============================================================================
+
+
+# ---------------------------------------------------------------------------
+# Darius — Undercover Arasaka Netrunner operative
+# ---------------------------------------------------------------------------
+NPC.Incident_Darius:
+  $base: NPC.Base_Netrunner_NPC
+  name: ''
+  handle: 'Darius'
+  description: 'Undercover Arasaka Operative'
+  lore: >
+    A true Arasaka believer operating deep cover in Night City. Carries a
+    cortex bomb — a fact that shapes every interaction once discovered.
+    Has a Cyberdeck loaded with Armor, Eraser, Sword, Vrizbolt, and Worm programs.
+  npcType: RecurringNPC
+  npcRarity: HardenedLieutenant
+  faction: Neutral                # cover identity conceals Arasaka allegiance
+  attitudeGroup: Suspicious
+
+  attributes:
+    intelligence: 7
+    reflexes:     6               # base value (unpenalised)
+    dexterity:    6
+    tech:         7
+    cool:         5
+    willpower:    4
+    luck:         5               # Hardened Lieutenant tier
+    move:         6
+    body:         4
+    empathy:      3
+
+  derivedStats:
+    maxHP:      30                # 10 + (5 × ⌈(4+4)/2⌉) = 10 + 20 = 30 ✓
+    currentHP:  30
+    armor:      7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Handgun,             rank: 14 }
+    - !append { skill: Electronics_SecurityTech,  rank: 12 }
+    - !append { skill: LibrarySearch,             rank: 13 }
+    - !append { skill: Education,                 rank: 12 }
+    - !append { skill: HumanPerception,           rank: 10 }
+    - !append { skill: Persuasion,                rank: 10 }
+    - !append { skill: Perception,                rank: 9  }
+    - !append { skill: ResistTortureDrugs,        rank: 10 }
+    - !append { skill: Stealth,                   rank: 8  }
+    - !append { skill: Athletics,                 rank: 8  }
+    - !append { skill: Brawling,                  rank: 8  }
+    - !append { skill: Evasion,                   rank: 12 }
+    - !append { skill: FirstAid,                  rank: 9  }
+    - !append { skill: Concentration,             rank: 6  }
+    - !append { skill: LinguisticsBase,           rank: 9  }   # Streetslang
+    - !append { skill: LipReading,                rank: 1  }
+    - !append { skill: Bribery,                   rank: 1  }
+    - !append { skill: LocalExpert,               rank: 9  }   # Watson Development
+    - !append { skill: Streetwise,                rank: 9  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_ContraceptiveImplant
+    - !append Cyberware.DangerGal_CortexBomb
+    - !append Cyberware.DangerGal_EMPThreading
+    - !append Cyberware.DangerGal_NeuralLink_InterfacePlugs_ReflexCoProcessor
+    - !append Cyberware.DangerGal_Cyberdeck_Standard
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+# ---------------------------------------------------------------------------
+# Nymph — Undercover Arasaka Solo operative / bodyguard
+# ---------------------------------------------------------------------------
+NPC.Incident_Nymph:
+  $base: NPC.Base_MiniBoss
+  name: ''
+  handle: 'Nymph'
+  description: 'Soul-Dead Bodyguard'
+  lore: >
+    Former Hong Kong Flying Tigers SDU operator who lost her family in a
+    bioterror attack. Grief stripped her of purpose; Arasaka filled the void.
+    Darius' undercover partner. Not a true believer — fully willing to carry
+    out Arasaka's dirty work regardless.
+  npcType: RecurringNPC
+  faction: Neutral                # cover identity conceals Arasaka allegiance
+  attitudeGroup: Neutral          # professional; Hostile only when ordered
+
+  attributes:
+    intelligence: 5
+    reflexes:     8               # base value (unpenalised)
+    dexterity:    8
+    tech:         4
+    cool:         4
+    willpower:    4
+    luck:         5               # Mini-Boss tier
+    move:         8
+    body:         8
+    empathy:      3
+
+  derivedStats:
+    maxHP:      40                # 10 + (5 × ⌈(8+4)/2⌉) = 10 + 30 = 40 ✓
+    currentHP:  40
+    armor:      15
+
+  deathSaveThreshold: 8
+
+  skills:
+    - !append { skill: Athletics,         rank: 16 }
+    - !append { skill: Autofire,          rank: 16 }
+    - !append { skill: Brawling,          rank: 16 }
+    - !append { skill: Evasion,           rank: 16 }
+    - !append { skill: ShoulderArms,      rank: 16 }
+    - !append { skill: Handgun,     rank: 14 }
+    - !append { skill: Perception,        rank: 12 }
+    - !append { skill: ResistTortureDrugs, rank: 12 }
+    - !append { skill: Stealth,           rank: 12 }
+    - !append { skill: FirstAid,          rank: 12 }
+    - !append { skill: Tactics,           rank: 13 }
+    - !append { skill: Concentration,     rank: 10 }
+    - !append { skill: EnduranceSTR,      rank: 8  }
+    - !append { skill: HumanPerception,   rank: 5  }
+    - !append { skill: Persuasion,        rank: 6  }
+    - !append { skill: LinguisticsBase,   rank: 9  }   # Cantonese
+    - !append { skill: Education,         rank: 7  }
+    - !append { skill: LocalExpert,       rank: 10 }   # Watson Development
+    - !append { skill: ConversationCool,  rank: 5  }
+
+  cyberware:
+    - !append Cyberware.DangerGal_NeuralLink_ChipwareSocket_Kerenzikov_PainEditor_ReflexCoProcessor
+
+  primaryEquipment:
+    weapon: Weapons.AssaultRifle_Excellent
+    hand: TwoHanded
+    equipCondition: ["OnAlert", "Combat"]
+  secondaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

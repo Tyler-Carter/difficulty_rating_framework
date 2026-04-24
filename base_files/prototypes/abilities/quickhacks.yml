@@ -1,0 +1,276 @@
+# =============================================================================
+# prototypes/abilities/quickhacks.yml
+# Quickhack ability definitions — the netrunner's action menu.
+#
+# Design rules carried through from the Momentum system:
+#
+#   momentumCost: 0 — free hack, no Momentum spent on success
+#   momentumCost: 1 — powerful hack, costs 1 Momentum on use
+#
+#   minMomentum: the Momentum level required to even attempt this hack.
+#   This replaces RAM costs and upload timers entirely.
+#   The netrunner either has enough Momentum or they don't.
+#
+#   accessDepth: minimum node depth required to target something with this hack.
+#   Depth 1 hacks can hit cameras, doors, shallow nodes.
+#   Depth 2 hacks can hit tactical systems, cyberware nodes.
+#   Depth 3 hacks can hit deep ICE, hit targets through hardened systems.
+#
+#   target: what this hack can be applied to
+#     Node       — a NetworkNode record in the scene
+#     NPC        — a character or NPC with cyberware (via CyberwareNode)
+#     ICE        — ICE-type nodes only
+#     Any        — no restriction
+#
+# Quickhacks reference StatusEffect records by ID in appliesEffects[].
+# The status effect fires on the target if the hack succeeds.
+# =============================================================================
+
+# ===========================================================================
+# SHALLOW QUICKHACKS (minMomentum: 1, accessDepth: 1)
+# Available from the first round of engagement.
+# ===========================================================================
+
+Abilities.Hack_Ping:
+  $type: Ability
+  name: "Ping"
+  description: >
+    Scan the local network for active nodes and ICE. The GM reveals all
+    NetworkNode records in the current scene to the netrunner.
+    Shared with the party immediately.
+  trigger: OnActivate
+  target: Any
+  accessDepth: 1
+  minMomentum: 1
+  momentumCost: 0
+  stackable: false
+  cooldown: null             # can be used every round if desired
+  statModifiers: []
+  appliesEffects: []
+
+
+Abilities.Hack_Distract:
+  $type: Ability
+  name: "Distract"
+  description: >
+    Trigger a noise or false alert through a speaker or camera node.
+    One NPC within range of the target node must make a Cool check or
+    move to investigate, leaving their current position.
+    Does not work on NPCs with StunImmunity or those already in combat.
+  trigger: OnActivate
+  target: Node
+  accessDepth: 1
+  minMomentum: 1
+  momentumCost: 0
+  stackable: false
+  cooldown: null
+  statModifiers: []
+  appliesEffects: []
+
+
+Abilities.Hack_SurgeProtocol:
+  $type: Ability
+  name: "Surge Protocol"
+  description: >
+    On a successful hack roll of any kind this round, gain 1 Momentum
+    instead of the standard amount. Once per round.
+  trigger: OnActivate
+  target: Any
+  accessDepth: 1
+  minMomentum: 1
+  momentumCost: 0
+  stackable: false
+  cooldown: 1.0              # 1 round cooldown
+  statModifiers:
+    - $type: StatModifier
+      stat: Momentum
+      modifierType: Additive
+      value: 1
+  appliesEffects: []
+
+
+Abilities.Hack_Reboot:
+  $type: Ability
+  name: "Reboot Optics"
+  description: >
+    Force-reboot the visual processing in an NPC's optical cyberware.
+    Target cannot benefit from optical cyberware bonuses and suffers
+    -2 to attack rolls for the duration.
+    Requires the target to have optical cyberware installed.
+  trigger: OnActivate
+  target: NPC
+  accessDepth: 1
+  minMomentum: 2
+  momentumCost: 0
+  stackable: false
+  cooldown: null
+  statModifiers: []
+  appliesEffects:
+    - StatusEffects.Slowed    # represents disorientation from visual glitch
+  duration: 2.0
+
+
+# ===========================================================================
+# MID QUICKHACKS (minMomentum: 3, accessDepth: 2)
+# Available once the netrunner has built sustained presence.
+# ===========================================================================
+
+Abilities.Hack_Overheat:
+  $type: Ability
+  name: "Overheat"
+  description: >
+    Force-spike the thermal regulators in a target's cyberware.
+    Applies Burning to the target. Particularly effective against
+    heavily augmented NPCs — each cyberware item they carry increases
+    damage by 1 per tick (GM tracks, max +3).
+  trigger: OnActivate
+  target: NPC
+  accessDepth: 2
+  minMomentum: 3
+  momentumCost: 0
+  stackable: false
+  cooldown: null
+  statModifiers: []
+  appliesEffects:
+    - StatusEffects.Burning
+
+
+Abilities.Hack_SystemCollapse:
+  $type: Ability
+  name: "System Collapse"
+  description: >
+    Cascade a fault through a target NPC's operating system.
+    Applies EMP — all their cyberware is suppressed for the duration.
+    Against non-augmented targets, this hack fails automatically.
+  trigger: OnActivate
+  target: NPC
+  accessDepth: 2
+  minMomentum: 3
+  momentumCost: 1            # costs 1 Momentum — powerful single-target disable
+  stackable: false
+  cooldown: null
+  statModifiers: []
+  appliesEffects:
+    - StatusEffects.EMP
+  prereqs:
+    - Prereqs.TargetHasCyberware
+
+
+Abilities.Hack_ContagionUpload:
+  $type: Ability
+  name: "Contagion"
+  description: >
+    Upload a spreading virus to one NPC. Each round, if any other NPC
+    moves within 5m of the infected target, they must make a Cool check
+    or also become infected (GM rolls openly). Infected targets suffer
+    Poison for the base duration. Virus spreads until all targets in
+    range pass their check or the netrunner disconnects.
+  trigger: OnActivate
+  target: NPC
+  accessDepth: 2
+  minMomentum: 3
+  momentumCost: 1
+  stackable: false
+  cooldown: null
+  statModifiers: []
+  appliesEffects:
+    - StatusEffects.Poison
+  prereqs:
+    - Prereqs.TargetHasCyberware
+
+
+Abilities.Hack_GhostProtocol:
+  $type: Ability
+  name: "Ghost Protocol"
+  description: >
+    Wipe the netrunner's presence from all active cameras and detection nodes
+    in the scene simultaneously. For the duration, the netrunner (and anyone
+    physically adjacent to them) cannot be detected by electronic sensors.
+    Does not affect organic perception or NPC line-of-sight.
+  trigger: OnActivate
+  target: Any
+  accessDepth: 2
+  minMomentum: 3
+  momentumCost: 1
+  stackable: false
+  cooldown: null
+  duration: 3.0              # rounds
+  statModifiers: []
+  appliesEffects: []
+
+
+# ===========================================================================
+# DEEP QUICKHACKS (minMomentum: 5, accessDepth: 3)
+# High-risk, high-reward. Only available at peak Momentum.
+# Each one costs 1 Momentum — reaching 5 and spending it immediately
+# means the runner drops back to 4. Still powerful. Not spammable.
+# ===========================================================================
+
+Abilities.Hack_Flatline:
+  $type: Ability
+  name: "Flatline"
+  description: >
+    Attempt a lethal neural overload against a target NPC. The target
+    must make an immediate Cool check against the netrunner's Intelligence.
+    On failure: target is Stunned for 3 rounds and takes 30 direct Health
+    damage (ignores armor — neural damage). On success: target shrugs it
+    off and the netrunner loses 1 additional Momentum from the feedback.
+    Cannot be used against targets without any cyberware installed.
+  trigger: OnActivate
+  target: NPC
+  accessDepth: 3
+  minMomentum: 5
+  momentumCost: 1
+  stackable: false
+  cooldown: null
+  statModifiers:
+    - $type: StatModifier
+      stat: Health
+      modifierType: Additive
+      value: -30
+  appliesEffects:
+    - StatusEffects.Stunned
+  prereqs:
+    - Prereqs.TargetHasCyberware
+
+
+Abilities.Hack_TotalNetworkControl:
+  $type: Ability
+  name: "Total Network Control"
+  description: >
+    The netrunner simultaneously takes Compromised control of every
+    active non-ICE node in the scene. Cameras, turrets, doors, power
+    grids — all respond to the netrunner's commands for the duration.
+    ICE nodes are not affected; they must be dealt with separately.
+    Duration: 3 rounds. After expiry, all nodes revert to their previous state
+    unless individually flatlined during the window.
+  trigger: OnActivate
+  target: Any
+  accessDepth: 3
+  minMomentum: 5
+  momentumCost: 1
+  stackable: false
+  cooldown: null
+  duration: 3.0
+  statModifiers: []
+  appliesEffects: []
+
+
+Abilities.Hack_ICEBreaker:
+  $type: Ability
+  name: "ICE Breaker"
+  description: >
+    A devastating targeted intrusion against a single ICE node.
+    Counts as 2 hits against the ICE's hitThreshold instead of 1.
+    Against Watchdog and Hellhound ICE, this is typically an instant flatline.
+    Against Kraken ICE, this brings it to within one hit of destruction.
+    On failure, the ICE retaliates immediately in addition to its normal round retaliation.
+  trigger: OnActivate
+  target: ICE
+  accessDepth: 3
+  minMomentum: 5
+  momentumCost: 1
+  stackable: false
+  cooldown: null
+  statModifiers: []
+  appliesEffects: []

@@ -1,0 +1,214 @@
+# =============================================================================
+# records/npcs/danger_gal_piranhas.yml
+# Piranhas NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 3 NPCs: Bazooka Joe, Corpse Reviver, Dirty Shirley
+# =============================================================================
+
+
+NPC.Piranhas_BazookaJoe:
+  $base: NPC.Base_Boss
+  name: ""
+  handle: "Bazooka Joe"
+  description: "The Piranha's Teeth"
+  lore: >
+    Literally the oldest active Piranha still alive, Bazooka Joe serves as Corpse Reviver's
+    right-hand lieutenant and oversees security. Bazooka Joe puts the teeth in Piranhas, focusing
+    on training new recruits to keep parties lively and safe. A junkyard dog when anyone comes
+    after one of the Piranhas or messes with one of their events.
+  npcType: RecurringNPC
+  faction: Piranhas
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 5
+    reflexes:     7
+    dexterity:    6
+    tech:         3
+    cool:         6
+    willpower:    4
+    luck:         6
+    move:         7
+    body:         12
+    empathy:      4
+
+  derivedStats:
+    maxHP: 50
+    currentHP: 50
+    armor: 15
+
+  deathSaveThreshold: 12
+
+  skills:
+    - !append { skill: Athletics,           rank: 8 }
+    - !append { skill: Autofire,            rank: 17 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: Concentration,       rank: 6 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: Criminology,         rank: 9 }
+    - !append { skill: Dancing,             rank: 14 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 12 }
+    - !append { skill: FirstAid,            rank: 5 }
+    - !append { skill: Handgun,       rank: 1 }
+    - !append { skill: HumanPerception,     rank: 8 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: MeleeCombat,         rank: 1 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: PersonalGrooming,    rank: 12 }
+    - !append { skill: Persuasion,          rank: 8 }
+    - !append { skill: ResistTortureDrugs,  rank: 14 }
+    - !append { skill: Stealth,             rank: 8 }
+    - !append { skill: Streetwise,          rank: 12 }
+    - !append { skill: WardrobeStyle,       rank: 12 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_LinearFrameSigma
+
+  primaryEquipment:
+    weapon: Weapons.BrawlingAttack
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+NPC.Piranhas_CorpseReviver:
+  $base: NPC.Base_Boss
+  name: ""
+  handle: "Corpse Reviver"
+  description: "Party Queen of Night City"
+  lore: >
+    Corpse Reviver roared into the Piranhas like a rebel leader and united those random
+    no-account partiers, transforming them from a burned-out gang into the party makers of
+    Night City. She's a good talker but an even better accountant — keeps the books clean,
+    the clients satisfied, and the Piranhas invisible to the average doomba.
+  npcType: RecurringNPC
+  faction: Piranhas
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 7
+    reflexes:     6
+    dexterity:    6
+    tech:         5
+    cool:         7
+    willpower:    6
+    luck:         6
+    move:         6
+    body:         4
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 15
+
+  deathSaveThreshold: 10   # DS blank → use 10
+
+  skills:
+    - !append { skill: Acting,              rank: 10 }
+    - !append { skill: Athletics,           rank: 8 }
+    - !append { skill: Brawling,            rank: 8 }
+    - !append { skill: Bureaucracy,         rank: 12 }
+    - !append { skill: Concentration,       rank: 1 }
+    - !append { skill: ConversationCool,    rank: 10 }
+    - !append { skill: Dancing,             rank: 14 }
+    - !append { skill: Deduction,           rank: 12 }
+    - !append { skill: Education,           rank: 9 }
+    - !append { skill: EnduranceSTR,        rank: 10 }
+    - !append { skill: Evasion,             rank: 14 }
+    - !append { skill: FirstAid,            rank: 7 }
+    - !append { skill: Handgun,       rank: 16 }
+    - !append { skill: HumanPerception,     rank: 12 }
+    - !append { skill: LinguisticsBase,     rank: 1 }
+    - !append { skill: LipReading,          rank: 9 }
+    - !append { skill: LocalExpert,         rank: 9 }
+    - !append { skill: MeleeCombat,         rank: 16 }
+    - !append { skill: Perception,          rank: 1 }
+    - !append { skill: PersonalGrooming,    rank: 16 }
+    - !append { skill: Persuasion,          rank: 12 }
+    - !append { skill: ResistTortureDrugs,  rank: 14 }
+    - !append { skill: Stealth,             rank: 8 }
+    - !append { skill: Streetwise,          rank: 14 }
+    - !append { skill: Trading,             rank: 12 }
+    - !append { skill: WardrobeStyle,       rank: 16 }
+
+  primaryEquipment:
+    weapon: Weapons.Base_HeavyPistol
+    hand: Primary
+
+  secondaryEquipment:
+    weapon: Weapons.Base_HeavyPistol
+    hand: Holstered
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Piranhas_DirtyShirley:
+  $base: NPC.Base_GangElite
+  name: ""
+  handle: "Dirty Shirley"
+  description: "Creator of Piranha Smash"
+  lore: >
+    Dirty Shirley was a cook and dealer on the edge of Night City, peddling her wares to the
+    unhappiest doombas around. She met Corpse Reviver at a random party and signed on without
+    asking a single question. Months later, Shirley is the crowning glory of the Piranhas,
+    with designs for the next great batch of joy.
+  npcType: RecurringNPC
+  faction: Piranhas
+  attitudeGroup: Hostile
+
+  attributes:
+    intelligence: 8
+    reflexes:     6
+    dexterity:    4
+    tech:         8
+    cool:         4
+    willpower:    3
+    luck:         4
+    move:         3
+    body:         3
+    empathy:      5
+
+  derivedStats:
+    maxHP: 25
+    currentHP: 25
+    armor: 11
+
+  deathSaveThreshold: 3
+
+  skills:
+    - !append { skill: Athletics,               rank: 6 }
+    - !append { skill: Autofire,                rank: 14 }
+    - !append { skill: BasicTech,               rank: 14 }
+    - !append { skill: Brawling,                rank: 6 }
+    - !append { skill: Concentration,           rank: 5 }
+    - !append { skill: ConversationCool,        rank: 12 }
+    - !append { skill: Education,               rank: 12 }
+    - !append { skill: Evasion,                 rank: 6 }
+    - !append { skill: FirstAid,                rank: 14 }
+    - !append { skill: HumanPerception,         rank: 12 }
+    - !append { skill: LinguisticsBase,         rank: 12 }
+    - !append { skill: LibrarySearch,           rank: 12 }
+    - !append { skill: LocalExpert,             rank: 10 }
+    - !append { skill: Paramedic,               rank: 14 }
+    - !append { skill: Perception,              rank: 10 }
+    - !append { skill: PersonalGrooming,        rank: 6 }
+    - !append { skill: Persuasion,              rank: 6 }
+    - !append { skill: ResistTortureDrugs,      rank: 12 }
+    - !append { skill: Science,                 rank: 14 }
+    - !append { skill: Stealth,                 rank: 6 }
+    - !append { skill: Streetwise,              rank: 8 }
+    - !append { skill: Trading,                 rank: 7 }
+    - !append { skill: WardrobeStyle,           rank: 6 }
+
+  primaryEquipment:
+    weapon: Weapons.SMG_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

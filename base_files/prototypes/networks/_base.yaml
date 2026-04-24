@@ -1,0 +1,261 @@
+# =============================================================================
+# prototypes/networks/_base.yml
+# NetworkNode record type — defines hackable objects in a scene.
+#
+# Design intent:
+#   Nodes are scene dressing that the GM places in an encounter. They are
+#   not tracked as living entities with health pools. A node either works,
+#   is compromised, or is flatlined — three states, nothing more.
+#
+# The netrunner's Momentum determines what depth they can reach:
+#   Momentum 1–2 → Shallow access  (depth 1 nodes)
+#   Momentum 3–4 → Mid access      (depth 2 nodes)
+#   Momentum 5   → Deep access     (depth 3 nodes)
+#
+# Node states:
+#   Active      — functioning normally, can be hacked
+#   Compromised — netrunner has partial control, effect is active
+#   Flatlined   — permanently disabled for the encounter
+#
+# ICE (Intrusion Countermeasure Electronics) are nodes that fight back.
+# They are NOT NPCs with health pools. They have a hitThreshold — the
+# number of successful hack rolls required to flatline them. Each success
+# marks one hit. No subtraction, no HP tracking.
+#
+# Fields:
+#   nodeType:       what kind of object this is (enum)
+#   accessDepth:    1–3, minimum Momentum tier required to interact
+#   isICE:          bool — does this node resist and retaliate?
+#   hitThreshold:   int — hits required to flatline (ICE only, typically 1–3)
+#   onCompromise:   what happens when the netrunner gains control
+#   onFlatline:     what happens when the node is permanently disabled
+#   notes:          GM-facing description of the physical object
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# NodeType enum (defined here for reference — add to schema/enums.yml)
+#
+# Camera, Door, Turret, Light, Speaker, Terminal,
+# PowerGrid, Elevator, VehicleControl,
+# CyberwareNode,    ← targeting an NPC's installed cyberware directly
+# ICE_Watchdog,     ← passive ICE: alerts when triggered, doesn't attack
+# ICE_Hellhound,    ← active ICE: attacks the netrunner's Momentum on detection
+# ICE_Kraken        ← deep ICE: attacks Momentum AND broadcasts the intrusion
+# ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# Universal node root
+# ---------------------------------------------------------------------------
+Networks.Base_Node:
+  $type: NetworkNode
+  accessDepth: 1
+  isICE: false
+  hitThreshold: null        # null = not applicable (non-ICE nodes flatline in one action)
+  onCompromise: ''
+  onFlatline: ''
+  notes: ''
+
+
+# ===========================================================================
+# SHALLOW NODES (depth 1) — basic infrastructure
+# ===========================================================================
+
+Networks.Base_Camera:
+  $base: Networks.Base_Node
+  nodeType: Camera
+  accessDepth: 1
+  isICE: false
+  onCompromise: >
+    The netrunner can view the camera feed and share it with the party.
+    Any NPC relying on this camera for detection loses their detection bonus.
+  onFlatline: >
+    Camera is permanently disabled for the encounter.
+    NPCs that depended on it cannot be alerted through this vector.
+  notes: "Standard security camera. Common in corp facilities and mid-tier gang territory."
+
+
+Networks.Base_Door_Electronic:
+  $base: Networks.Base_Node
+  nodeType: Door
+  accessDepth: 1
+  isICE: false
+  onCompromise: >
+    The netrunner can open or close the door remotely.
+    They can also lock it, preventing manual override for 2 rounds.
+  onFlatline: >
+    Door is permanently unlocked or locked (netrunner chooses at time of flatline).
+  notes: "Electronically controlled door. Mag-lock variant requires depth 2."
+
+
+Networks.Base_Light:
+  $base: Networks.Base_Node
+  nodeType: Light
+  accessDepth: 1
+  isICE: false
+  onCompromise: >
+    Netrunner can cut or strobe the lights in a zone.
+    All NPCs in that zone suffer -2 to attack rolls until lights are restored.
+    Party members with optical cyberware are unaffected.
+  onFlatline: >
+    Lights in the zone are permanently cut for the encounter.
+  notes: "Environmental lighting control. Simple but tactically useful."
+
+
+Networks.Base_Speaker:
+  $base: Networks.Base_Node
+  nodeType: Speaker
+  accessDepth: 1
+  isICE: false
+  onCompromise: >
+    Netrunner can broadcast any audio through facility speakers.
+    Can be used to issue false orders, create distractions, or reveal NPC positions.
+    GM determines NPC reaction based on the message content and faction.
+  onFlatline: >
+    Speaker system is disabled. Cannot be used for PA announcements or alarms.
+  notes: "Facility PA or local speaker array. Excellent for social hacking."
+
+
+# ===========================================================================
+# MID NODES (depth 2) — tactical infrastructure
+# ===========================================================================
+
+Networks.Base_Turret:
+  $base: Networks.Base_Node
+  nodeType: Turret
+  accessDepth: 2
+  isICE: false
+  onCompromise: >
+    Netrunner takes control of the turret. They can redirect it to target
+    any NPC in its arc as a free action on subsequent rounds.
+    Redirecting fire does not cost the netrunner their action.
+  onFlatline: >
+    Turret is permanently disabled. It cannot be repaired mid-encounter.
+  notes: >
+    Automated weapon platform. Compromising a turret is a force multiplier —
+    it effectively gives the netrunner a second attack each round.
+
+
+Networks.Base_PowerGrid:
+  $base: Networks.Base_Node
+  nodeType: PowerGrid
+  accessDepth: 2
+  isICE: false
+  onCompromise: >
+    Netrunner can cut power to one zone of the facility.
+    All electronic devices in that zone (cameras, doors, turrets) are disabled.
+    Battery-backed ICE and powered armor are unaffected.
+  onFlatline: >
+    Zone power is permanently cut. Restoring it requires a physical intervention.
+  notes: >
+    High-value target. Taking the grid offline cascades through all depth 1
+    nodes in the zone simultaneously — a single action worth of work.
+
+
+Networks.Base_Terminal:
+  $base: Networks.Base_Node
+  nodeType: Terminal
+  accessDepth: 2
+  isICE: false
+  onCompromise: >
+    Netrunner gains read access to stored data: personnel files, patrol schedules,
+    security codes, financial records, or mission briefs — GM determines what's there.
+    Each round they stay connected, they can extract one additional data packet.
+  onFlatline: >
+    Terminal is wiped. Data is unrecoverable and the intrusion is logged.
+  notes: >
+    Information nodes. Valuable for social leverage and pre-mission intel.
+    Always ask the GM what's on the terminal before committing to the hack.
+
+
+Networks.Base_CyberwareNode:
+  $base: Networks.Base_Node
+  nodeType: CyberwareNode
+  accessDepth: 2
+  isICE: false
+  onCompromise: >
+    Netrunner can apply one quickhack ability directly to the target NPC
+    through their cyberware, bypassing line-of-sight requirements.
+    The target must have at least one cyberware item installed.
+  onFlatline: >
+    One piece of the target's cyberware is permanently disabled for the encounter.
+    GM and netrunner agree on which piece (typically the most threatening one).
+  notes: >
+    Targeting an NPC's installed cyberware directly. Requires the netrunner
+    to have previously identified the NPC's cyberware loadout (scan or intel).
+
+
+# ===========================================================================
+# ICE NODES — resist and retaliate
+# ===========================================================================
+
+# ICE design principle:
+#   ICE does not have an HP pool. It has a hitThreshold.
+#   Each successful hack roll against ICE marks one hit.
+#   When hits equal hitThreshold, the ICE is flatlined.
+#   On every round ICE is active and not flatlined, it retaliates
+#   against the netrunner's Momentum as described in its onRetailiate field.
+
+Networks.Base_ICE_Watchdog:
+  $base: Networks.Base_Node
+  nodeType: ICE_Watchdog
+  accessDepth: 1
+  isICE: true
+  hitThreshold: 1           # one successful roll flatlines it
+  onCompromise: >
+    Watchdog is suppressed this round but not flatlined.
+    It does not retaliate but remains active.
+  onFlatline: >
+    Watchdog is destroyed. The alarm it would have triggered never fires.
+  onRetaliate: >
+    If the netrunner fails their hack roll against Watchdog, it triggers an alert.
+    All NPCs in the facility are immediately moved to Combat attitude.
+    The netrunner's Momentum drops by 1.
+  notes: >
+    Passive sentry ICE. Doesn't attack — it just screams if it sees you.
+    Priority target before attempting anything else in a hardened network.
+
+
+Networks.Base_ICE_Hellhound:
+  $base: Networks.Base_Node
+  nodeType: ICE_Hellhound
+  accessDepth: 2
+  isICE: true
+  hitThreshold: 2           # two successful rolls to flatline
+  onCompromise: >
+    Hellhound is staggered. It retaliates at reduced effect this round only
+    (Momentum drop is 1 instead of 2).
+  onFlatline: >
+    Hellhound is destroyed. Any Momentum drain it was applying stops immediately.
+  onRetaliate: >
+    Each round the Hellhound is active and not flatlined, the netrunner's
+    Momentum drops by 2 at the end of their turn.
+    If Momentum reaches 0, the netrunner is forcibly disconnected and
+    cannot reconnect to this network until they make a successful INT check
+    at the start of their next turn.
+  notes: >
+    Active combat ICE. The clock is ticking — take it down or get pushed out.
+    Assign to networks you want to be genuinely threatening to all but the best runners.
+
+
+Networks.Base_ICE_Kraken:
+  $base: Networks.Base_Node
+  nodeType: ICE_Kraken
+  accessDepth: 3
+  isICE: true
+  hitThreshold: 3           # three successful rolls to flatline
+  onCompromise: >
+    Kraken is staggered. Momentum drain this round is halved (round down).
+  onFlatline: >
+    Kraken is destroyed. A Deep access path through the network is now open.
+  onRetaliate: >
+    Each round the Kraken is active: the netrunner's Momentum drops by 2,
+    AND the Kraken broadcasts the intrusion — all NPCs in the facility are
+    alerted, and the GM may introduce a rapid-response unit arriving in
+    1d3+1 rounds (roll openly at the table for tension).
+    If the netrunner's Momentum reaches 0, they take 1d6 neural damage
+    (applied as direct Health loss, bypassing armor) and are disconnected.
+  notes: >
+    Reserve for high-security corp facilities, Netwatch installations,
+    and final-act encounters. A Kraken should feel like a boss fight
+    in the network layer running parallel to the physical encounter.

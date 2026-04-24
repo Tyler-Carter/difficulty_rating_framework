@@ -1,0 +1,205 @@
+# =============================================================================
+# records/npcs/danger_gal_network_54.yml
+# Network 54 NPC records — Danger Gal Dossier supplement
+# Source: Danger Gal Dossier (R. Talsorian Games)
+# 3 NPCs: Fiona Hayes, Angle, Stringer
+# =============================================================================
+
+
+NPC.Network54_FionaHayes:
+  $base: NPC.Base_NamedNPC
+  name: "Fiona Hayes"
+  handle: "Fiona Hayes"
+  description: "Night City Investigative Powerhouse"
+  lore: >
+    Fiona Hayes is a pragmatic and ambitious investigative reporter, and the star of Net54 in
+    Night City. Since the 2010s, she has reported on the most hard-hitting stories, from political
+    scandals to big gang conspiracies. The main rumor opines she is not the "original" Fiona Hayes —
+    and the rumors are, in this case, one hundred percent true.
+  npcType: RecurringNPC
+  faction: Network_54
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 8
+    reflexes:     5
+    dexterity:    5
+    tech:         5
+    cool:         8
+    willpower:    7
+    luck:         6
+    move:         6
+    body:         6
+    empathy:      6
+
+  derivedStats:
+    maxHP: 45
+    currentHP: 45
+    armor: 11        # Subdermal Armor → minimum SP 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Acting,              rank: 16 }
+    - !append { skill: Athletics,           rank: 10 }
+    - !append { skill: BasicTech,           rank: 8 }
+    - !append { skill: Brawling,            rank: 7 }
+    - !append { skill: Bribery,             rank: 14 }
+    - !append { skill: Bureaucracy,         rank: 14 }
+    - !append { skill: Concentration,       rank: 9 }
+    - !append { skill: Criminology,         rank: 10 }
+    - !append { skill: Deduction,           rank: 16 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 13 }
+    - !append { skill: Evasion,             rank: 10 }
+    - !append { skill: FirstAid,            rank: 9 }
+    - !append { skill: HumanPerception,     rank: 15 }
+    - !append { skill: Interrogation,       rank: 12 }
+    - !append { skill: LinguisticsBase,     rank: 12 }
+    - !append { skill: LibrarySearch,       rank: 14 }
+    - !append { skill: LipReading,          rank: 12 }
+    - !append { skill: LocalExpert,         rank: 14 }
+    - !append { skill: Perception,          rank: 16 }
+    - !append { skill: PersonalGrooming,    rank: 16 }
+    - !append { skill: Persuasion,          rank: 14 }
+    - !append { skill: ResistTortureDrugs,  rank: 14 }
+    - !append { skill: Stealth,             rank: 7 }
+    - !append { skill: WardrobeStyle,       rank: 16 }
+
+  cyberware:
+    - !append Cyberware.DangerGal_SubdermalArmor
+
+  primaryEquipment:
+    weapon: Weapons.Base_LightMelee
+    hand: Primary
+
+  dropsWeapon: false
+  isInvulnerable: false
+
+
+NPC.Network54_Angle:
+  $base: NPC.Base_NamedNPC
+  name: ""
+  handle: "Angle"
+  description: "Bodyguard to a Star"
+  lore: >
+    Angle acts as Fiona's bodyguard, but also serves as her Corporate handler. Ex-Intelligence, he
+    is the picture of a stoic and reserved combat professional. Net54 actively works to suppress his
+    dodgy black ops history. His manner and looks suggest he's an old-fashioned Eurosolo; rumors
+    connect him to a disgraced Secret Service Agent.
+  npcType: RecurringNPC
+  faction: Network_54
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    6
+    tech:         4
+    cool:         5
+    willpower:    6
+    luck:         5
+    move:         6
+    body:         6
+    empathy:      4
+
+  derivedStats:
+    maxHP: 40
+    currentHP: 40
+    armor: 11
+
+  deathSaveThreshold: 6
+
+  skills:
+    - !append { skill: Athletics,           rank: 1 }
+    - !append { skill: Brawling,            rank: 12 }
+    - !append { skill: ConcealRevealObject, rank: 7 }
+    - !append { skill: Concentration,       rank: 9 }
+    - !append { skill: ConversationCool,    rank: 6 }
+    - !append { skill: DriveLandVehicle,    rank: 10 }
+    - !append { skill: Education,           rank: 7 }
+    - !append { skill: EnduranceSTR,        rank: 8 }
+    - !append { skill: Evasion,             rank: 13 }
+    - !append { skill: FirstAid,            rank: 12 }
+    - !append { skill: Handgun,       rank: 14 }
+    - !append { skill: HumanPerception,     rank: 12 }
+    - !append { skill: Interrogation,       rank: 7 }
+    - !append { skill: LinguisticsBase,     rank: 9 }
+    - !append { skill: LocalExpert,         rank: 7 }
+    - !append { skill: PersonalGrooming,    rank: 8 }
+    - !append { skill: Perception,          rank: 12 }
+    - !append { skill: Persuasion,          rank: 7 }
+    - !append { skill: ResistTortureDrugs,  rank: 8 }
+    - !append { skill: Stealth,             rank: 8 }
+    - !append { skill: Streetwise,          rank: 9 }
+    - !append { skill: WardrobeStyle,       rank: 8 }
+
+  primaryEquipment:
+    weapon: Weapons.VeryHeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false
+
+
+NPC.Network54_Stringer:
+  $base: NPC.Base_NamedNPC
+  name: ""
+  handle: "Stringer"
+  description: "Camera Jockey in Love"
+  lore: >
+    Stringer serves as Fiona's cameraman and most trusted confidant. Though employed by Net54 for
+    the past twenty years, he holds a long-standing grudge against the Megacorp. He fell in love
+    with the last Fiona and, after her death, swore he would avenge her by finding the right moment
+    to expose their secret.
+  npcType: RecurringNPC
+  faction: Network_54
+  attitudeGroup: Neutral
+
+  attributes:
+    intelligence: 5
+    reflexes:     6
+    dexterity:    5
+    tech:         6
+    cool:         4
+    willpower:    6
+    luck:         4
+    move:         5
+    body:         6
+    empathy:      5
+
+  derivedStats:
+    maxHP: 35
+    currentHP: 35
+    armor: 7
+
+  deathSaveThreshold: 4
+
+  skills:
+    - !append { skill: Athletics,               rank: 10 }
+    - !append { skill: BasicTech,               rank: 12 }
+    - !append { skill: Brawling,                rank: 14 }
+    - !append { skill: Concentration,           rank: 9 }
+    - !append { skill: ConversationCool,        rank: 8 }
+    - !append { skill: Cybertech,               rank: 10 }
+    - !append { skill: Education,               rank: 9 }
+    - !append { skill: Electronics_SecurityTech,rank: 12 }
+    - !append { skill: Evasion,                 rank: 7 }
+    - !append { skill: FirstAid,                rank: 9 }
+    - !append { skill: Handgun,           rank: 14 }
+    - !append { skill: HumanPerception,         rank: 8 }
+    - !append { skill: LinguisticsBase,         rank: 9 }
+    - !append { skill: LibrarySearch,           rank: 7 }
+    - !append { skill: LocalExpert,             rank: 7 }
+    - !append { skill: Perception,              rank: 7 }
+    - !append { skill: Persuasion,              rank: 6 }
+    - !append { skill: Photography_Film,        rank: 13 }
+    - !append { skill: ResistTortureDrugs,      rank: 13 }
+    - !append { skill: Stealth,                 rank: 7 }
+
+  primaryEquipment:
+    weapon: Weapons.HeavyPistol_Standard
+    hand: Primary
+
+  dropsWeapon: true
+  isInvulnerable: false

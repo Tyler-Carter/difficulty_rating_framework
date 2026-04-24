@@ -1,0 +1,464 @@
+# =============================================================================
+# schema/types.yml
+# Field definitions for each record $type.
+#
+# Inheritance model (inheritance model derived from the CDPR TweakDB):
+#   $type   — declares the schema this record conforms to; governs legal fields
+#   $base   — prototype chain reference; resolver merges root -> leaf
+#   required: true  — field must be present on every resolved leaf record
+#   inherited: true — field is expected to arrive via $base chain
+#
+# Game system: Cyberpunk RED Core Rulebook (R. Talsorian Games, 2020)
+# =============================================================================
+
+
+# =============================================================================
+# SHARED BUILDING BLOCKS
+# =============================================================================
+
+StatModifier:
+  # Inline modifier applied to a named stat from schema/stats.yml.
+  fields:
+    stat:
+      type: string          # key from schema/stats.yml
+      required: true
+    modifierType:
+      type: enum            # ModifierType (Additive | Multiplier | Override)
+      required: true
+    value:
+      type: float
+      required: true
+
+AbilityPackage:
+  # Bundle of stat modifiers and prereqs tied to an ability trigger.
+  fields:
+    trigger:
+      type: enum            # AbilityTrigger
+      required: true
+    statModifiers:
+      type: array<StatModifier>
+    prereqs:
+      type: array<string>   # Prereq record IDs
+    description:
+      type: string
+
+SkillRank:
+  # A single skill entry on a character or NPC record.
+  # RED skills are: skill_key + rank (0–10) + governing attribute.
+  # The governing attribute is defined in schema/enums.yml (SkillCategory)
+  # and does not need to be stored per-record.
+  fields:
+    skill:
+      type: enum            # Skill (see schema/enums.yml)
+      required: true
+    rank:
+      type: int             # 0–10; effective total = rank + governing attribute
+      required: true
+
+RoleAbility:
+  # Represents a character's Role and their current rank in the Role Ability.
+  # Each Role has exactly one special ability that scales with rank (1–10).
+  fields:
+    role:
+      type: enum            # Role (see schema/enums.yml)
+      required: true
+    rank:
+      type: int             # 1–10
+      required: true
+
+LifepathEntry:
+  # One entry in the character's lifepath history.
+  # This generated during character creation (Cultural Origin, Personality,
+  # Clothing Style, Hairstyle, Affectation, Personal Values, Feelings About
+  # People, Valued Person, Valued Possession, Family Background, Childhood
+  # Environment, Family Crisis, Life Goals, Friends/Enemies).
+  # Stored as free text
+  fields:
+    category:
+      type: string          # e.g. "Cultural Origin", "Childhood Environment"
+      required: true
+    value:
+      type: string          # the rolled or chosen result
+      required: true
+    notes:
+      type: string          # optional GM/player annotation
+
+
+# =============================================================================
+# WEAPON
+# =============================================================================
+
+Weapon:
+  # Cyberpunk RED weapon record.
+  # Stat ranges and field presence validated against RED Core Rulebook
+  # weapon tables (pp. 340-351).
+  fields:
+    # --- Identity ---
+    name:             { type: string,  required: true }
+    description:      { type: string }
+    lore:             { type: string }        # flavour text shown when additional information is displayed
+
+    # --- Classification ---
+    weaponType:       { type: enum,    required: true }   # WeaponType
+    weaponCategory:   { type: enum,    required: true }   # WeaponCategory
+    damageTypes:      { type: array<enum> }               # DamageType[]
+    rarity:           { type: enum,    inherited: true }  # Rarity
+
+    # --- Core combat stats ---
+    damage:           { type: string,  inherited: true }  # dice expression, e.g. "2d6"
+    rateOfFire:       { type: int,     inherited: true }  # shots per attack action (1 or 2 for pistols, etc.)
+    handsRequired:    { type: int,     inherited: true }  # 1 or 2
+    concealable:      { type: bool,    inherited: true }  # can be hidden on person
+
+    # --- Ranged-only fields ---
+    effectiveRange:   { type: int,     inherited: true }  # metres; full damage within this range
+    magazineCapacity: { type: int,     inherited: true }  # rounds per magazine
+    armorPiercing:    { type: bool,    inherited: true }  # halves SP before damage
+
+    # --- Melee-only fields ---
+    attackRange:      { type: int,     inherited: true }  # 1 = close, 2 = reach
+
+    # --- Modifier stacks ---
+    statModifiers:      { type: array<StatModifier> }
+    statModifierGroups: { type: array<string> }           # stat group record IDs
+
+    # --- Abilities / mod slots ---
+    abilities:          { type: array<string> }           # Ability record IDs
+    modSlots:           { type: array<string> }           # attachment slot IDs (e.g. Scope, Grip)
+
+    # --- Economy ---
+    cost:               { type: int,   inherited: true }  # Eurodollars (street price)
+
+
+# =============================================================================
+# CHARACTER  (player-controlled)
+# =============================================================================
+
+Character:
+  # Represents a player character built using the Cyberpunk RED core rulebook.
+  # Character creation steps (in order):
+  #   1.  Choose a Role (determines special ability and archetype prototype)
+  #   2.  Ten attribute points are assigned during character creation
+  #   3.  Derive secondary stats from attributes
+  #   4.  Assign skill points (Career Skills + Pickup Skills)
+  #   5.  Choose cyberware (costs Humanity)
+  #   6.  Generate Lifepath entries
+  #   7.  Select gear and starting equipment
+  #
+  # Attributes (ten core stats, RED Core Rulebook p. 62):
+  #   INT -> Intelligence
+  #   REF -> Reflexes
+  #   DEX -> Dexterity
+  #   TECH -> Tech
+  #   COOL -> Cool
+  #   WILL -> Willpower
+  #   LUCK -> Luck
+  #   MOVE -> Move
+  #   BODY -> Body
+  #   EMP -> Empathy
+  #
+  # Derived stats (computed at resolve time from attributes + skills):
+  #   HP              = 10 + (5 × ⌈BODY + WILL / 2⌉)
+  #   Humanity        = EMP × 10  (before cyberware deductions)
+  #   Luck Pool       = LUCK stat value (refreshes each session)
+  #   Run             = MOVE × 3  (metres per action)
+  #   Carry           = BODY × 10 (kilograms)
+  #   Initiative      = REF + INT + 1d10 (rolled each combat round; stored as modifier only)
+  fields:
+    # --- Identity ---
+    name:           { type: string,  required: true }
+    handle:         { type: string }                    # street name / alias
+    description:    { type: string }
+    age:            { type: int }
+
+    # --- Role ---
+    roleAbility:
+      type: RoleAbility
+      required: true
+
+    # --- Faction / background ---
+    faction:        { type: enum,    inherited: true }  # Faction
+    culturalOrigin: { type: enum,    inherited: true }  # CulturalOrigin
+
+    # --- Attributes ---
+    attributes:
+      intelligence: { type: int, required: true }       # INT
+      reflexes:     { type: int, required: true }       # REF
+      dexterity:    { type: int, required: true }       # DEX
+      tech:         { type: int, required: true }       # TECH
+      cool:         { type: int, required: true }       # COOL
+      willpower:    { type: int, required: true }       # WILL
+      luck:         { type: int, required: true }       # LUCK
+      move:         { type: int, required: true }       # MOVE
+      body:         { type: int, required: true }       # BODY
+      empathy:      { type: int, required: true }       # EMP
+
+    # --- Derived stats (stored after resolution; do not set manually) ---
+    # These are computed by the resolver and cached; they are NOT leaf-authored.
+    derivedStats:
+      maxHP:        { type: int }                       # 10 + (5 × ⌈(BODY+WILL)/2⌉)
+      currentHP:    { type: int }
+      armor:        { type: int }                       # base is 0
+      humanity:     { type: int }                       # EMP × 10 − humanity lost
+      humanityLost: { type: int }                       # total from installed cyberware
+      luckPool:     { type: int }                       # = LUCK; spent during session
+      run:          { type: int }                       # MOVE × 3 metres/turn
+      carryWeight:  { type: int }                       # BODY × 10 kg
+
+    # --- Death saves ---
+    deathSaveThreshold: { type: int, inherited: true }  # base 10; modified by some cyberware
+
+    # --- Skills ---
+    # Array of SkillRank entries.  Only skills with rank > 0 need to appear.
+    # Skill total = rank + governing attribute.
+    skills:         { type: array<SkillRank> }
+
+    # --- Cyberware ---
+    cyberware:      { type: array<string> }             # Cyberware record IDs
+
+    # --- Equipment ---
+    primaryEquipment:
+      type: object
+      fields:
+        weapon:   { type: string }                      # Weapon record ID
+        hand:     { type: enum }                        # EquipHand
+    secondaryEquipment:
+      type: object
+      fields:
+        weapon:   { type: string }
+        hand:     { type: enum }                        # EquipHand
+    armorRecord:  { type: string }                      # Armor record ID
+    gear:         { type: array<string> }               # Item record IDs
+
+    # --- Lifepath ---
+    lifepath:       { type: array<LifepathEntry> }
+
+    # --- Stat modifiers (from cyberware, abilities, etc.) ---
+    statModifiers:  { type: array<StatModifier> }
+    abilities:      { type: array<string> }             # Ability record IDs
+
+
+# =============================================================================
+# NPC  (non-player character)
+# =============================================================================
+
+NPC:
+  # Represents an NPC created for a campaign or single game session.
+  # NPCs in RED are intentionally lighter than PCs — they do not go through
+  # full character creation.  The GM assigns stats appropriate to the NPC's
+  # narrative role and threat level.
+  #
+  # NPC attributes follow the same ten-stat block as PCs for consistency.
+  # For "grunt" NPCs the GM may omit rarely-used stats; the resolver treats
+  # missing values as the prototype default.
+  #
+  # NPC HP uses the same formula as PCs but GMs may override for dramatic
+  # balance:  HP = 10 + (5 × ⌈(BODY+WILL)/2⌉)
+  fields:
+    # --- Identity ---
+    name:           { type: string,  required: true }
+    handle:         { type: string }
+    description:    { type: string }
+    lore:           { type: string }                    # GM-facing background text
+    age:            { type: int }
+
+    # --- Classification ---
+    npcType:        { type: enum,    inherited: true }  # NPCType
+    npcRole:        { type: enum,    inherited: true }  # NPCRole
+    npcRarity:      { type: enum,    inherited: true }  # NPCRarity
+    faction:        { type: enum,    inherited: true }  # Faction
+
+    # --- Attributes (same ten stats as PC; omit rarely-used for grunt NPCs) ---
+    attributes:
+      intelligence: { type: int,     inherited: true }
+      reflexes:     { type: int,     inherited: true }
+      dexterity:    { type: int,     inherited: true }
+      tech:         { type: int,     inherited: true }
+      cool:         { type: int,     inherited: true }
+      willpower:    { type: int,     inherited: true }
+      luck:         { type: int,     inherited: true }
+      move:         { type: int,     inherited: true }
+      body:         { type: int,     inherited: true }
+      empathy:      { type: int,     inherited: true }
+
+    # --- Derived / GM-set combat stats ---
+    derivedStats:
+      maxHP:        { type: int,     inherited: true }  # 10 + (5 × ⌈(BODY+WILL)/2⌉)
+      currentHP:    { type: int,     inherited: true }
+      armor:        { type: int,     inherited: true }  # Stopping Power of worn armor
+      humanity:     { type: int }                       # EMP × 10 − humanity lost
+      humanityLost: { type: int }                       # total from installed cyberware
+      luckPool:     { type: int }                       # = LUCK; spent during session
+      run:          { type: int }                       # MOVE × 3 metres/turn
+
+    # --- Death saves ---
+    deathSaveThreshold: { type: int, inherited: true }  # base 10
+
+
+    # --- Skills (same SkillRank structure as PC; typically sparse for NPCs) ---
+    skills:         { type: array<SkillRank> }
+
+    # --- Cyberware / abilities ---
+    cyberware:      { type: array<string> }
+    abilities:      { type: array<string> }
+    statModifiers:  { type: array<StatModifier> }
+
+    # --- Equipment ---
+    primaryEquipment:
+      type: object
+      fields:
+        weapon:         { type: string }
+        hand:           { type: enum }                  # EquipHand
+        equipCondition: { type: array<string> }         # conditions under which this loadout is used
+    secondaryEquipment:
+      type: object
+      fields:
+        weapon:         { type: string }
+        hand:           { type: enum }
+    armorRecord:        { type: string }                # Armor record ID
+
+    # --- Loot ---
+    dropsWeapon:    { type: bool,    inherited: true }
+    otherDrops:     { type: array<string> }             # Item record IDs; GM specifies freely
+
+    # --- Narrative / encounter flags ---
+    isInvulnerable: { type: bool,    inherited: true }  # Narrative usage for generational content
+    attitudeGroup:  { type: enum,    inherited: true }  # Narrative usage for generational content
+
+
+# =============================================================================
+# CYBERWARE
+# =============================================================================
+
+Cyberware:
+  # Cyberpunk RED cyberware record.
+  # Installing cyberware costs Humanity (EMP-derived).
+  # At character creation the Humanity cost is fixed per item; Empathy stat is recalculated after install.
+  # After character creation the Humanity cost is determined by dice roll (1d6, 2d6, 1d10, etc.).
+  # See RED Core Rulebook pp. 228-263.
+  fields:
+    name:             { type: string,  required: true }
+    description:      { type: string }
+    lore:             { type: string }
+    cyberwareType:    { type: enum,    required: true }   # CyberwareType
+    equipSlot:        { type: enum,    required: true }   # CyberwareSlot
+    rarity:           { type: enum,    inherited: true }
+
+    humanityCost:     { type: int,     required: true }   # Humanity lost on install
+    cost:             { type: int,     inherited: true }  # Eurodollars (street price)
+
+    statModifiers:    { type: array<StatModifier> }
+    abilities:        { type: array<string> }             # OnEquip / OnActivate Ability IDs
+
+    # Optional: sibling records at higher/lower tiers
+    variants:         { type: array<string> }             # Cyberware record IDs per tier
+
+
+# =============================================================================
+# ABILITY
+# =============================================================================
+
+Ability:
+  # A discrete active or passive capability attached to a character, NPC,
+  # or piece of cyberware.
+  # Also used for Role special abilities (Combat Awareness, Medtech Surgery, etc.)
+  # and for quickhacks (see prototypes/abilities/quickhacks.yml).
+  fields:
+    name:           { type: string,  required: true }
+    description:    { type: string }
+    trigger:        { type: enum,    required: true }   # AbilityTrigger
+    stackable:      { type: bool,    inherited: true }
+
+    statModifiers:  { type: array<StatModifier> }
+    prereqs:        { type: array<string> }             # conditions that must be met
+    duration:       { type: float }                     # rounds; null = permanent
+    cooldown:       { type: float }                     # rounds; null = no cooldown
+    appliesEffects: { type: array<string> }             # StatusEffect record IDs
+
+    # Quickhack-specific fields (only used when trigger = OnHack)
+    target:         { type: enum }                      # QuickhackTarget
+    accessDepth:    { type: int }                       # 1 | 2 | 3
+    minMomentum:    { type: int }                       # 1–5
+    momentumCost:   { type: int }                       # 0 | 1
+
+
+# =============================================================================
+# NETWORK NODE
+# =============================================================================
+
+NetworkNode:
+  # Hackable object in a scene (Cyberpunk RED optional hacking system).
+  # Nodes are scene dressing, not living entities.
+  # States: Active → Compromised → Flatlined.
+  # ICE nodes retaliate and have a hit threshold instead of HP.
+  fields:
+    nodeType:       { type: enum,    required: true }   # NodeType
+    accessDepth:    { type: int,     required: true }   # 1 | 2 | 3
+    isICE:          { type: bool,    inherited: true }
+    hitThreshold:   { type: int }                       # ICE only; null for standard nodes
+    onCompromise:   { type: string }
+    onFlatline:     { type: string }
+    onRetaliate:    { type: string }                    # ICE only
+    notes:          { type: string }
+
+
+# =============================================================================
+# STATUS EFFECT
+# =============================================================================
+
+StatusEffect:
+  # A timed or conditional effect applied to a character or NPC.
+  fields:
+    name:           { type: string,  required: true }
+    description:    { type: string }
+    damageType:     { type: enum }                      # DamageType or null
+
+    duration:       { type: int,     required: true }   # rounds
+    tickRate:       { type: int }                       # rounds between ticks; null = no tick
+    tickEffect:     { type: StatModifier }
+
+    onApply:        { type: array<StatModifier> }
+    onExpire:       { type: array<StatModifier> }
+
+    stackable:      { type: bool,    inherited: true }
+    maxStacks:      { type: int,     inherited: true }
+
+    immunityStats:  { type: array<string> }             # stat keys that block this effect
+    cyberwareSuppressed: { type: bool }                 # true = suppress all cyberware while active
+
+
+# =============================================================================
+# ARMOR
+# =============================================================================
+
+Armor:
+  # Armor reduces incoming damage by its Stopping Power (SP) before it
+  # reaches the character's HP.  SP degrades with use (ablation).
+  # See RED Core Rulebook pp. 228-230.
+  fields:
+    name:           { type: string,  required: true }
+    description:    { type: string }
+    lore:           { type: string }
+
+    armorType:      { type: enum,    required: true }   # ArmorType
+    stoppingPower:  { type: int,     required: true }   # SP value
+    penalty:        { type: int,     inherited: true }  # penalty to REF/DEX-based checks
+    concealable:    { type: bool,    inherited: true }
+    cost:           { type: int,     inherited: true }  # Eurodollars
+
+
+# =============================================================================
+# ITEM  (generic gear)
+# =============================================================================
+
+Item:
+  # Generic equipment, tool, or consumable.
+  # Used for medtech supplies, netrunner tools, explosives, misc. gear.
+  fields:
+    name:           { type: string,  required: true }
+    description:    { type: string }
+    lore:           { type: string }
+    itemType:       { type: enum,    required: true }   # ItemType
+    cost:           { type: int,     inherited: true }
+    weight:         { type: float,   inherited: true }  # kg
+    abilities:      { type: array<string> }             # triggered effects on use
