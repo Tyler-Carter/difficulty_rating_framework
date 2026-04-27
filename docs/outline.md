@@ -822,11 +822,9 @@ The 4d6 die pool is being used for this example because it has a chance to excee
 
 Let S = $X_{1}+X_{2}+X_{3}+X_{4}$ where each $X_{i}$ is independent and identically distributed uniformly on {1,2,3,4,5,6}.
 
-The PMF for the sum $ s∈{4,5,…,24}$ is:
+The PMF for the sum $s∈{4,5,…,24}$ is:
 
-$
-P(S=s)=\frac{1}{6^4} \sum_{k=0}^{\lfloor(s-4)/6\rfloor} (-1)^k \binom{4}{k}\binom{s-6k-1}{3}
-$
+$P(S=s)=\frac{1}{6^4} \sum_{k=0}^{\lfloor(s-4)/6\rfloor} (-1)^k \binom{4}{k}\binom{s-6k-1}{3}$
 
 Where:
 - $s$   → the target sum(integer, 4 ≤ s ≤ 24)
