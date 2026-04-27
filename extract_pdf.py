@@ -6,7 +6,7 @@ import sys
 import os
 
 PDF_PATH = r"C:\Users\gtc19\OneDrive\Documents\Table Top Games\Cyberpunk\Books\Danger Gal Dossier (J Gray, James Hutt, Anne Morrison, Chris Spivey etc.).pdf"
-OUTPUT_PATH = r"/text_output/pdf_extract.txt"
+OUTPUT_PATH = r"outputs/text_output/pdf_extract.txt"
 
 def extract_pdf():
     print(f"Opening: {PDF_PATH}")

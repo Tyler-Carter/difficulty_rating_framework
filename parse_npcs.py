@@ -4,7 +4,7 @@ Parse NPC stat blocks from Danger Gal Dossier extracted text.
 import re
 import json
 
-INPUT_PATH = r"/text_output/pdf_extract.txt"
+INPUT_PATH = r"outputs/text_output/pdf_extract.txt"
 OUTPUT_JSON = r"C:\Users\gtc19\PycharmProjects\CPRED_DR_Framework\npc_data.json"
 OUTPUT_SUMMARY = r"C:\Users\gtc19\PycharmProjects\CPRED_DR_Framework\npc_summary.txt"
 
