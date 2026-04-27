@@ -428,7 +428,7 @@ AAC = absorbed
 
 Each iteration represents one penetrating hit from the reference attacker. The loop stops as soon as the NPC's HP pool is exhausted, counting only the ablation steps that actually occur before death.
 
-*Key property:* Because the loop terminates based on HPP, two NPCs with the same SP but different BODY/WILL produce different AAC values. A higher-HP NPC survives more hits and therefore extracts more absorption from their armor — which is mechanically correct.
+*Key property:* Because the loop terminates based on HPP, two NPCs with the same SP but different BODY/WILL produce different AAC values. A higher-HP NPC survives more hits and therefore extracts more absorption from their armor (which is mechanically correct).
 
 #### Worked examples (REF_DAMAGE = 19)
 
