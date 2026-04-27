@@ -24,9 +24,6 @@ build/
 .idea/dataSources/
 .idea/dataSources.local.xml
 
-# Generated outputs
-outputs/
-
 # OS
 .DS_Store
 Thumbs.db
