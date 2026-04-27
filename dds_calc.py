@@ -7,6 +7,12 @@ from api.main import load_record, get_effective_sp
 # ---------------------------------------------------------------------------
 DSR_WEIGHT: float = 5.0
 
+SP_CAPPED: int = 18
+# REF_DAMAGE: minimum damage that penetrates any armor in CP:RED (must exceed SP_CAPPED).
+# Represents a reference attacker used to compute realistic armor absorption.
+# Default = SP_CAPPED + 1 so the formula is universally defined for all valid SP values.
+REF_DAMAGE: float = SP_CAPPED + 1
+
 
 # ---------------------------------------------------------------------------
 # Stat extraction helpers
@@ -45,24 +51,50 @@ def compute_hpp(body: int, will: int) -> float:
     return ((will + body) / 2) * 5 + 10
 
 
-def compute_aac(sp: int) -> float:
+def compute_aac(sp: int, hpp: float, ref_damage: float = REF_DAMAGE) -> float:
     """Compute the Armor Absorption Capacity component of DDS.
 
-    SP_CAPPED = min(sp, 18)
-    AAC = SP_CAPPED * (SP_CAPPED + 1) / 2
+    Simulates hit-by-hit armor ablation against a reference attacker until the
+    NPC's HP pool is exhausted, then sums only the absorption that actually
+    occurred. This is the realized absorption — the amount of damage armor
+    blocks during the combat that ends with the NPC's death.
 
-    AAC models the total damage absorbed by armor across its full ablation
-    lifespan (the triangular number sum). The cap of 18 prevents military-grade
-    borgware SP values from collapsing tier separation.
+    The reference attacker deals ref_damage per hit (default: SP_CAPPED + 1 = 19,
+    the minimum damage that penetrates the strongest armor in CP:RED). Each
+    penetrating hit ablates SP by 1 and absorbs current_sp damage before the
+    remainder reaches HP.
+
+    Using hpp in the computation means two NPCs with identical SP but different
+    BODY/WILL produce different AAC values — higher-HP defenders survive more
+    ablation steps and therefore extract more value from their armor.
+
+    If ref_damage <= sp_capped the attacker cannot penetrate; falls back to the
+    full triangular sum as a conservative upper bound.
 
     Args:
-        sp: Raw effective SP from get_effective_sp(), before capping.
+        sp:         Raw effective SP, before capping.
+        hpp:        Hit Point Pool (output of compute_hpp).
+        ref_damage: Reference attacker damage per hit. Must exceed SP_CAPPED.
 
     Returns:
-        AAC as a float.
+        Realized AAC as a float.
     """
-    sp_capped = min(sp, 18)
-    return sp_capped * (sp_capped + 1) / 2
+    sp_capped = min(sp, SP_CAPPED)
+
+    if ref_damage <= sp_capped:
+        return sp_capped * (sp_capped + 1) / 2
+
+    cumulative_hp = 0.0
+    absorbed = 0.0
+    for k in range(sp_capped + 1):
+        current_sp = sp_capped - k
+        net_hp = ref_damage - current_sp
+        cumulative_hp += net_hp
+        absorbed += current_sp
+        if cumulative_hp >= hpp:
+            break
+
+    return absorbed
 
 
 def compute_dsr(body: int) -> float:
@@ -108,19 +140,19 @@ def compute_dds(body: int, will: int, sp: int) -> dict:
 
     DDS = HPP + AAC + DSR_hp
         = ( (WILL + BODY) / 2 ) * 5 + 10
-        + min(SP, 18) * (min(SP, 18) + 1) / 2
+        + realized_absorption(min(SP, 18), HPP, REF_DAMAGE)
         + E_DSR(BODY) * DSR_WEIGHT
 
     Args:
         body: Resolved BODY attribute value.
         will: Resolved WILLPOWER attribute value.
-        sp:   Raw effective SP (before the AAC cap of 18 is applied).
+        sp:   Raw effective SP (before the SP_CAPPED cap is applied).
 
     Returns:
         Dict with keys: dds, hpp, aac, dsr_hp, sp_raw, sp_capped.
     """
     hpp    = compute_hpp(body, will)
-    aac    = compute_aac(sp)
+    aac    = compute_aac(sp, hpp)
     dsr_hp = compute_dsr(body)
     dds    = hpp + aac + dsr_hp
 
@@ -130,7 +162,7 @@ def compute_dds(body: int, will: int, sp: int) -> dict:
         "aac":       round(aac, 4),
         "dsr_hp":    round(dsr_hp, 4),
         "sp_raw":    sp,
-        "sp_capped": min(sp, 18),
+        "sp_capped": min(sp, SP_CAPPED),
     }
 
 
@@ -178,12 +210,15 @@ def calculate_dds_for_records(defender_id: str) -> dict:
 if __name__ == "__main__":
     from pprint import pprint
 
-    # Pure-math checks against sample table in outline.md (DSR_WEIGHT=5)
+    # Pure-math checks (DSR_WEIGHT=5, REF_DAMAGE=19).
+    # AAC is now realized absorption, not the triangular sum — expected DDS values
+    # are lower than the old outline.md table (see docs/outline.md §Component 2).
     test_cases = [
-        ("Mook",        4,  4,  7,  59.8),
-        ("Hardened",    5,  5, 11, 103.7),
-        ("Boss",       10,  8, 18, 239.3),
-        ("Elite Boss", 12, 10, 18, 255.3),
+        # (label,  body, will, sp, expected_dds)
+        ("Mook",        4,  4,  7,  49.8),   # AAC=18  (was 28)
+        ("Hardened",    5,  5, 11,  75.7),   # AAC=38  (was 66)
+        ("Boss",       10,  8, 18, 203.3),   # AAC=135 (was 171)
+        ("Elite Boss", 12, 10, 18, 227.3),   # AAC=143 (was 171)
     ]
     print("=== DDS pure-math verification ===")
     print(f"{'Tier':<12}  {'HPP':>6}  {'AAC':>6}  {'DSR_hp':>7}  {'DDS':>7}  {'Expected':>9}  Match")
@@ -197,5 +232,5 @@ if __name__ == "__main__":
 
     # Record-driven check
     print("\n=== Record-driven check: NPC.6thStreet_Arbiter ===")
-    print("  (BODY=5, WILL=6, armor=15 -> HPP=37.5, AAC=120.0, DSR_hp~2.73)")
+    print("  (BODY=5, WILL=6, armor=15 -> HPP=37.5, realized AAC=75.0, DSR_hp~2.73)")
     pprint(calculate_dds_for_records("NPC.6thStreet_Arbiter"))
