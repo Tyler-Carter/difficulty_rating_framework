@@ -12,7 +12,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-BASE_FILES_DIR = Path(__file__).parent / "base_files"
+BASE_FILES_DIR = Path(__file__).parent.parent / "base_files"
 
 # ---------------------------------------------------------------------------
 # Playtesting parameters (see docs/outline.md "Requires playtesting" sections)
