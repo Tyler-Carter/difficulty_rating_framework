@@ -606,7 +606,7 @@ Every tunable constant in the system is collected here for playtesting and adjus
 
 ## Appendix B - Mook NTS Score
 
-This appendix walks through a complete NTS calculation for a single Mook-tier NPC against a specific PC. No simplifications are applied — every formula from the main body is evaluated in order.
+This appendix walks through a complete NTS calculation for a single Mook-tier NPC against a specific PC. 
 
 **NPC (the threat being scored):** `NPC.NCPD_Cherub` — Officer Ranbir Majumdar, handle "Cherub"
 **PC (the defender baseline):** `NPC.Edgerunners_TiaPuao` — Tía Puño, handle "Tia Pu'ao"
