@@ -1,6 +1,6 @@
-# TTRPG Inheritance System —.yml Reference
-# Adapted from CD Projekt Red's TweakDB prototype/inheritance pattern
-# Game system: Cyberpunk RED Core Rulebook (R. Talsorian Games, 2020)
+# TTRPG Inheritance System
+#### Adapted from CD Projekt Red's TweakDB prototype/inheritance pattern
+#### Game system: Cyberpunk RED Core Rulebook (R. Talsorian Games, 2020)
 
 ---
 
