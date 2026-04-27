@@ -810,9 +810,7 @@ This is the closed form derived from the inclusion-exclusion expansion of the co
 
 The expression below applies for $n$ dice with $f$ faces each summing to $s$:
 
-$
-P(S=s)=\frac{1}{f^n} \sum_{k=0}^{\lfloor(s-n)/f\rfloor} (-1)^k \binom{n}{k} \binom{s-fk-1}{n-1}
-$
+$P(S=s)=\frac{1}{f^n} \sum_{k=0}^{\lfloor(s-n)/f\rfloor} (-1)^k \binom{n}{k} \binom{s-fk-1}{n-1}$
 
 This closed form is applied to an example in the next section.
 
