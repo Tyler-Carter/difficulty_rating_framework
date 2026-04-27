@@ -784,7 +784,7 @@ NTS = clamp(round(NTS_raw / SCALE_FACTOR), 1, 20)
 ---
 
 ## Appendix C - Probability Mass Function for the Sum of Nd6
-The mean damage potential for weapons has been used to calculate damage as part of the total NTS calculation. After reviewing the data from calculating the NTS for 1600 character permutations it has been determined that this method is incorrect.
+The mean damage potential for weapons has been used to calculate damage as part of the total NTS calculation. After reviewing the data from calculating the NTS for extracted character stat blocks it has been determined that this method requires a more rigorous approach.
 
 ### Why Mean Damage Fails as a Proxy Number
 The mean damage doesn't provide the probability that the amount of damage done by the weapon exceeds the character's SP rating. The Armor Absorption Capacity (AAC) within the DDS calculation relies on armor ablation that only occurs when the amount of damage done to a character exceeds the SP rating. Two weapons with the same mean can have very different probabilities of beating a given armor value because dice pools have different spreads.
