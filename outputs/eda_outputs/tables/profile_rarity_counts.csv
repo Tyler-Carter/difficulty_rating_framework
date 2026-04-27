@@ -1,0 +1,9 @@
+npc_rarity,unique_npcs
+Mook,18
+Tough,12
+HardenedMook,10
+HardenedLieutenant,8
+Elite,33
+HardenedMiniBoss,5
+Boss,9
+HardenedBoss,2

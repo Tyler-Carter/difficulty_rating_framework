@@ -1,0 +1,16 @@
+faction,n_pairs,n_unique_npcs,median_nts_raw,mean_nts_raw,std_nts_raw
+Piranhas,48,3,61.61,60.37,18.78
+Zoners,160,10,49.01,47.33,25.44
+TeamMonster,96,6,47.58,50.18,5.46
+Maelstrom,176,11,47.56,53.43,25.18
+Sightseers,80,5,47.02,36.49,17.57
+6thStreet,80,5,46.92,42.18,11.59
+DangerGal,80,5,46.57,45.77,5.74
+Bozos,176,11,46.28,47.36,18.22
+NCPD,176,11,45.94,46.92,10.98
+TygerClaws,144,9,45.6,41.06,25.67
+TraumaTeam,96,6,38.92,38.18,9.56
+Incident,32,2,38.86,37.63,16.15
+Network54,48,3,27.27,27.8,1.56
+DigitalDivas,80,5,21.89,23.36,3.24
+GenerationRed,128,8,15.87,21.87,9.73

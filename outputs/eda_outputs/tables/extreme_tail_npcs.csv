@@ -1,0 +1,11 @@
+,npc_id,pc_role_id,npc_rarity,nts_raw,ots,dds,weapon_type,driver
+0,NPC.Maelstrom_Crusher,NPC.Edgerunners_Leverage,HardenedBoss,97.6912,0.2972,243.7821,Flamethrower,aac
+1,NPC.Zoners_Tearjerker,NPC.Edgerunners_Leverage,Boss,93.8195,16.8165,209.3239,GrenadeLauncher,aac
+2,NPC.TygerClaws_ShinobuTheSecond,NPC.Edgerunners_Hammer,Boss,92.9766,8.4118,219.8239,VeryHeavyMelee,aac
+3,NPC.Maelstrom_Warlock,NPC.Edgerunners_Flasher,Boss,90.9475,3.3633,222.3239,Shotgun,aac
+4,NPC.Bozos_Blammo,NPC.Edgerunners_Hammer,Boss,85.4275,25.23,175.7237,RocketLauncher,aac
+5,NPC.Zoners_Vanisher,NPC.Edgerunners_Leverage,Boss,84.4546,8.5569,198.3011,HeavySMG,aac
+6,NPC.Piranhas_BazookaJoe,NPC.Edgerunners_CrabLord,Boss,81.8722,0.2378,204.3239,Brawling,aac
+7,NPC.Bozos_BigTop,NPC.Edgerunners_Crasher,HardenedBoss,78.465,4.2926,189.7237,HeavyMelee,aac
+8,NPC.Maelstrom_ThePit,NPC.Edgerunners_Leverage,HardenedMiniBoss,77.3942,6.7294,183.3915,VeryHeavyPistol,aac
+9,NPC.Maelstrom_Quake,NPC.Edgerunners_Leverage,HardenedMiniBoss,72.5766,8.4118,168.8239,VeryHeavyMelee,aac

@@ -1,0 +1,9 @@
+,rarity,median_raw,target_band,mapped_nts,in_band
+0,Mook,15.87,1-4,3,True
+1,Tough,27.35,1-4,5,False
+2,HardenedMook,30.79,5-8,6,True
+3,HardenedLieutenant,50.7,5-8,10,False
+4,Elite,47.16,9-12,9,True
+5,HardenedMiniBoss,55.2,9-12,11,True
+6,Boss,81.87,13-16,16,True
+7,HardenedBoss,88.04,17-20,18,True
