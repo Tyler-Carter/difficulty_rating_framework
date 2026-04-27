@@ -27,6 +27,7 @@ NPC.Edgerunners_Tetsuo:
     Tetsuo disappeared from the Japanese Edgerunner scene with a substantial
     score stolen from the Yakuza in Chiba prefecture.
   npcType: RecurringNPC
+  npcRole: Solo
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -111,7 +112,7 @@ NPC.Edgerunners_CrabLord:
     leaves the field himself, preferring to stay secure within his portable
     NET Architecture's drone control range while his remote drones do the work.
   npcType: RecurringNPC
-  npcRole: Netrunner_NPC
+  npcRole: Netrunner
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -193,6 +194,7 @@ NPC.Edgerunners_TiaPuao:
     Her specialty is explosive ordinance, always punching through obstacles
     one way or another.
   npcType: RecurringNPC
+  npcRole: Solo
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -264,6 +266,7 @@ NPC.Edgerunners_Backhand:
     of honor. A freelance Tech par excellence: when you want it done, and done
     right, and don't overly care about anyone's feelings, she's the one to call.
   npcType: RecurringNPC
+  npcRole: Tech
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -337,6 +340,7 @@ NPC.Edgerunners_Jumpshot:
     Jumpshot will go to great lengths to get the story — and then she absolutely
     will tell it.
   npcType: RecurringNPC
+  npcRole: Media
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -406,6 +410,7 @@ NPC.Edgerunners_TwoFourSeven:
     censorship and now runs his own pirate channel, refusing pay-offs and
     publishing what others suppress.
   npcType: RecurringNPC
+  npcRole: Media
   faction: Edgerunner
   attitudeGroup: Friendly
 
@@ -473,6 +478,7 @@ NPC.Edgerunners_Derby:
     an opponent. Derby learned things outside the rink can be even more dangerous,
     and has been upgrading herself for more lucrative mercenary work.
   npcType: RecurringNPC
+  npcRole: Solo
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -550,6 +556,7 @@ NPC.Edgerunners_Forty:
     serious grudge forward to do her own thing, reinventing herself as an
     independent artist.
   npcType: RecurringNPC
+  npcRole: Rockerboy
   faction: Edgerunner
   attitudeGroup: Friendly
 
@@ -623,6 +630,7 @@ NPC.Edgerunners_Grease:
     That professional attitude makes him an up-and-coming Fixer, though he
     keeps a low profile — "Poking your head up is a good way to get it shot off."
   npcType: RecurringNPC
+  npcRole: Fixer
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -694,7 +702,7 @@ NPC.Edgerunners_Redeye:
     childhood, she slipped out of Corporate-land at the first opportunity, hit
     Night City's clubs and code-havens, and never looked back.
   npcType: RecurringNPC
-  npcRole: Netrunner_NPC
+  npcRole: Netrunner
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -764,6 +772,7 @@ NPC.Edgerunners_Saber:
     from assassination, the grateful client funded his new cyberarms and
     connected him with further clients.
   npcType: RecurringNPC
+  npcRole: Exec
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -839,6 +848,7 @@ NPC.Edgerunners_Torch:
     really own it." He earned his handle from wielding a blowtorch and
     soldering iron, but also maintains a working flamethrower for field work.
   npcType: RecurringNPC
+  npcRole: Tech
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -914,6 +924,7 @@ NPC.Edgerunners_Crasher:
     there's ideally a buffet involved. Smart enough to keep a personal archive
     of potentially useful footage — he never deletes anything incriminating.
   npcType: RecurringNPC
+  npcRole: Media
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -978,6 +989,7 @@ NPC.Edgerunners_Flasher:
     underestimate his value as an information source — he's always hustling
     and sees everything the street offers.
   npcType: RecurringNPC
+  npcRole: Fixer
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -1046,6 +1058,7 @@ NPC.Edgerunners_Hammer:
     cannon fodder, Hammer went into business for himself as a direct and
     forceful problem-solver.
   npcType: RecurringNPC
+  npcRole: Solo
   faction: Edgerunner
   attitudeGroup: Neutral
 
@@ -1111,6 +1124,7 @@ NPC.Edgerunners_Leverage:
     Liked it so much he couldn't stop thinking about it — so he quit and became
     an Edgerunner himself.
   npcType: RecurringNPC
+  npcRole: Tech
   faction: Edgerunner
   attitudeGroup: Friendly
 
