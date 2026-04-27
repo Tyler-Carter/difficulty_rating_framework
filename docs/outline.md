@@ -891,9 +891,7 @@ So $P(S > 10)=1-0.159\approx 84.1\%$
 ## Appendix D - PMF Breakdown
 <u>**Decoding the Formula**</u>
 
-$
-P(S=s)=\ \frac{1}{6^4} \sum_{k=0}^{\lfloor \left( s-4 \right)/6 \rfloor} \left( -1 \right)^k \binom{4}{k} \binom{s-6k-1}{3}
-$
+$P(S=s)=\ \frac{1}{6^4} \sum_{k=0}^{\lfloor \left( s-4 \right)/6 \rfloor} \left( -1 \right)^k \binom{4}{k} \binom{s-6k-1}{3}$
 
 The $\binom{s-1}{3}$ term (when $k=0$): This counts the number of ways to write $s$ as an ordered sum of 4 _positive integers_, which overcounts because it allows values like 7,8,9, etc. on a single die.
 
