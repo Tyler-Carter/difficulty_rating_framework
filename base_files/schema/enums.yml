@@ -244,8 +244,16 @@ NPCRole:
   - Elite                     # more capable; may have cyberware
   - Sniper                    # ranged specialist; high Perception + ShoulderArms
   - Assassin                  # stealth and infiltration specialist; high Perception + Stealth
-  - Netrunner_NPC             # hacking NPC; may deploy ICE nodes
-  - Medtech_NPC               # healer/support; revives downed allies
+  - Rockerboy_NPC             # Edgerunner faction Charismatic Impact (social/crowd control)
+  - Solo_NPC                  # Edgerunner faction Combat Awareness (initiative, perception)
+  - Netrunner_NPC             # Edgerunner faction hacking NPC; may deploy ICE nodes
+  - Tech_NPC                  # Edgerunner faction tech fabrication and repair)
+  - Medtech_NPC               # Edgerunner faction healer/support; revives downed allies
+  - Media_NPC                 # Edgerunner faction investigations and broadcasting
+  - Lawman_NPC                # Edgerunner faction Law enforcement
+  - Exec_NPC                  # Edgerunner faction Team buffs and corporate resources
+  - Fixer_NPC                 # Edgerunner faction contacts network, gig provider, resource acquisitions
+  - Nomad_NPC                 # Edgerunner faction Vehicle mastery and travel skills
   - Boss                      # major named threat; highest stats
   - NamedNPC                  # story-critical; not necessarily combat-focused
   - Bodyguard                 # protecting a principal; attitudeGroup usually Hostile to threats
