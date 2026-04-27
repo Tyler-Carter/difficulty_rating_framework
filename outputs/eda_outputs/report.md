@@ -140,7 +140,7 @@ _Source: [tables/univariate_summary.csv](tables/univariate_summary.csv)_
 
 ![Distributions of NTS_raw, OTS, DDS](01_distributions.png)
 
-_Linear (top) and log-y (bottom) histograms. The OTS log-y plot exposes the heavy zero-mass — many NPCs cannot penetrate PC armor in single-shot mode._
+_Linear (top) and log-y (bottom) histograms. The OTS log-y plot exposes the heavy zero-mass. Many NPCs cannot penetrate PC armor in single-shot mode._
 
 
 ![Per-rarity violins for each metric](02_rarity_violins.png)
@@ -155,12 +155,12 @@ _Violin shape + per-pair points per rarity tier. Wide tails indicate within-tier
 
 ![Pairwise scatter of OTS, DDS, NTS_raw](03_pair_scatter.png)
 
-_Pearson (linear) and Spearman (monotonic) correlations side-by-side. NTS_raw is dominated by DDS due to the 60/40 split applied to OTS values that are an order of magnitude smaller._
+_Pearson (linear) and Spearman (monotonic) correlations side-by-side. NTS_raw is dominated by DDS due to the Armor Absorption Capacity (AAC) calculation. As SP rating increases the armor absorption pool quadratically increases._
 
 
 ![Pearson and Spearman correlation heatmaps](04_correlations.png)
 
-_Pearson catches linear correlation; Spearman captures monotonic rank relationships, which is the more honest summary for the heavy-tailed OTS distribution._
+_Pearson catches linear correlation and Spearman captures monotonic rank relationships. The heavily-tailed OTS distribution currently makes Spearman the more honest summary._
 
 _Spearman correlation matrix._
 
@@ -187,6 +187,8 @@ _Source: [tables/correlations_spearman.csv](tables/correlations_spearman.csv)_
 
 ### Per-rarity summary
 
+_The mean for the nts_raw score highlights the lack of gradation within the pre-defined stat blocks. This results in 'spikey' difficulty ratings instead of a normalized increase._
+
 | ('npc_rarity', '') | ('nts_raw', 'mean') | ('nts_raw', 'median') | ('nts_raw', 'std') | ('ots', 'mean') | ('ots', 'median') | ('ots', 'std') | ('dds', 'mean') | ('dds', 'median') | ('dds', 'std') | ('n_pairs', '') | ('n_unique_npcs', '') |
 | ------------------ | ------------------- | --------------------- | ------------------ | --------------- | ----------------- | -------------- | --------------- | ----------------- | -------------- | --------------- | --------------------- |
 | Mook               | 16.300              | 15.870                | 2.850              | 1.040           | 0.480             | 1.360          | 39.190          | 37.580            | 6.730          | 288             | 18                    |
@@ -203,10 +205,12 @@ _Source: [tables/rarity_breakdown.csv](tables/rarity_breakdown.csv)_
 
 ![PC role × rarity NTS heatmap](05_pc_role_rarity_heatmap.png)
 
-_Mean NTS_raw per (PC role, NPC rarity) cell. Row variation reveals whether some PC roles face systematically harder or easier matchups than others._
+_Mean NTS_raw per (PC role, NPC rarity) cell. Row variation reveals whether some PC roles face systematically harder or easier matchups than others. Insight into the similarity ratings between roles is provided with the next table._
 
 
 ### Per-PC-role summary
+
+_The stat blocks extracted from the Danger Girl Dossier are essentially equal in terms of combat prowess. The un-answered question is, 'how does each role compare to an actual PC character within the same role?'_
 
 | pc_role   | n_pairs | median_nts_raw | mean_nts_raw | median_ots | ots_zero_frac |
 | --------- | ------- | -------------- | ------------ | ---------- | ------------- |
@@ -258,7 +262,7 @@ _Per-faction NTS_raw distribution, sorted by median._
 
 ### Tier separation
 
-_Cohen's d, distribution overlap %, and Mann-Whitney p between adjacent tiers. Negative d signals an inverted ladder (the higher-rarity tier is actually weaker)._
+_Cohen's d, distribution overlap %, and Mann-Whitney p between adjacent tiers. For example, a negative d would signal an inverted ladder meaning the higher-rarity tier is actually weaker._
 
 | index | lower              | higher             | n_lo | n_hi | mean_lo | mean_hi | cohen_d | overlap_pct | mw_p  |
 | ----- | ------------------ | ------------------ | ---- | ---- | ------- | ------- | ------- | ----------- | ----- |
@@ -275,7 +279,7 @@ _Source: [tables/tier_separation.csv](tables/tier_separation.csv)_
 
 ![Tier separation effect-size strip](11_tier_separation.png)
 
-_Green = clean separation (|d|≥0.8 or overlap<70%), orange = moderate, red = at-risk._
+_Green = clean separation (|d|≥0.8 or overlap<70%), orange = moderate, red = at-risk. There is very little variation between two tiers (Tough -> Hardened & HardenedLT -> Elite) and the variation between Boss -> HardenedBoss is moderately overlapping. This is likely a result of poor stat block balancing by the stat block's authors._
 
 
 ### SCALE_FACTOR back-solve
@@ -328,7 +332,7 @@ _Stacked HPW·EDPR vs HPW·CTS contribution to mean OTS per rarity. Crit-track d
 
 ### OTS zero-mass (penetration failure rate)
 
-_P(EDPR_SS = 0) — how often a single shot from this rarity tier deals zero raw damage to this PC role._
+_P(EDPR_SS = 0) — how often a single shot from this rarity tier deals zero raw damage to this PC role. This unintended result stems from how weapon damage is being calculated. Using the mean of a die pool for a static damage value as a proxy isn't the correct approach._
 
 | pc_role   | Mook  | Tough | HardenedMook | HardenedLieutenant | Elite | HardenedMiniBoss | Boss  | HardenedBoss |
 | --------- | ----- | ----- | ------------ | ------------------ | ----- | ---------------- | ----- | ------------ |
@@ -345,12 +349,12 @@ _Source: [tables/ots_zero_mass.csv](tables/ots_zero_mass.csv)_
 
 ![OTS zero-mass heatmap](08_ots_zero_mass.png)
 
-_Hot cells = NPC tier consistently fails to penetrate this PC role's armor._
+_Hot cells = NPC tier consistently fails to penetrate this PC role's armor. This supports the conclusion noted above. Flat mean damage values aren't nuanced enough to be used for determining armor penetration._
 
 
 ### Weighting sensitivity
 
-_Spearman ρ of NPC rankings vs the 60/40 baseline under alternative OTS/DDS weightings. Top-10 changes count NPCs that enter or leave the top 10._
+_Spearman ρ of NPC rankings vs the 60/40 baseline under alternative OTS/DDS weightings. Top-10 changes count NPCs that enter or leave the top 10. Currently OTS doesn't have enough of an impact on the NTS score for this metric to provide valuable information._
 
 | index | ots_weight | dds_weight | spearman_rho | top10_overlap | top10_changes |
 | ----- | ---------- | ---------- | ------------ | ------------- | ------------- |
@@ -376,7 +380,7 @@ _Source: [tables/weighting_sensitivity.csv](tables/weighting_sensitivity.csv)_
 
 ### NPC threat consistency
 
-_Top-15 NPCs by coefficient of variation of OTS across PCs — these are the most PC-dependent threats._
+_Top-15 NPCs by coefficient of variation of OTS across PCs (these are the most PC-dependent threats)._
 
 | index | npc_id                      | npc_rarity         | ots_mean | ots_std | ots_cv |
 | ----- | --------------------------- | ------------------ | -------- | ------- | ------ |
@@ -429,7 +433,7 @@ _Left: distribution of raw SP. Right: NPCs hitting the SP=18 cap, by rarity._
 
 ### Top extreme-tail NPCs and their drivers
 
-_Top 10 NPCs by NTS_raw with the dominant subcomponent driver attributed (HPP/AAC/DSR/EDPR-track/CTS-track)._
+_Top 10 NPCs by NTS_raw with the dominant subcomponent driver attributed (HPP/AAC/DSR/EDPR-track/CTS-track). It is easy to observe that DDS is the dominant driver of NTS_raw._
 
 | index | npc_id                          | pc_role_id               | npc_rarity       | nts_raw | ots    | dds     | weapon_type     | driver |
 | ----- | ------------------------------- | ------------------------ | ---------------- | ------- | ------ | ------- | --------------- | ------ |
