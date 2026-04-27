@@ -116,8 +116,8 @@ NPC.Base_NPC:
 
 NPC.Base_Grunt:
   $base: NPC.Base_NPC
-  npcRole:        Grunt
-  npcRarity:      Normal
+  npcRole: Grunt
+  npcRarity: Mook
 
   attributes:
     intelligence: 4
@@ -148,6 +148,8 @@ NPC.Base_Grunt:
 
 NPC.Base_GangGrunt:
   $base: NPC.Base_Grunt
+  npcRole: Grunt
+  npcRarity: Mook
   description: "Standard street gang member. Moderate cyberware."
   attributes:
     tech:         1
@@ -158,6 +160,8 @@ NPC.Base_GangGrunt:
 
 NPC.Base_CorpoSec_Grunt:
   $base: NPC.Base_Grunt
+  npcRole: Grunt
+  npcRarity: Normal
   description: "Entry-level corporate security."
   faction:        Neutral       # leaf record overrides to specific corp
 
@@ -182,6 +186,8 @@ NPC.Base_CorpoSec_Grunt:
 
 NPC.Base_NCPD_Officer:
   $base: NPC.Base_Grunt
+  npcRole: Grunt
+  npcRarity: Tough
   description: "Night City Police Department patrol officer. Forcing Justice, one mook at a time."
   faction:        NCPD
   attitudeGroup:  Neutral
@@ -210,7 +216,7 @@ NPC.Base_NCPD_Officer:
 NPC.Base_Elite:
   $base: NPC.Base_NPC
   npcRole:        Elite
-  npcRarity:      Tough
+  npcRarity:      Elite
 
   attributes:
     intelligence: 6
@@ -246,7 +252,7 @@ NPC.Base_Elite:
 NPC.Base_GangElite:
   $base: NPC.Base_Elite
   description: "Veteran gang lieutenant. Augmented, dangerous, territorial."
-  npcRarity:      Elite
+
 
   attributes:
     body:         8
@@ -260,8 +266,9 @@ NPC.Base_GangElite:
 
 NPC.Base_CorpoSec_Elite:
   $base: NPC.Base_Elite
+  npcRarity: Elite
+  npcRole: Elite
   description: "Corporate special operations. Full kit, coordinated tactics."
-  npcRarity:      Elite
   faction:        Neutral       # leaf record overrides to specific corp
 
   attributes:
@@ -283,7 +290,6 @@ NPC.Base_CorpoSec_Elite:
     - { skill: Athletics,                 rank: 13 }
     - { skill: Evasion,                   rank: 12 }
     - { skill: Electronics_SecurityTech,  rank: 11 }
-
 
 # =============================================================================
 # SNIPER
