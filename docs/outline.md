@@ -111,7 +111,7 @@ HPW is derived directly from the chosen `P_hit`:
 HPW = clamp(P_hit, 0.2, 1.0)
 ```
 
-The 0.2 floor preserves a nonzero threat for aggressors who cannot statistically land a hit at the current range (a still-armed enemy is not a non-threat — they may move, reposition, or switch weapons). The ceiling is 1.0 by definition of probability. The idea of "dominance" beyond reliable hitting is captured downstream by EDPR (damage volume) and CTS (crit threat).
+The 0.2 floor preserves a nonzero threat for aggressors who cannot statistically land a hit at the current range. An enemy that is armed is not a non-threat. They may move, reposition, switch weapons, etc. The ceiling is 1.0 by definition of probability. The idea of "dominance" beyond reliable hitting is captured downstream by EDPR (damage volume) and CTS (crit threat).
 
 ***Rationale:*** HPW = 0.5 means the aggressor is a coin-flip threat. HPW = 1.0 means they're reliably hitting. Mapping HPW directly to `P_hit` collapses the dodge and no-dodge branches onto a single coherent probability scale.
 
@@ -604,12 +604,6 @@ Every tunable constant in the system is collected here for playtesting and adjus
 
 ---
 
-## Resources
-
-- [DND Mathematics Profile](https://github.com/tomedunn/the-finished-book/blob/master/assets/python/dice_roller/nodes.py)
-
----
-
 ## Appendix B - Mook NTS Score
 
 This appendix walks through a complete NTS calculation for a single Mook-tier NPC against a specific PC. No simplifications are applied — every formula from the main body is evaluated in order.
@@ -962,10 +956,8 @@ Applying this term to the stopping power (SP) ratings for armor available in the
 | 7d6    | 100%  | 100%  | 99.9% | 99.7% | 99.2% | 91.7% | 72.2% |
 | 8d6    | 100%  | 100%  | 100%  | 99.9% | 99.8% | 97.3% | 87.2% |
 
-
-
 ---
 
-### Observations
+## Resources
 
-TODO: Rewrite observations based on the major changes.
+- [DND Mathematics Profile](https://github.com/tomedunn/the-finished-book/blob/master/assets/python/dice_roller/nodes.py)
