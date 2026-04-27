@@ -347,7 +347,7 @@ CTS = P(crit) × (5 + 0.58 + 4.41 + 0.67)
 
 ### Autofire's Crit Interaction
 
-Autofire always rolls 2d6 for damage regardless of the base weapon's damage dice. This means a Heavy SMG on autofire has lower crit probability (0.0278) than the same weapon firing single-shot (0.3302). This is an intentional design tradeoff in CP:RED — autofire trades crit threat for multiplied raw damage.
+Autofire always rolls 2d6 for damage regardless of the base weapon's damage dice. This means a Heavy SMG on autofire has lower crit probability (0.0278) than the same weapon firing single-shot (0.3302). This is an intentional design tradeoff in CP:RED. Autofire trades crit threat for multiplied raw damage.
 
 The formula handles this naturally:
 - When computing `EDPR_AF`, an average 2d6 is used and P(crit) = 0.0278 for `CTS_AF`.
