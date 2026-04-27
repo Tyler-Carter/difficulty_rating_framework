@@ -1,11 +1,17 @@
-# Calculations Layer — Implementation Plan
+# NOTE: This document has not been updated to be inline with all the calculation changes. 
+
+## <u>Everything below this point is still a prototyping idea and may not accurately represent the actual production code.</u>
+
+---
+
+# Calculations Layer → Implementation Plan
 
 ## Overview
 
 The calculations layer contains all game-balance mathematics: hit probability weights, expected damage per round, crit threat scores, death save resilience, and the OTS/DDS composite scores. It also owns the stat extraction bridge (which reads typed `ResolvedRecord` objects and returns scalar values) and the orchestration functions that tie data retrieval to scoring.
 
 **Hard constraints:**
-- The calculations layer contains **zero file I/O** — no YAML, JSON, or PDF reading.
+- The calculations layer contains **zero file I/O**.
 - Repositories are always received as constructor or function parameters (dependency injection), never instantiated inside calculation or math modules.
 - The data layer's internal modules (`data.registry.*`, `data.pdf_pipeline.*`, concrete repository classes) are never imported here.
 
@@ -46,15 +52,15 @@ cpred_dr_framework/
 
 **Migrated from `main.py` and `dds_calc.py`:**
 
-| Function | Source | Signature change |
-|---|---|---|
-| `is_npc` | `main.py:186–188` | `record: dict` → `record: ResolvedRecord` |
-| `get_skill_rank` | `main.py:191–197` | `record: dict` → `record: ResolvedRecord` |
-| `get_attack_pool` | `main.py:200–212` | `record: dict` → `record: ResolvedRecord` |
-| `get_defense_total` | `main.py:215–230` | `record: dict` → `record: ResolvedRecord` |
-| `get_effective_sp` | `main.py:233–251` | `record: dict` → `record: ResolvedRecord` |
-| `get_body` | `dds_calc.py:15–17` | `record: dict` → `record: ResolvedRecord` |
-| `get_will` | `dds_calc.py:21–23` | `record: dict` → `record: ResolvedRecord` |
+| Function            | Source              | Signature change                          |
+|---------------------|---------------------|-------------------------------------------|
+| `is_npc`            | `main.py:186–188`   | `record: dict` → `record: ResolvedRecord` |
+| `get_skill_rank`    | `main.py:191–197`   | `record: dict` → `record: ResolvedRecord` |
+| `get_attack_pool`   | `main.py:200–212`   | `record: dict` → `record: ResolvedRecord` |
+| `get_defense_total` | `main.py:215–230`   | `record: dict` → `record: ResolvedRecord` |
+| `get_effective_sp`  | `main.py:233–251`   | `record: dict` → `record: ResolvedRecord` |
+| `get_body`          | `dds_calc.py:15–17` | `record: dict` → `record: ResolvedRecord` |
+| `get_will`          | `dds_calc.py:21–23` | `record: dict` → `record: ResolvedRecord` |
 
 **Full implementation:**
 
@@ -147,15 +153,15 @@ def get_will(record: ResolvedRecord) -> int:
 
 **Migrated from `main.py`:**
 
-| Function | Source lines | Changes |
-|---|---|---|
-| `clamp` | 258–259 | None |
-| `crit_prob` | 262–269 | None |
-| `compute_hpw` | 272–293 | `AUTOFIRE_ATK_PENALTY` imported from `data.config` |
-| `compute_edpr_ss` | 296–301 | None |
-| `compute_edpr_af` | 304–311 | None |
-| `compute_cts` | 314–319 | `CTS_MULTIPLIER` imported from `data.config` |
-| `compute_ots` | 322–370 | `weapon_stats: dict` → `weapon_stats: WeaponStats`; dict access → attribute access |
+| Function          | Source lines | Changes                                                                            |
+|-------------------|--------------|------------------------------------------------------------------------------------|
+| `clamp`           | 258–259      | None                                                                               |
+| `crit_prob`       | 262–269      | None                                                                               |
+| `compute_hpw`     | 272–293      | `AUTOFIRE_ATK_PENALTY` imported from `data.config`                                 |
+| `compute_edpr_ss` | 296–301      | None                                                                               |
+| `compute_edpr_af` | 304–311      | None                                                                               |
+| `compute_cts`     | 314–319      | `CTS_MULTIPLIER` imported from `data.config`                                       |
+| `compute_ots`     | 322–370      | `weapon_stats: dict` → `weapon_stats: WeaponStats`; dict access → attribute access |
 
 **Full implementation:**
 
@@ -355,12 +361,12 @@ def calculate_ots_for_records(
 
 **Migrated from `dds_calc.py`:**
 
-| Function | Source lines | Changes |
-|---|---|---|
-| `compute_hpp` | 29–45 | None |
-| `compute_aac` | 48–65 | `AAC_SP_CAP` imported from `data.config` (replaces inline `18` literal) |
-| `compute_dsr` | 68–103 | `DSR_WEIGHT` imported from `data.config` |
-| `compute_dds` | 106–134 | None |
+| Function      | Source lines | Changes                                                                 |
+|---------------|--------------|-------------------------------------------------------------------------|
+| `compute_hpp` | 29–45        | None                                                                    |
+| `compute_aac` | 48–65        | `AAC_SP_CAP` imported from `data.config` (replaces inline `18` literal) |
+| `compute_dsr` | 68–103       | `DSR_WEIGHT` imported from `data.config`                                |
+| `compute_dds` | 106–134      | None                                                                    |
 
 **Full implementation:**
 
@@ -929,12 +935,12 @@ def test_dds_regression_arbiter():
 
 ## Summary
 
-| Artefact | Source | Status after migration |
-|---|---|---|
-| `calculations/stat_extraction.py` | `main.py:186–251` + `dds_calc.py:15–23` | Typed model inputs |
-| `calculations/ots/math.py` | `main.py:258–370` | `WeaponStats` attribute access |
-| `calculations/ots/orchestrator.py` | `main.py:377–421` | DI parameters |
-| `calculations/dds/math.py` | `dds_calc.py:29–134` | `AAC_SP_CAP` from config |
-| `calculations/dds/orchestrator.py` | `dds_calc.py:141–171` | DI parameter |
-| `api/models.py` | `main.py:428–445` | + DDSRequest/DDSResult |
-| `api/main.py` | `main.py:448–469` | Concrete repos constructed once; `/dds` endpoint added |
+| Artefact                           | Source                                  | Status after migration                                 |
+|------------------------------------|-----------------------------------------|--------------------------------------------------------|
+| `calculations/stat_extraction.py`  | `main.py:186–251` + `dds_calc.py:15–23` | Typed model inputs                                     |
+| `calculations/ots/math.py`         | `main.py:258–370`                       | `WeaponStats` attribute access                         |
+| `calculations/ots/orchestrator.py` | `main.py:377–421`                       | DI parameters                                          |
+| `calculations/dds/math.py`         | `dds_calc.py:29–134`                    | `AAC_SP_CAP` from config                               |
+| `calculations/dds/orchestrator.py` | `dds_calc.py:141–171`                   | DI parameter                                           |
+| `api/models.py`                    | `main.py:428–445`                       | + DDSRequest/DDSResult                                 |
+| `api/main.py`                      | `main.py:448–469`                       | Concrete repos constructed once; `/dds` endpoint added |

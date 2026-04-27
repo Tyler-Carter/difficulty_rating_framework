@@ -1,3 +1,13 @@
+# NOTE: This document has not been finalized.
+
+## In consideration is deprecating the .yml inheritance structure that relies on loader helpers for appending information to templated items, characters, etc. 
+
+## The alternative being considered is defining and extending base python classes. The base classes will be extended by using the dataclass decorator to define and build sub-classes that inherit from the defined parents. 
+
+## <u>Everything below this point is still a prototyping idea and may not accurately represent the actual production code.</u>
+
+---
+
 # Data Layer — Implementation Plan
 
 ## Overview
