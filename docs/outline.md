@@ -903,25 +903,27 @@ The summation upper bound $\lfloor (s-4)/6 \rfloor$: Stops when no more dice cou
 
 Term $k=0$:
 
-$(-1)^0\binom{4}{0} \binom{14-0-1}{3}=1*1*\binom{13}{3}$
 
-$\binom{13}{3}=\frac{13*12*11}{3*2*1}=\frac{1716}{6}=286$
+$(-1)^0\binom{4}{0} \binom{14-0-1}{3}=1\times1\times\binom{13}{3}$
+
+
+$\binom{13}{3}=\frac{13\times12\times11}{3\times2\times1}=\frac{1716}{6}=286$
 
 Term $k=1$:
 
-$(-1)^1 \binom{4}{1}\binom{14-6-1}{3}=-1*4*\binom{7}{3}$
+$(-1)^1 \binom{4}{1}\binom{14-6-1}{3}=-1\times4\times\binom{7}{3}$
 
-$\binom{7}{3}=\frac{7*6*5}{3*2*1}=\frac{210}{6}=35$
+$\binom{7}{3}=\frac{7\times6\times5}{3\times2\times1}=\frac{210}{6}=35$
 
-So this term evaluates as $-4*35=-140$
+So this term evaluates as $-4\times35=-140$
 
 Term $k=2$:
 
-$(-1)^2 \binom{4}{2} \binom{14-12-1}{3}=1*6*\binom{1}{3}$
+$(-1)^2 \binom{4}{2} \binom{14-12-1}{3}=1\times6\times\binom{1}{3}$
 
-$\binom{1}{3}=\frac{1*0}{3*2*1}=\frac{0}{6}=0$
+$\binom{1}{3}=\frac{1\times0}{3\times2\times1}=\frac{0}{6}=0$
 
-So this term evaluates as $6*0=0$
+So this term evaluates as $6\times0=0$
 
 The total sum evaluates as $286-140+0=146$
 
