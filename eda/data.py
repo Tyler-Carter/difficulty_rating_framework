@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 RARITY_ORDER: list[str] = [
@@ -31,22 +32,23 @@ OTS_COMPONENTS:  list[str] = ["hpw_ss", "edpr_ss", "cts_ss", "hpw_af", "edpr_af"
 DEFENDER_FIELDS: list[str] = ["def_static", "def_ref", "def_sp"]
 
 LABELS: dict[str, str] = {
-    "nts_raw":   "NTS Raw Score",
-    "ots":       "Offensive Threat Score",
-    "dds":       "Defensive Durability Score",
-    "hpp":       "Hit Point Pool",
-    "aac":       "Armor Absorption Capacity",
-    "dsr_hp":    "Death Save Resilience (HP)",
-    "hpw_ss":    "Hit Probability Weight (single shot)",
-    "edpr_ss":   "Expected Damage Per Round (single shot)",
-    "cts_ss":    "Crit Threat Score (single shot)",
-    "hpw_af":    "Hit Probability Weight (autofire)",
-    "edpr_af":   "Expected Damage Per Round (autofire)",
-    "cts_af":    "Crit Threat Score (autofire)",
-    "cm":        "Complexity Multiplier",
-    "def_static":"Defender static defense pool",
-    "def_ref":   "Defender REF",
-    "def_sp":    "Defender effective SP",
+    "nts_raw":                 "NTS Raw Score",
+    "ots":                     "Offensive Threat Score",
+    "dds":                     "Defensive Durability Score",
+    "hpp":                     "Hit Point Pool",
+    "aac":                     "Armor Absorption Capacity",
+    "dsr_hp":                  "Death Save Resilience (HP)",
+    "hpw_ss":                  "Hit Probability Weight (single shot)",
+    "edpr_ss":                 "Expected Damage Per Round (single shot)",
+    "cts_ss":                  "Crit Threat Score (single shot)",
+    "hpw_af":                  "Hit Probability Weight (autofire)",
+    "edpr_af":                 "Expected Damage Per Round (autofire)",
+    "cts_af":                  "Crit Threat Score (autofire)",
+    "cm":                      "Complexity Multiplier",
+    "def_static":              "Defender static defense pool",
+    "def_ref":                 "Defender REF",
+    "def_sp":                  "Defender effective SP",
+    "penetration_probability": "Penetration Probability p",
 }
 
 

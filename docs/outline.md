@@ -123,25 +123,31 @@ Both closed forms treat the d10 as flat-uniform on {1..10}. CP:RED's exploding/i
 
 ### Component 2: Expected Damage Per Round (EDPR)
 
-EDPR is calculated per fire mode.
+EDPR is the expected net HP damage per round, with the expectation taken over the actual `Nd6` damage PMF (see [Appendix C](#appendix-c---probability-mass-function-for-the-sum-of-nd6)). It is **not** `mean(Nd6) − SP` — that proxy collapses to zero whenever `mean(Nd6) ≤ SP` even though the underlying pool penetrates a meaningful fraction of the time. Using the full PMF is what closes the OTS zero-mass gap.
+
+Define the per-attack expected net damage:
+
+$E_{\text{net}}(N, SP) = E[\max(0, Nd6 - SP)] = \sum_{s=SP+1}^{6N} (s - SP) \cdot p_N(s)$
+
+This equals zero only when `π_N(SP) = P(Nd6 > SP) = 0` (the pool literally cannot beat the armor).
 
 **Single Shot** (per attack, × ROF for multi-shot weapons):
 ```
-SS_damage_per_hit = avg_weapon_damage - DEF_effective_SP   (floor 0)
-EDPR_SS           = SS_damage_per_hit * ROF
+EDPR_SS = E_net(N, SP) * ROF
 ```
 
-**Autofire** (SMG: ×3 cap, AR: ×4 cap):
+**Autofire** (SMG: ×3 cap, AR: ×4 cap). Per CP:RED rules autofire always rolls 2d6 for damage regardless of the base weapon's damage dice, so `N = 2` is hard-coded for the autofire branch:
+
 - Against any defender, the same `P_hit` calculation from [§1.2](#12-conditional-dodge-attempts) applies. Substitute `autofire_attack_pool` for `attack_pool` and add a +3 penalty to `range_dv` (handled by the caller per §1.2) before invoking the rule.
-- Conditional on a hit, the multiplier is uniform on {1..cap}, so `E[mult | hit] ≈ (cap + 1) / 2`.
-- The unconditional expected multiplier is therefore `HPW_AF × (cap + 1) / 2`. To keep `EDPR_AF` symmetric with `EDPR_SS` (per-hit damage volume)
+- Conditional on a hit, the multiplier is uniform on {1..cap}, so `E[mult | hit] = (cap + 1) / 2`.
+- The unconditional expected multiplier is therefore `HPW_AF × (cap + 1) / 2`.
 
 ```
 pc_autofire_attack_pool  = REF + autofire_skill
 npc_autofire_attack_pool = autofire_skill
 HPW_AF                   = (derived per §1.2, using autofire_attack_pool vs range_dv + 3)
 avg_mult                 = (autofire_cap + 1) / 2          # conditional on a hit; e.g., SMG cap 3 → 2.0
-EDPR_AF                  = (avg(2d6) - DEF_effective_SP) * avg_mult   (floor 0 on each factor)
+EDPR_AF                  = E_net(2, SP) * HPW_AF * avg_mult
 ```
 
 ---
@@ -387,7 +393,7 @@ DDS answers the question: how much total damage must an aggressor deal to elimin
 
 ### Component 1: Hit Point Pool (HPP)
 
-A character's raw HP, per the core rulebook's formula:
+A character's raw HP, per the core rulebook's formula: 
 ```
 HPP = ((WILL + BODY) / 2) × 5 + 10
 ```
@@ -401,67 +407,100 @@ HPP is the primary damage reservoir. It represents the amount of net (post-SP) d
 Stopping Power (SP) is not a one-time pool. The previous calculation produced a value that was the theoretical maximum if armor were fully ablated to zero. This calculation
 blended difficulty tiers together and made it harder to delineate between difficulty tiers.
 
-Per the Cyberpunk: RED rules SP reduces damage on every penetrating hit and ablates by 1 each time damage gets through (incoming damage > current SP). The revised AAC calculation models the total damage SP actually absorbs across the combat that ends with the NPC's death.
+When `π_N(k) = 0` (the weapon cannot penetrate the current SP level), SP will not ablate from this weapon's hits and the Wald's-identity phase never completes. However, critical hits — defined as ≥ 2 damage dice showing 6 (§3.1) — deal **+5 HP damage that bypasses armor entirely** (§3.2), regardless of whether any damage penetrated. Therefore no matchup is permanently unresolvable.
 
-#### Reference attacker
+Define the **crit bypass rate** (always finite and > 0 for N ≥ 2):
 
-AAC is computed against a fixed **reference attacker** that deals `REF_DAMAGE` per hit. The reference damage is set to `SP_CAPPED + 1 = 19`: the minimum damage that penetrates the strongest armor in CP:RED (Metalgear, SP 18). This ensures the formula is universally defined for all valid SP values and represents a realistic high-end attacker (between a sniper rifle averaging 17.5 and a heavy SMG averaging 21 per hit).
+```
+P_crit(N) = 1 − (5/6)^N − N × (1/6) × (5/6)^(N−1)          (§3.1)
+crit_hp_per_attack = P_crit(N) × 5
+```
+
+When `π_N(k) = 0` the algorithm switches to this crit-bypass rate to exhaust the remaining HP pool at the stuck SP level.
 
 #### Algorithm
 
 ```
-SP_CAPPED = min(sp, 18)
+N                  = aggressor.weapon.dice_count
+SP_CAPPED          = min(defender.SP, 18)
+crit_hp_per_attack = P_crit(N) × 5                  # bypass rate (§3.1–3.2)
 
-cumulative_hp_damage ← 0
-absorbed             ← 0
+cumulative_hp ← 0
+absorbed      ← 0
 
-for k = 0, 1, 2, … , SP_CAPPED:
-    current_sp        = SP_CAPPED − k
-    net_hp            = REF_DAMAGE − current_sp
-    cumulative_hp    += net_hp
-    absorbed         += current_sp
-    if cumulative_hp ≥ HPP:
-        break          # NPC is dead; stop counting ablation
+for k = SP_CAPPED, SP_CAPPED − 1, …, 1:
+    π_k = π_N(k)
+    ea  = E_abs(N, k)
 
-AAC = absorbed
+    if π_k == 0:
+        # SP will not ablate; only crits deal HP damage.
+        # Exhaust the remaining HP pool at this SP level via crit bypass.
+        remaining = HPP − cumulative_hp
+        absorbed += (remaining / crit_hp_per_attack) × ea
+        return absorbed
+
+    T_k = 1 / π_k
+    ep  = E_pen(N, k)
+
+    if cumulative_hp + ep ≥ HPP:
+        # Defender dies during phase k — count the partial-phase absorption.
+        remaining = HPP − cumulative_hp
+        partial_T = remaining / ep                   # ≤ 1 ablation step
+        absorbed += partial_T · T_k · E_abs(N, k)
+        return absorbed
+
+    absorbed      += T_k · E_abs(N, k)
+    cumulative_hp += ep
+
+return absorbed   # SP fully ablated; remaining HP loss at SP = 0
 ```
 
-Each iteration represents one penetrating hit from the reference attacker. The loop stops as soon as the NPC's HP pool is exhausted, counting only the ablation steps that actually occur before death.
+*Key property:* Because the loop terminates based on HPP, two defenders with the same SP but different BODY/WILL produce different AAC values. A higher-HP defender survives more ablation phases and extracts more absorption from their armor. Every matchup returns a finite, measurable AAC — weapons that cannot initially penetrate produce large (but bounded) AAC values driven by crit rate and E_abs at the stuck SP level.
 
-*Key property:* Because the loop terminates based on HPP, two NPCs with the same SP but different BODY/WILL produce different AAC values. A higher-HP NPC survives more hits and therefore extracts more absorption from their armor (which is mechanically correct).
+#### Worked examples (reference attacker: 4d6, e.g., assault rifle / very heavy pistol)
 
-#### Worked examples (REF_DAMAGE = 19)
+The 4d6 reference attacker is used in these worked examples because `π_4(18) ≈ 9.7%` is non-zero against the strongest armor in the system, so the formula is defined across every SP rating. Real matchups substitute the actual aggressor's `dice_count`.
 
-**Mook (SP = 7, HPP = 30):**
+**Mook (SP = 7, HPP = 30, N = 4):**
 
-| Hit | Current SP | Net HP dmg | Cumul. HP | Armor absorbed |
-|-----|------------|------------|-----------|----------------|
-| 1   | 7          | 12         | 12        | 7              |
-| 2   | 6          | 13         | 25        | 6              |
-| 3   | 5          | 14         | 39 ≥ 30   | 5              |
+|   k | π₄(k)  |  T₄(k)  | E_pen(4,k) | E_abs(4,k) |  Phase absorbed | Cumul. HP |
+|-----|--------|---------|------------|------------|-----------------|-----------|
+| 7   | 0.973  | 1.028   | 7.211      | 6.984      | **7.178**       |  7.211    |
+| 6   | 0.988  | 1.012   | 8.098      | 5.995      | **6.066**       | 15.309    |
+| 5   | 0.996  | 1.004   | 9.036      | 4.999      | **5.019**       | 24.345    |
+| 4   | partial: remaining = 30 − 24.345 = 5.655; partial_T = 5.655 / 10.008 = 0.565; absorbed += 0.565 · 1.001 · 4.000 ≈ **2.262** | | | | | (terminate) |
 
-AAC = 7 + 6 + 5 = **18**
-Per the previous AAC calculation AAC = 7 + 6 + 5 + 4 + 3 + 2 + 1 = **28**
+AAC ≈ 7.178 + 6.066 + 5.019 + 2.262 ≈ **20.52** (full breakdown reproduced by `python dds_calc.py`).
 
-**Boss (SP = 18, HPP = 55):**
+**Boss (SP = 18, HPP = 55, N = 4):**
 
-| Hit | Current SP | Net HP dmg | Cumul. HP | Armor absorbed |
-|-----|------------|------------|-----------|----------------|
-| 1   | 18         | 1          | 1         | 18             |
-| 2   | 17         | 2          | 3         | 17             |
-| 3   | 16         | 3          | 6         | 16             |
-| 4   | 15         | 4          | 10        | 15             |
-| 5   | 14         | 5          | 15        | 14             |
-| 6   | 13         | 6          | 21        | 13             |
-| 7   | 12         | 7          | 28        | 12             |
-| 8   | 11         | 8          | 36        | 11             |
-| 9   | 10         | 9          | 45        | 10             |
-| 10  | 9          | 10         | 55 ≥ 55   | 9              |
+The Boss survives many ablation phases because each penetrating hit only deals an expected 2 to 8 net HP damage and `T_N(k)` is large at high SP (e.g., `T_4(18) ≈ 10.3`). Selected phases:
 
-AAC = 18 + 17 + … + 9 = **135**
+|   k | π₄(k)  |  T₄(k)   | E_pen(4,k) | E_abs(4,k) | Phase absorbed | Cumul. HP |
+|-----|--------|----------|------------|------------|----------------|-----------|
+| 18  | 0.097  | 10.286   | 2.000      | 13.806     |     142.000    |   2.000   |
+| 17  | 0.159  |  6.291   | 2.223      | 13.647     |      85.854    |   4.223   |
+| 16  | 0.239  |  4.181   | 2.477      | 13.407     |      56.052    |   6.701   |
+| …   | …      | …        | …          | …          | …              | …         |
+|  7  | 0.973  |  1.028   | 7.211      | 6.984      |       7.178    |  48.567   |
+|  6  | partial: remaining = 55 − 48.567 = 6.433; partial_T = 0.794; absorbed += 0.794 · 1.012 · 5.995 ≈ **4.818** | | | | | (terminate) |
 
-*Validity condition:*
-AAC is defined only when the attacker's EDPR > 0. If a weapon cannot penetrate SP at all, the defender is functionally immune to that aggressor. DDS is infinite relative to them and the comparison is meaningless.
+AAC ≈ **446.10** (full breakdown reproduced by `python dds_calc.py`).
+
+**Low-dice immune example — 2d6 vs Boss (SP = 18, HPP = 55):**
+
+2d6 has a maximum roll of 12, so `π_2(k) = 0` for `k ≥ 12`. Because SP only ablates on *penetrating* hits, a 2d6 weapon can never ablate SP=18 armor through normal hits — it is stuck at this SP level indefinitely. The critical-hit bypass path (outline §3.2) takes over:
+
+```
+P_crit(2d6)        = 1/36  ≈ 0.02778
+crit_hp_per_attack = 0.02778 × 5 ≈ 0.1389 HP/attack
+E_abs(2, 18)       = E[min(2d6, 18)] = E[2d6] = 7.0   (all rolls ≤ 12 < 18)
+
+attacks_needed     = 55 / 0.1389 ≈ 396
+AAC                = 396 × 7.0   = 2772.0
+```
+
+Previously this matchup returned `∞`. It now returns **AAC = 2772.00** — finite and measurable, reflecting that crit-only kills require many more attacks, each of which is still absorbed by the armor. The `is_immune` flag is set to `True` (informative metadata) because `π_2(18) = 0` at fight start.
 
 ---
 
@@ -516,25 +555,28 @@ DSR_hp = E_DSR(BODY) × DSR_weight
 ### Final DDS Formula
 
 $
-DDS = HPP + AAC + DSR_hp
+DDS = HPP + AAC(N) + DSR_hp
     = ((WILL + BODY) / 2) × 5 + 10
-    + realized_absorption(min(SP, 18), HPP, REF_DAMAGE)
+    + probabilistic_absorption(min(SP, 18), HPP, N)
     + E_DSR(BODY) × DSR_weight
 $
 
-**Sample values across NPC tiers** (representative stats, `DSR_weight = 5`, `REF_DAMAGE = 19`):
+where `N` is the aggressor's weapon `dice_count`. DDS is per-(aggressor, defender) — it scores how much damage the defender absorbs against a *specific* attacker pool.
 
-| NPC Tier      | BODY | WILL | SP  | HPP  | AAC (realized) | DSR_hp | DDS   |
-|---------------|------|------|-----|------|----------------|--------|-------|
-| Mook          | 4    | 4    | 7   | 30.0 | 18             | 1.8    | 49.8  |
-| Hardened Mook | 5    | 5    | 11  | 35.0 | 38             | 2.7    | 75.7  |
-| Lieutenant    | 6    | 6    | 11  | 40.0 | 45             | 3.9    | 88.9  |
-| Mini-Boss     | 8    | 7    | 11  | 47.5 | 51             | 7.2    | 105.7 |
-| Boss          | 10   | 8    | 18  | 55.0 | 135            | 13.3   | 203.3 |
-| Elite Boss    | 12   | 10   | 18  | 65.0 | 143            | 19.3   | 227.3 |
+**Sample values across NPC tiers** (representative stats, `DSR_weight = 5`, **reference attacker = 4d6**; per-matchup AAC will differ when the actual aggressor uses a different `dice_count`):
 
-Note: Lieutenant and Mini-Boss now produce different AAC (45 vs 51) despite sharing SP 11,
-because Mini-Boss has a higher HPP (47.5 vs 40.0) and survives one additional ablation step.
+| NPC Tier      | BODY | WILL | SP  | HPP  | AAC (vs 4d6) | DSR_hp | DDS    |
+|---------------|------|------|-----|------|--------------|--------|--------|
+| Mook          | 4    | 4    | 7   | 30.0 |  20.52       |  1.83  |  52.35 |
+| Hardened Mook | 5    | 5    | 11  | 35.0 |  55.87       |  2.73  |  93.60 |
+| Lieutenant    | 6    | 6    | 11  | 40.0 |  58.98       |  3.87  | 102.85 |
+| Mini-Boss     | 8    | 7    | 11  | 47.5 |  62.88       |  7.22  | 117.60 |
+| Boss          | 10   | 8    | 18  | 55.0 | 446.10       | 13.30  | 514.41 |
+| Elite Boss    | 12   | 10   | 18  | 65.0 | 451.98       | 19.32  | 536.30 |
+
+The Boss / Elite Boss rows climb sharply because `π_4(18) ≈ 9.7%` makes ablation slow at the SP = 18 cap (`T_4(18) ≈ 10.3` attacks per ablation step), so a 4d6 attacker pours a lot of attacks into armor before HP hits zero. Against a heavier pool (e.g., 6d6), Boss AAC drops to ≈ 127.7; against 8d6, ≈ 75.2. Against a 2d6 or 3d6 pool the Boss is functionally immune (AAC = ∞).
+
+Lieutenant and Mini-Boss share SP 11 but produce different AAC (58.98 vs 62.88) because Mini-Boss's higher HPP (47.5 vs 40.0) buys additional ablation phases.
 
 ---
 
@@ -584,7 +626,6 @@ Every tunable constant in the system is collected here for playtesting and adjus
   - Weighted average: `(EDPR_SS + EDPR_AF) / 2`.
   Both values are explicit and adjustable. Determining which choice produces better calibration requires further testing.
 - **`DSR_weight`** — currently `5`. The reference damage rate used to convert expected rounds survived at 0 HP into HP-equivalent units for DDS.
-- **`REF_DAMAGE`** — currently `19` (`SP_CAPPED + 1`). The reference attacker damage used in the realized AAC computation. Must always exceed `SP_CAPPED` so the formula is defined for all valid SP values. Raise if future NPC stat blocks introduce armor above SP 18.
 - **60/40 offense/defense split in `NTS_raw`** — if burst damage consistently over-rates NPCs, shifting toward 55/45 is the first adjustment to try.
 
 ---
@@ -659,17 +700,25 @@ HPW      = clamp(P_hit, 0.2, 1.0) = 0.8
 
 #### 1.3 Expected Damage Per Round (EDPR)
 
-The Heavy Pistol has ROF 2 with no autofire mode. Both shots are single-shot.
+The Heavy Pistol rolls 3d6 with ROF 2 and no autofire mode. EDPR is the per-attack expectation `E[max(0, 3d6 − SP)]` times the rate of fire — see [§OTS Component 2](#component-2-expected-damage-per-round-edpr).
 
 ```
-avg_weapon_damage = avg(3d6) = 3 × 3.5 = 10.5
-DEF_effective_SP  = 15  (TiaPuao's armor)
+N   = 3                                 # Heavy Pistol dice_count
+SP  = 15                                # TiaPuao's armor
+ROF = 2
 
-SS_damage_per_hit = max(0, 10.5 − 15) = 0
-EDPR_SS           = 0 × 2 = 0
+# Outcomes of 3d6 that penetrate SP 15 (i.e., sum > 15):
+#   sum = 16 → 6 compositions → contributes (16 − 15) · 6 = 6
+#   sum = 17 → 3 compositions → contributes (17 − 15) · 3 = 6
+#   sum = 18 → 1 composition  → contributes (18 − 15) · 1 = 3
+# Total weight = 15 over 6³ = 216 equally likely rolls.
+
+π_3(15)     = P(3d6 > 15) = 10/216 ≈ 4.63%
+E_net(3,15) = E[max(0, 3d6 − 15)] = 15/216 ≈ 0.0694
+EDPR_SS     = E_net(3, 15) × ROF ≈ 0.0694 × 2 ≈ 0.139
 ```
 
-Cherub's Heavy Pistol (Poor) averages 10.5 damage, which does not penetrate TiaPuao's SP 15 armor. Raw damage contribution is zero. The offensive threat reduces entirely to critical hit output.
+Cherub's Heavy Pistol (Poor) penetrates SP 15 only when the 3d6 lands at 16+ (≈4.6% of rolls), so the expected raw damage contribution is small but nonzero. The old `mean − SP = 10.5 − 15 = 0` proxy made TiaPuao look completely impervious to a Heavy Pistol; the probabilistic value reflects the actual high-roll tail of 3d6.
 
 #### 1.4 Crit Threat Score (CTS)
 
@@ -691,9 +740,9 @@ No autofire mode, so the single-shot formula applies.
 
 ```
 OTS = HPW_SS × (EDPR_SS + CTS_SS)
-    = 0.8 × (0 + 0.79)
-    = 0.8 × 0.79
-    = 0.632
+    = 0.8 × (0.139 + 0.793)
+    = 0.8 × 0.932
+    ≈ 0.745
 ```
 
 ---
@@ -716,25 +765,33 @@ _The ceiling is applied because (BODY + WILL) is odd. This matches the character
 
 #### 2.2 Armor Absorption Capacity (AAC)
 
-```
-SP_CAPPED = min(SP, 18) = min(11, 18) = 11
-REF_DAMAGE = 19
-```
-
-Iterate hit-by-hit until cumulative HP damage ≥ HPP (35):
-
-| Hit | Current SP | Net HP dmg | Cumul. HP | Armor absorbed |
-|-----|------------|------------|-----------|----------------|
-| 1   | 11         | 8          | 8         | 11             |
-| 2   | 10         | 9          | 17        | 10             |
-| 3   | 9          | 10         | 27        | 9              |
-| 4   | 8          | 11         | 38 ≥ 35   | 8              |
+DDS scores Cherub's durability against the *PC's weapon*. TiaPuao carries a Heavy Pistol Excellent — the same dice pool as Cherub's, so `N = 3`. The aggressor's weapon dice_count drives the per-matchup AAC.
 
 ```
-AAC = 11 + 10 + 9 + 8 = 38
+N         = 3                   # TiaPuao's Heavy Pistol Excellent dice_count
+SP_CAPPED = min(SP, 18) = 11    # Cherub's armor
+HPP       = 35                  # from §2.1
 ```
 
-Cherub dies on hit 4. Realized absorption is 38 — the remaining SP 7 (hits 5–11) is never reached.
+Iterate from the SP cap down, with expected per-phase quantities derived from the closed-form 3d6 PMF (see [Appendix C](#appendix-c---probability-mass-function-for-the-sum-of-nd6) / [Appendix E](#appendix-e---pdamage--armor-lookup-table)). Stop when expected cumulative HP damage ≥ HPP (35):
+
+|  k | π₃(k)  |  T₃(k)   | E_pen(3,k) | E_abs(3,k) | Phase absorbed | Cumul. HP |
+|----|--------|----------|------------|------------|----------------|-----------|
+| 11 | 0.375  | 2.667    | 2.556      |  9.542     |     25.444     |  2.556    |
+| 10 | 0.500  | 2.000    | 2.917      |  9.042     |     18.083     |  5.472    |
+|  9 | 0.625  | 1.600    | 3.333      |  8.417     |     13.467     |  8.806    |
+|  8 | 0.741  | 1.350    | 3.813      |  7.676     |     10.363     | 12.618    |
+|  7 | 0.838  | 1.193    | 4.370      |  6.838     |      8.160     | 16.988    |
+|  6 | 0.907  | 1.102    | 5.036      |  5.931     |      6.536     | 22.024    |
+|  5 | 0.954  | 1.048    | 5.791      |  4.977     |      5.218     | 27.815    |
+|  4 | 0.981  | 1.019    | 6.627      |  3.995     |      4.071     | 34.443    |
+|  3 | partial: remaining = 35 − 34.443 = 0.557; partial_T = 0.557 / 7.535 = 0.074; absorbed += 0.074 · 1.005 · 3.000 ≈ **0.223** | | | | | (terminate) |
+
+```
+AAC ≈ 25.444 + 18.083 + 13.467 + 10.363 + 8.160 + 6.536 + 5.218 + 4.071 + 0.223 ≈ 91.57
+```
+
+Cherub absorbs an expected ≈91.6 HP across the long tail of mostly non-penetrating Heavy Pistol attacks (3d6 vs SP 11 only penetrates 37.5% of the time), then dies partway through the SP = 3 phase. The deterministic REF_DAMAGE = 19 algorithm reported AAC = 38 here; the probabilistic value is higher because it counts non-penetrating absorption (which CP:RED rules say armor absorbs the full damage roll for) across the many attacks it takes to chew through the SP.
 
 #### 2.3 Death Save Resilience (DSR)
 
@@ -756,8 +813,8 @@ DSR_hp = E_DSR(5) × DSR_weight
 
 ```
 DDS = HPP + AAC + DSR_hp
-    = 35 + 38 + 2.75
-    = 75.75
+    = 35 + 91.57 + 2.75
+    ≈ 129.32
 ```
 
 ---
@@ -766,9 +823,9 @@ DDS = HPP + AAC + DSR_hp
 
 ```
 NTS_raw = (OTS × 0.6) + (DDS × 0.4)
-        = (0.632 × 0.6) + (75.75 × 0.4)
-        = 0.3792 + 30.30
-        = 30.68
+        = (0.745 × 0.6) + (129.32 × 0.4)
+        = 0.447 + 51.73
+        ≈ 52.18
 
 NTS = clamp(round(NTS_raw / SCALE_FACTOR), 1, 20)
 ```
@@ -935,11 +992,11 @@ $P(S=14)= \frac{146}{1296} \approx 0.1127 = 11.27\%$
 
 ## Appendix E - P(damage > armor) Lookup Table
 
-The term for calculating the probability of a die pool exceeding an armor rating as defined in [Appendix C](#uthe-probability-of-exceeding-armor-valueu-a) is as follows:
+The term for calculating the probability of a die pool exceeding an armor rating as defined in [Appendix C](#uthe-probability-of-exceeding-armor-valueu-a) is:
 
-$P(S>a)= \sum_{s=a+1}^{4f}\ P(S=s)= \sum_{s=a+1}^{24}\ P(S=s)$
+$P(S>a)= \sum_{s=a+1}^{6N}\ P(S=s) = 1 - \sum_{s=N}^{a}\ P(S=s)$
 
-Applying this term to the stopping power (SP) ratings for armor available in the Cyberpunk: RED game the following lookup table is defined:
+Applying this term to the stopping power (SP) ratings for armor available in Cyberpunk: RED gives the following lookup. Values are computed at runtime from the closed-form PMF in [`calculations/dds/pmf.py`](../calculations/dds/pmf.py) — the table below is reproduced here as documentation. Treat the module as the source of truth; do not edit the table by hand.
 
 | Weapon |  SP 4  |  SP 7  | SP 10  | SP 11  | SP 12  | SP 15 | SP 18 |
 |:-------|:------:|:------:|:------:|:------:|:------:|:-----:|:-----:|
@@ -951,6 +1008,13 @@ Applying this term to the stopping power (SP) ratings for armor available in the
 | 6d6    | 100.0% | 100.0% | 99.5%  | 99.0%  | 98.0%  | 90.4% | 72.1% |
 | 7d6    | 100.0% | 100.0% | 100.0% | 99.9%  | 99.7%  | 97.8% | 90.6% |
 | 8d6    | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 99.6% | 97.6% |
+
+To regenerate:
+```python
+from calculations.dds.pmf import p_exceeds
+for n in range(1, 9):
+    print(n, [round(p_exceeds(n, sp) * 100, 1) for sp in (4, 7, 10, 11, 12, 15, 18)])
+```
 
 ---
 

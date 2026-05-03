@@ -27,7 +27,6 @@ class DerivedStats(BaseModel):
 
 
 class WeaponStats(BaseModel):
-    avg_damage:     float
     dice_count:     int
     rof:            int
     has_autofire:   bool

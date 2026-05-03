@@ -29,6 +29,8 @@ aac,0.0,0
 dsr_hp,0.0,0
 sp_raw,0.0,0
 sp_capped,0.0,0
+penetration_probability,0.0,0
+pc_n_dice,0.0,0
 body,0.0,0
 will,0.0,0
 clean_hp_raw,0.16,256

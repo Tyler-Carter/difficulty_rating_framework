@@ -134,7 +134,6 @@ class DerivedStats(BaseModel):
 
 
 class WeaponStats(BaseModel):
-    avg_damage:    float
     dice_count:    int
     rof:           int
     has_autofire:  bool
@@ -357,25 +356,25 @@ from data.models import WeaponStats
 
 
 _WEAPON_STATS: dict[str, WeaponStats] = {
-    "Pistol":          WeaponStats(avg_damage=3.5,  dice_count=1, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
-    "MediumPistol":    WeaponStats(avg_damage=7.0,  dice_count=2, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
-    "HeavyPistol":     WeaponStats(avg_damage=10.5, dice_count=3, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
-    "VeryHeavyPistol": WeaponStats(avg_damage=14.0, dice_count=4, rof=1, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
-    "SMG":             WeaponStats(avg_damage=7.0,  dice_count=2, rof=1, has_autofire=True,  autofire_cap=3,    attack_skill="ShoulderArms"),
-    "HeavySMG":        WeaponStats(avg_damage=21.0, dice_count=6, rof=1, has_autofire=True,  autofire_cap=3,    attack_skill="ShoulderArms"),
-    "Shotgun":         WeaponStats(avg_damage=21.0, dice_count=6, rof=1, has_autofire=False, autofire_cap=None, attack_skill="ShoulderArms"),
-    "AssaultRifle":    WeaponStats(avg_damage=14.0, dice_count=4, rof=1, has_autofire=True,  autofire_cap=4,    attack_skill="ShoulderArms"),
-    "SniperRifle":     WeaponStats(avg_damage=17.5, dice_count=5, rof=1, has_autofire=False, autofire_cap=None, attack_skill="ShoulderArms"),
-    "HeavyMachineGun": WeaponStats(avg_damage=21.0, dice_count=6, rof=1, has_autofire=True,  autofire_cap=4,    attack_skill="HeavyWeapons"),
-    "VeryHeavyMelee":  WeaponStats(avg_damage=14.0, dice_count=4, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
-    "HeavyMelee":      WeaponStats(avg_damage=10.5, dice_count=3, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
-    "MediumMelee":     WeaponStats(avg_damage=7.0,  dice_count=2, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
-    "LightMelee":      WeaponStats(avg_damage=3.5,  dice_count=1, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
-    "GrenadeLauncher": WeaponStats(avg_damage=21.0, dice_count=6, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
-    "RocketLauncher":  WeaponStats(avg_damage=28.0, dice_count=8, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
-    "FlamethrowerWeapon": WeaponStats(avg_damage=7.0, dice_count=2, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
-    "Flamethrower":    WeaponStats(avg_damage=7.0,  dice_count=2, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
-    "Brawling":        WeaponStats(avg_damage=7.0,  dice_count=2, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Brawling"),
+    "Pistol":          WeaponStats(dice_count=1, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
+    "MediumPistol":    WeaponStats(dice_count=2, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
+    "HeavyPistol":     WeaponStats(dice_count=3, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
+    "VeryHeavyPistol": WeaponStats(dice_count=4, rof=1, has_autofire=False, autofire_cap=None, attack_skill="Handgun"),
+    "SMG":             WeaponStats(dice_count=2, rof=1, has_autofire=True,  autofire_cap=3,    attack_skill="ShoulderArms"),
+    "HeavySMG":        WeaponStats(dice_count=6, rof=1, has_autofire=True,  autofire_cap=3,    attack_skill="ShoulderArms"),
+    "Shotgun":         WeaponStats(dice_count=6, rof=1, has_autofire=False, autofire_cap=None, attack_skill="ShoulderArms"),
+    "AssaultRifle":    WeaponStats(dice_count=4, rof=1, has_autofire=True,  autofire_cap=4,    attack_skill="ShoulderArms"),
+    "SniperRifle":     WeaponStats(dice_count=5, rof=1, has_autofire=False, autofire_cap=None, attack_skill="ShoulderArms"),
+    "HeavyMachineGun": WeaponStats(dice_count=6, rof=1, has_autofire=True,  autofire_cap=4,    attack_skill="HeavyWeapons"),
+    "VeryHeavyMelee":  WeaponStats(dice_count=4, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
+    "HeavyMelee":      WeaponStats(dice_count=3, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
+    "MediumMelee":     WeaponStats(dice_count=2, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
+    "LightMelee":      WeaponStats(dice_count=1, rof=1, has_autofire=False, autofire_cap=None, attack_skill="MeleeCombat"),
+    "GrenadeLauncher": WeaponStats(dice_count=6, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
+    "RocketLauncher":  WeaponStats(dice_count=8, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
+    "FlamethrowerWeapon": WeaponStats(dice_count=2, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
+    "Flamethrower":    WeaponStats(dice_count=2, rof=1, has_autofire=False, autofire_cap=None, attack_skill="HeavyWeapons"),
+    "Brawling":        WeaponStats(dice_count=2, rof=2, has_autofire=False, autofire_cap=None, attack_skill="Brawling"),
 }
 
 # Longest-first so "VeryHeavyPistol" matches before "HeavyPistol" before "Pistol"
@@ -411,7 +410,7 @@ class YamlWeaponRepository(AbstractWeaponRepository):
         return "Unknown", is_excellent
 ```
 
-**Future enrichment (optional):** Once weapon archetypes in `base_files/prototypes/weapons/_base.yml` are augmented with `has_autofire`, `autofire_cap`, `avg_damage`, `dice_count`, and `attack_skill` fields, replace `_WEAPON_STATS` with a YAML lookup via `YamlRecordRepository`. The method signatures are unchanged; the calculations layer is unaffected.
+**Future enrichment (optional):** Once weapon archetypes in `base_files/prototypes/weapons/_base.yml` are augmented with `has_autofire`, `autofire_cap`, `dice_count`, and `attack_skill` fields, replace `_WEAPON_STATS` with a YAML lookup via `YamlRecordRepository`. The method signatures are unchanged; the calculations layer is unaffected.
 
 ---
 
@@ -618,7 +617,7 @@ Create `data/repositories/base.py` with `AbstractRecordRepository` and `Abstract
 
 ## YAML Weapon Prototype Enrichment (Optional Follow-On)
 
-The five calculation-facing fields (`has_autofire`, `autofire_cap`, `avg_damage`, `dice_count`, `attack_skill`) are currently absent from the weapon YAML prototypes in `base_files/prototypes/weapons/_base.yml`. Two migration paths exist:
+The four calculation-facing fields (`has_autofire`, `autofire_cap`, `dice_count`, `attack_skill`) are currently absent from the weapon YAML prototypes in `base_files/prototypes/weapons/_base.yml`. Two migration paths exist:
 
 **Path A — Enrich YAML (recommended long-term)**
 
@@ -690,7 +689,7 @@ def test_assault_rifle_stats():
     w = repo.get_weapon_stats("AssaultRifle")
     assert w.has_autofire is True
     assert w.autofire_cap == 4
-    assert w.avg_damage == 14.0
+    assert w.dice_count == 4
     assert w.attack_skill == "ShoulderArms"
 
 def test_parse_weapon_id_excellent():

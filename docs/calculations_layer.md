@@ -204,22 +204,22 @@ def compute_hpw(attack_pool: int, def_total: float, *, autofire: bool = False) -
     return clamp(margin / 10, 0.3, 1.5)
 
 
-def compute_edpr_ss(avg_weapon_damage: float, def_sp: int, rof: int) -> float:
+def compute_edpr_ss(n_dice: int, def_sp: int, rof: int) -> float:
     """Expected Damage Per Round — single-shot.
 
-    EDPR_SS = max(0, avg_damage - SP) * ROF
+    EDPR_SS = E[max(0, Nd6 - SP)] * ROF
     """
-    return max(0.0, avg_weapon_damage - def_sp) * rof
+    return e_net(n_dice, def_sp) * rof
 
 
 def compute_edpr_af(hpw_af: float, autofire_cap: int, def_sp: int) -> float:
-    """Expected Damage Per Round — autofire.
+    """Expected Damage Per Round — autofire (always 2d6 per CP:RED).
 
     avg_mult = HPW_AF * (cap + 1) / 2
-    EDPR_AF  = max(0, avg(2d6) - SP) * avg_mult
+    EDPR_AF  = E[max(0, 2d6 - SP)] * avg_mult
     """
     avg_mult = hpw_af * (autofire_cap + 1) / 2
-    return max(0.0, 7.0 - def_sp) * avg_mult
+    return e_net(2, def_sp) * avg_mult
 
 
 def compute_cts(n_dice: int) -> float:
@@ -250,7 +250,7 @@ def compute_ots(
     adj_pool = attack_pool + quality_bonus
 
     hpw_ss  = compute_hpw(adj_pool, def_total)
-    edpr_ss = compute_edpr_ss(weapon_stats.avg_damage, def_sp, weapon_stats.rof)
+    edpr_ss = compute_edpr_ss(weapon_stats.dice_count, def_sp, weapon_stats.rof)
     cts_ss  = compute_cts(weapon_stats.dice_count)
 
     hpw_af:  float | None = None
@@ -278,7 +278,7 @@ def compute_ots(
     }
 ```
 
-**Key change:** `weapon_stats["avg_damage"]` → `weapon_stats.avg_damage` (and for all other fields). This is the only mechanical diff from the original `compute_ots`.
+**Key change:** dict access (`weapon_stats["dice_count"]`) → typed attribute access (`weapon_stats.dice_count`) for every field. The PMF-based `e_net()` helper supplied by `calculations/dds/pmf.py` replaces the old `avg_damage − SP` mean-shift used by the deterministic EDPR.
 
 ---
 
@@ -590,8 +590,8 @@ Components:
          = clamp((adj_pool - 15 + 5.5) / 10, 0.3, 1.5)                 [static DV defender]
   HPW_AF = same formula with (adj_pool - AUTOFIRE_ATK_PENALTY)
 
-  EDPR_SS = max(0, avg_damage - SP) * ROF
-  EDPR_AF = max(0, 7.0 - SP) * HPW_AF * (autofire_cap + 1) / 2
+  EDPR_SS = E[max(0, Nd6 - SP)] * ROF                       [N = weapon dice_count]
+  EDPR_AF = E[max(0, 2d6 - SP)] * HPW_AF * (autofire_cap + 1) / 2
 
   P(crit) = 1 - (5/6)^N - N * (1/6) * (5/6)^(N-1)
   CTS_SS  = P(crit on weapon_dice_count) * CTS_MULTIPLIER
@@ -694,7 +694,7 @@ Run the new orchestrators on the same inputs and diff against the baselines. Onc
 
 **Step 15 — YAML weapon prototype enrichment (optional)**
 
-Add `has_autofire`, `autofire_cap`, `avg_damage`, `dice_count`, `attack_skill` to each weapon archetype in `base_files/prototypes/weapons/_base.yml`. Update `YamlWeaponRepository.get_weapon_stats()` to resolve via `YamlRecordRepository` instead of the hardcoded dict. The calculations layer is entirely unaffected.
+Add `has_autofire`, `autofire_cap`, `dice_count`, `attack_skill` to each weapon archetype in `base_files/prototypes/weapons/_base.yml`. Update `YamlWeaponRepository.get_weapon_stats()` to resolve via `YamlRecordRepository` instead of the hardcoded dict. The calculations layer is entirely unaffected.
 
 ---
 
@@ -735,7 +735,7 @@ def test_compute_edpr_ss_sp_exceeds_damage():
 
 
 def test_compute_ots_no_autofire():
-    w = WeaponStats(avg_damage=14.0, dice_count=4, rof=1, has_autofire=False, autofire_cap=None,
+    w = WeaponStats(dice_count=4, rof=1, has_autofire=False, autofire_cap=None,
                     attack_skill="ShoulderArms")
     result = compute_ots(attack_pool=12, autofire_pool=None, weapon_stats=w, def_total=0.0, def_sp=7,
                          is_excellent=False)
@@ -745,7 +745,7 @@ def test_compute_ots_no_autofire():
 
 
 def test_compute_ots_with_autofire():
-    w = WeaponStats(avg_damage=14.0, dice_count=4, rof=1, has_autofire=True, autofire_cap=4,
+    w = WeaponStats(dice_count=4, rof=1, has_autofire=True, autofire_cap=4,
                     attack_skill="ShoulderArms")
     result = compute_ots(attack_pool=12, autofire_pool=12, weapon_stats=w, def_total=0.0, def_sp=7, is_excellent=False)
     assert result["hpw_af"] is not None
@@ -865,7 +865,7 @@ def test_calculate_ots_calls_repo_twice():
     mock_weapon_repo = MagicMock()
     mock_weapon_repo.parse_weapon_id.return_value = ("AssaultRifle", False)
     mock_weapon_repo.get_weapon_stats.return_value = WeaponStats(
-        avg_damage=14.0, dice_count=4, rof=1, has_autofire=True, autofire_cap=4, attack_skill="ShoulderArms"
+        dice_count=4, rof=1, has_autofire=True, autofire_cap=4, attack_skill="ShoulderArms"
     )
 
     result = calculate_ots_for_records("NPC.A", "NPC.B", mock_record_repo, mock_weapon_repo)

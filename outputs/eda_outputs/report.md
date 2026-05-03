@@ -56,7 +56,7 @@ _Per-column null rate. Calculated columns should be 0; clean-data joins may be p
 | def_sp       | 0.000     | 0          |
 | dds          | 0.000     | 0          |
 
-_...showing first 25 of 39 rows. Full table: [tables/profile_nulls.csv](tables/profile_nulls.csv)_
+_...showing first 25 of 41 rows. Full table: [tables/profile_nulls.csv](tables/profile_nulls.csv)_
 
 
 ### Cardinality
@@ -71,14 +71,14 @@ _Distinct values per column._
 | faction      | 15       |
 | npc_name     | 100      |
 | npc_rarity   | 8        |
-| nts_raw      | 263      |
+| nts_raw      | 741      |
 | cm           | 1        |
-| ots          | 109      |
+| ots          | 123      |
 | hpw_ss       | 16       |
-| edpr_ss      | 11       |
+| edpr_ss      | 19       |
 | cts_ss       | 7        |
 | hpw_af       | 8        |
-| edpr_af      | 1        |
+| edpr_af      | 9        |
 | cts_af       | 1        |
 | has_autofire | 2        |
 | weapon_type  | 14       |
@@ -89,9 +89,9 @@ _Distinct values per column._
 | def_static   | 9        |
 | def_ref      | 6        |
 | def_sp       | 3        |
-| dds          | 54       |
+| dds          | 208      |
 
-_...showing first 25 of 39 rows. Full table: [tables/profile_cardinality.csv](tables/profile_cardinality.csv)_
+_...showing first 25 of 41 rows. Full table: [tables/profile_cardinality.csv](tables/profile_cardinality.csv)_
 
 
 ### Rarity tier counts
@@ -112,7 +112,7 @@ _Source: [tables/profile_rarity_counts.csv](tables/profile_rarity_counts.csv)_
 
 ### Integrity checks
 
-- **[PASS]** DDS is constant per NPC across PCs — 0 NPC(s) showed varying DDS — should be 0
+- **[FAIL]** DDS is constant per NPC across PCs — 100 NPC(s) showed varying DDS — should be 0
 - **[PASS]** OTS varies across PCs for most NPCs — 4/100 NPCs deliver identical OTS to every PC
 - **[PASS]** NTS_raw == (OTS·0.6 + DDS·0.4) · CM — max |delta| = 0.0000
 
@@ -123,17 +123,17 @@ _Source: [tables/profile_rarity_counts.csv](tables/profile_rarity_counts.csv)_
 
 _Per-metric summary including skewness, excess kurtosis, and zero-mass fraction._
 
-| metric  | n    | mean    | median  | std    | min    | p05    | p95     | max     | skewness | ex_kurtosis | zero_frac |
-| ------- | ---- | ------- | ------- | ------ | ------ | ------ | ------- | ------- | -------- | ----------- | --------- |
-| nts_raw | 1600 | 42.516  | 45.601  | 19.819 | 12.373 | 13.751 | 82.055  | 97.691  | 0.553    | 0.054       | 0.000     |
-| ots     | 1600 | 2.610   | 0.793   | 3.701  | 0.000  | 0.119  | 8.816   | 25.230  | 2.336    | 6.566       | 0.040     |
-| dds     | 1600 | 102.374 | 110.799 | 48.031 | 30.600 | 33.100 | 198.602 | 243.782 | 0.588    | 0.163       | 0.000     |
-| hpp     | 1600 | 36.475  | 35.000  | 8.189  | 22.500 | 25.000 | 55.125  | 67.500  | 1.378    | 2.588       | 0.000     |
-| aac     | 1600 | 61.270  | 75.000  | 38.022 | 7.000  | 7.000  | 135.000 | 150.000 | 0.244    | -0.579      | 0.000     |
-| dsr_hp  | 1600 | 4.630   | 2.732   | 4.962  | 1.100  | 1.100  | 19.324  | 26.282  | 2.587    | 6.204       | 0.000     |
-| hpw_ss  | 1600 | 0.726   | 0.800   | 0.281  | 0.200  | 0.200  | 1.000   | 1.000   | -0.711   | -0.903      | 0.000     |
-| edpr_ss | 1600 | 2.736   | 0.000   | 4.225  | 0.000  | 0.000  | 13.000  | 21.000  | 1.609    | 2.409       | 0.632     |
-| cts_ss  | 1600 | 1.332   | 1.412   | 0.910  | 0.000  | 0.297  | 2.817   | 4.230   | 1.238    | 1.389       | 0.040     |
+| metric  | n    | mean    | median  | std     | min    | p05    | p95      | max      | skewness | ex_kurtosis | zero_frac |
+| ------- | ---- | ------- | ------- | ------- | ------ | ------ | -------- | -------- | -------- | ----------- | --------- |
+| nts_raw | 1600 | 185.667 | 80.930  | 299.196 | 11.872 | 14.826 | 1359.696 | 1386.170 | 3.372    | 10.673      | 0.000     |
+| ots     | 1600 | 2.837   | 0.989   | 3.682   | 0.000  | 0.119  | 8.950    | 25.230   | 2.267    | 6.291       | 0.040     |
+| dds     | 1600 | 459.912 | 198.254 | 747.309 | 28.517 | 35.431 | 3392.823 | 3461.654 | 3.377    | 10.694      | 0.000     |
+| hpp     | 1600 | 36.475  | 35.000  | 8.189   | 22.500 | 25.000 | 55.125   | 67.500   | 1.378    | 2.588       | 0.000     |
+| aac     | 1600 | 418.808 | 155.522 | 741.184 | 4.917  | 9.156  | 3355.823 | 3367.872 | 3.389    | 10.747      | 0.000     |
+| dsr_hp  | 1600 | 4.630   | 2.732   | 4.962   | 1.100  | 1.100  | 19.324   | 26.282   | 2.587    | 6.204       | 0.000     |
+| hpw_ss  | 1600 | 0.726   | 0.800   | 0.281   | 0.200  | 0.200  | 1.000    | 1.000    | -0.711   | -0.903      | 0.000     |
+| edpr_ss | 1600 | 3.066   | 0.928   | 4.101   | 0.000  | 0.000  | 13.003   | 21.000   | 1.605    | 2.525       | 0.123     |
+| cts_ss  | 1600 | 1.332   | 1.412   | 0.910   | 0.000  | 0.297  | 2.817    | 4.230    | 1.238    | 1.389       | 0.040     |
 
 _Source: [tables/univariate_summary.csv](tables/univariate_summary.csv)_
 
@@ -166,15 +166,15 @@ _Spearman correlation matrix._
 
 | index   | nts_raw | ots   | dds   | hpp   | aac   | dsr_hp | hpw_ss | edpr_ss | cts_ss | cm |
 | ------- | ------- | ----- | ----- | ----- | ----- | ------ | ------ | ------- | ------ | -- |
-| nts_raw | 1.000   | 0.412 | 0.983 | 0.831 | 0.980 | 0.742  | 0.433  | 0.297   | 0.419  |    |
-| ots     | 0.412   | 1.000 | 0.310 | 0.281 | 0.302 | 0.220  | 0.480  | 0.825   | 0.669  |    |
-| dds     | 0.983   | 0.310 | 1.000 | 0.848 | 0.983 | 0.769  | 0.397  | 0.185   | 0.360  |    |
-| hpp     | 0.831   | 0.281 | 0.848 | 1.000 | 0.804 | 0.896  | 0.315  | 0.154   | 0.287  |    |
-| aac     | 0.980   | 0.302 | 0.983 | 0.804 | 1.000 | 0.720  | 0.398  | 0.180   | 0.373  |    |
-| dsr_hp  | 0.742   | 0.220 | 0.769 | 0.896 | 0.720 | 1.000  | 0.291  | 0.124   | 0.254  |    |
-| hpw_ss  | 0.433   | 0.480 | 0.397 | 0.315 | 0.398 | 0.291  | 1.000  | 0.108   | 0.194  |    |
-| edpr_ss | 0.297   | 0.825 | 0.185 | 0.154 | 0.180 | 0.124  | 0.108  | 1.000   | 0.531  |    |
-| cts_ss  | 0.419   | 0.669 | 0.360 | 0.287 | 0.373 | 0.254  | 0.194  | 0.531   | 1.000  |    |
+| nts_raw | 1.000   | 0.336 | 0.997 | 0.651 | 0.995 | 0.589  | 0.367  | 0.263   | 0.358  |    |
+| ots     | 0.336   | 1.000 | 0.290 | 0.292 | 0.290 | 0.238  | 0.478  | 0.913   | 0.681  |    |
+| dds     | 0.997   | 0.290 | 1.000 | 0.659 | 0.997 | 0.603  | 0.347  | 0.220   | 0.333  |    |
+| hpp     | 0.651   | 0.292 | 0.659 | 1.000 | 0.637 | 0.896  | 0.315  | 0.195   | 0.287  |    |
+| aac     | 0.995   | 0.290 | 0.997 | 0.637 | 1.000 | 0.572  | 0.341  | 0.223   | 0.332  |    |
+| dsr_hp  | 0.589   | 0.238 | 0.603 | 0.896 | 0.572 | 1.000  | 0.291  | 0.164   | 0.254  |    |
+| hpw_ss  | 0.367   | 0.478 | 0.347 | 0.315 | 0.341 | 0.291  | 1.000  | 0.207   | 0.194  |    |
+| edpr_ss | 0.263   | 0.913 | 0.220 | 0.195 | 0.223 | 0.164  | 0.207  | 1.000   | 0.697  |    |
+| cts_ss  | 0.358   | 0.681 | 0.333 | 0.287 | 0.332 | 0.254  | 0.194  | 0.697   | 1.000  |    |
 | cm      |         |       |       |       |       |        |        |         |        |    |
 
 _Source: [tables/correlations_spearman.csv](tables/correlations_spearman.csv)_
@@ -191,14 +191,14 @@ _The mean for the nts_raw score highlights the lack of gradation within the pre-
 
 | ('npc_rarity', '') | ('nts_raw', 'mean') | ('nts_raw', 'median') | ('nts_raw', 'std') | ('ots', 'mean') | ('ots', 'median') | ('ots', 'std') | ('dds', 'mean') | ('dds', 'median') | ('dds', 'std') | ('n_pairs', '') | ('n_unique_npcs', '') |
 | ------------------ | ------------------- | --------------------- | ------------------ | --------------- | ----------------- | -------------- | --------------- | ----------------- | -------------- | --------------- | --------------------- |
-| Mook               | 16.300              | 15.870                | 2.850              | 1.040           | 0.480             | 1.360          | 39.190          | 37.580            | 6.730          | 288             | 18                    |
-| Tough              | 31.640              | 27.350                | 10.160             | 2.780           | 0.790             | 3.630          | 74.930          | 67.120            | 23.990         | 192             | 12                    |
-| HardenedMook       | 33.090              | 30.790                | 4.970              | 2.240           | 0.480             | 3.280          | 79.370          | 73.230            | 10.910         | 160             | 10                    |
-| HardenedLieutenant | 46.720              | 50.700                | 9.970              | 2.400           | 1.270             | 2.700          | 113.190         | 121.030           | 25.470         | 128             | 8                     |
-| Elite              | 48.400              | 47.160                | 4.890              | 3.120           | 1.270             | 3.900          | 116.310         | 115.230           | 9.760          | 528             | 33                    |
-| HardenedMiniBoss   | 59.990              | 55.200                | 10.610             | 2.520           | 1.380             | 2.690          | 146.200         | 136.820           | 25.930         | 80              | 5                     |
-| Boss               | 79.510              | 81.870                | 10.030             | 5.020           | 1.760             | 6.210          | 191.250         | 198.300           | 23.720         | 144             | 9                     |
-| HardenedBoss       | 87.280              | 88.040                | 10.590             | 0.970           | 0.370             | 1.300          | 216.750         | 216.750           | 27.460         | 32              | 2                     |
+| Mook               | 17.640              | 16.770                | 3.930              | 1.140           | 0.560             | 1.390          | 42.400          | 39.570            | 9.430          | 288             | 18                    |
+| Tough              | 71.950              | 32.100                | 73.940             | 2.990           | 0.930             | 3.660          | 175.390         | 75.850            | 183.730        | 192             | 12                    |
+| HardenedMook       | 74.540              | 50.430                | 57.840             | 2.370           | 0.730             | 3.250          | 182.810         | 125.380           | 143.610        | 160             | 10                    |
+| HardenedLieutenant | 155.130             | 195.190               | 81.880             | 2.820           | 2.110             | 2.650          | 383.590         | 483.820           | 205.080        | 128             | 8                     |
+| Elite              | 172.520             | 210.770               | 70.100             | 3.390           | 1.560             | 3.840          | 426.230         | 514.250           | 175.230        | 528             | 33                    |
+| HardenedMiniBoss   | 182.570             | 220.080               | 69.930             | 2.850           | 1.870             | 2.630          | 452.150         | 544.870           | 174.770        | 80              | 5                     |
+| Boss               | 779.300             | 787.770               | 595.230            | 5.260           | 2.340             | 6.130          | 1940.360        | 1960.530          | 1489.100       | 144             | 9                     |
+| HardenedBoss       | 784.300             | 793.510               | 602.440            | 1.130           | 0.860             | 1.320          | 1959.050        | 1982.510          | 1506.570       | 32              | 2                     |
 
 _Source: [tables/rarity_breakdown.csv](tables/rarity_breakdown.csv)_
 
@@ -214,13 +214,13 @@ _The stat blocks extracted from the Danger Girl Dossier are essentially equal in
 
 | pc_role   | n_pairs | median_nts_raw | mean_nts_raw | median_ots | ots_zero_frac |
 | --------- | ------- | -------------- | ------------ | ---------- | ------------- |
-| Fixer     | 200     | 45.940         | 43.140       | 1.661      | 0.460         |
-| Media     | 300     | 45.860         | 42.750       | 0.895      | 0.573         |
-| Tech      | 300     | 45.860         | 42.750       | 0.895      | 0.573         |
-| Solo      | 400     | 45.300         | 42.390       | 0.713      | 0.640         |
-| Exec      | 100     | 45.070         | 41.970       | 0.713      | 0.800         |
-| Rockerboy | 100     | 45.070         | 41.970       | 0.713      | 0.800         |
-| Netrunner | 200     | 45.070         | 41.970       | 0.713      | 0.800         |
+| Exec      | 100     | 224.940        | 273.830      | 0.932      | 0.120         |
+| Netrunner | 200     | 224.940        | 273.830      | 0.932      | 0.120         |
+| Media     | 300     | 196.350        | 233.290      | 1.404      | 0.093         |
+| Tech      | 300     | 86.080         | 113.290      | 1.404      | 0.093         |
+| Solo      | 400     | 78.390         | 172.810      | 0.932      | 0.193         |
+| Fixer     | 200     | 78.050         | 173.600      | 2.340      | 0.080         |
+| Rockerboy | 100     | 74.980         | 71.010       | 0.932      | 0.120         |
 
 _Source: [tables/pc_role_breakdown.csv](tables/pc_role_breakdown.csv)_
 
@@ -231,21 +231,21 @@ _NTS_raw by faction. A faction whose median sits sharply above its peers may ind
 
 | faction       | n_pairs | n_unique_npcs | median_nts_raw | mean_nts_raw | std_nts_raw |
 | ------------- | ------- | ------------- | -------------- | ------------ | ----------- |
-| Piranhas      | 48      | 3             | 61.610         | 60.370       | 18.780      |
-| Zoners        | 160     | 10            | 49.010         | 47.330       | 25.440      |
-| TeamMonster   | 96      | 6             | 47.580         | 50.180       | 5.460       |
-| Maelstrom     | 176     | 11            | 47.560         | 53.430       | 25.180      |
-| Sightseers    | 80      | 5             | 47.020         | 36.490       | 17.570      |
-| 6thStreet     | 80      | 5             | 46.920         | 42.180       | 11.590      |
-| DangerGal     | 80      | 5             | 46.570         | 45.770       | 5.740       |
-| Bozos         | 176     | 11            | 46.280         | 47.360       | 18.220      |
-| NCPD          | 176     | 11            | 45.940         | 46.920       | 10.980      |
-| TygerClaws    | 144     | 9             | 45.600         | 41.060       | 25.670      |
-| TraumaTeam    | 96      | 6             | 38.920         | 38.180       | 9.560       |
-| Incident      | 32      | 2             | 38.860         | 37.630       | 16.150      |
-| Network54     | 48      | 3             | 27.270         | 27.800       | 1.560       |
-| DigitalDivas  | 80      | 5             | 21.890         | 23.360       | 3.240       |
-| GenerationRed | 128     | 8             | 15.870         | 21.870       | 9.730       |
+| TeamMonster   | 96      | 6             | 214.220        | 174.260      | 70.260      |
+| Piranhas      | 48      | 3             | 210.960        | 569.280      | 571.420     |
+| DangerGal     | 80      | 5             | 194.900        | 153.290      | 78.150      |
+| Zoners        | 160     | 10            | 194.400        | 249.400      | 387.740     |
+| Bozos         | 176     | 11            | 194.230        | 246.680      | 365.900     |
+| NCPD          | 176     | 11            | 193.280        | 200.600      | 266.110     |
+| Maelstrom     | 176     | 11            | 191.200        | 247.340      | 369.430     |
+| 6thStreet     | 80      | 5             | 82.060         | 125.690      | 86.630      |
+| Sightseers    | 80      | 5             | 80.680         | 111.280      | 95.180      |
+| TygerClaws    | 144     | 9             | 79.060         | 237.930      | 410.810     |
+| TraumaTeam    | 96      | 6             | 78.900         | 121.260      | 82.500      |
+| Incident      | 32      | 2             | 40.160         | 100.910      | 91.200      |
+| Network54     | 48      | 3             | 30.340         | 30.950       | 3.460       |
+| DigitalDivas  | 80      | 5             | 26.090         | 35.000       | 31.780      |
+| GenerationRed | 128     | 8             | 17.200         | 48.550       | 63.190      |
 
 _Source: [tables/faction_breakdown.csv](tables/faction_breakdown.csv)_
 
@@ -266,13 +266,13 @@ _Cohen's d, distribution overlap %, and Mann-Whitney p between adjacent tiers. F
 
 | index | lower              | higher             | n_lo | n_hi | mean_lo | mean_hi | cohen_d | overlap_pct | mw_p  |
 | ----- | ------------------ | ------------------ | ---- | ---- | ------- | ------- | ------- | ----------- | ----- |
-| 0     | Mook               | Tough              | 288  | 192  | 16.300  | 31.640  | 2.259   | 5.300       | 0.000 |
-| 1     | Tough              | HardenedMook       | 192  | 160  | 31.640  | 33.090  | 0.177   | 74.000      | 0.000 |
-| 2     | HardenedMook       | HardenedLieutenant | 160  | 128  | 33.090  | 46.720  | 1.791   | 25.000      | 0.000 |
-| 3     | HardenedLieutenant | Elite              | 128  | 528  | 46.720  | 48.400  | 0.271   | 100.000     | 0.990 |
-| 4     | Elite              | HardenedMiniBoss   | 528  | 80   | 48.400  | 59.990  | 1.946   | 33.500      | 0.000 |
-| 5     | HardenedMiniBoss   | Boss               | 80   | 144  | 59.990  | 79.510  | 1.906   | 23.400      | 0.000 |
-| 6     | Boss               | HardenedBoss       | 144  | 32   | 79.510  | 87.280  | 0.766   | 66.000      | 0.001 |
+| 0     | Mook               | Tough              | 288  | 192  | 17.640  | 71.950  | 1.159   | 5.400       | 0.000 |
+| 1     | Tough              | HardenedMook       | 192  | 160  | 71.950  | 74.540  | 0.039   | 66.600      | 0.000 |
+| 2     | HardenedMook       | HardenedLieutenant | 160  | 128  | 74.540  | 155.130 | 1.159   | 43.000      | 0.000 |
+| 3     | HardenedLieutenant | Elite              | 128  | 528  | 155.130 | 172.520 | 0.240   | 93.700      | 0.136 |
+| 4     | Elite              | HardenedMiniBoss   | 528  | 80   | 172.520 | 182.570 | 0.143   | 77.900      | 0.001 |
+| 5     | HardenedMiniBoss   | Boss               | 80   | 144  | 182.570 | 779.300 | 1.244   | 62.900      | 0.000 |
+| 6     | Boss               | HardenedBoss       | 144  | 32   | 779.300 | 784.300 | 0.008   | 86.200      | 0.111 |
 
 _Source: [tables/tier_separation.csv](tables/tier_separation.csv)_
 
@@ -284,20 +284,20 @@ _Green = clean separation (|d|≥0.8 or overlap<70%), orange = moderate, red = a
 
 ### SCALE_FACTOR back-solve
 
-Best `SCALE_FACTOR` ≈ **5.00** (score 75% — fraction of anchor tiers landing in their target NTS bands).
+Best `SCALE_FACTOR` ≈ **23.00** (score 75% — fraction of anchor tiers landing in their target NTS bands).
 
 _Where each rarity tier's median NTS_raw lands under the best SCALE_FACTOR._
 
 | index | rarity             | median_raw | target_band | mapped_nts | in_band |
 | ----- | ------------------ | ---------- | ----------- | ---------- | ------- |
-| 0     | Mook               | 15.870     | 1-4         | 3          | True    |
-| 1     | Tough              | 27.350     | 1-4         | 5          | False   |
-| 2     | HardenedMook       | 30.790     | 5-8         | 6          | True    |
-| 3     | HardenedLieutenant | 50.700     | 5-8         | 10         | False   |
-| 4     | Elite              | 47.160     | 9-12        | 9          | True    |
-| 5     | HardenedMiniBoss   | 55.200     | 9-12        | 11         | True    |
-| 6     | Boss               | 81.870     | 13-16       | 16         | True    |
-| 7     | HardenedBoss       | 88.040     | 17-20       | 18         | True    |
+| 0     | Mook               | 16.770     | 1-4         | 1          | True    |
+| 1     | Tough              | 32.100     | 1-4         | 1          | True    |
+| 2     | HardenedMook       | 50.430     | 5-8         | 2          | False   |
+| 3     | HardenedLieutenant | 195.190    | 5-8         | 8          | True    |
+| 4     | Elite              | 210.770    | 9-12        | 9          | True    |
+| 5     | HardenedMiniBoss   | 220.080    | 9-12        | 10         | True    |
+| 6     | Boss               | 787.770    | 13-16       | 20         | False   |
+| 7     | HardenedBoss       | 793.510    | 17-20       | 20         | True    |
 
 _Source: [tables/scale_factor_landing.csv](tables/scale_factor_landing.csv)_
 
@@ -308,14 +308,14 @@ _Fraction of mean DDS from each component (HPP/AAC/DSR) and OTS from each track 
 
 | npc_rarity         | n_pairs | hpp_share | aac_share | dsr_share | edpr_share | cts_share | mean_ots | mean_dds |
 | ------------------ | ------- | --------- | --------- | --------- | ---------- | --------- | -------- | -------- |
-| Mook               | 288     | 0.723     | 0.231     | 0.046     | 0.619      | 0.381     | 1.039    | 39.190   |
-| Tough              | 192     | 0.473     | 0.488     | 0.039     | 0.691      | 0.309     | 2.776    | 74.930   |
-| HardenedMook       | 160     | 0.438     | 0.505     | 0.057     | 0.707      | 0.293     | 2.242    | 79.370   |
-| HardenedLieutenant | 128     | 0.326     | 0.639     | 0.035     | 0.638      | 0.362     | 2.398    | 113.190  |
-| Elite              | 528     | 0.310     | 0.658     | 0.032     | 0.678      | 0.322     | 3.119    | 116.310  |
-| HardenedMiniBoss   | 80      | 0.335     | 0.594     | 0.071     | 0.632      | 0.368     | 2.516    | 146.200  |
-| Boss               | 144     | 0.250     | 0.688     | 0.062     | 0.724      | 0.276     | 5.023    | 191.250  |
-| HardenedBoss       | 32      | 0.265     | 0.657     | 0.077     | 0.452      | 0.548     | 0.967    | 216.750  |
+| Mook               | 288     | 0.668     | 0.289     | 0.042     | 0.655      | 0.345     | 1.141    | 42.400   |
+| Tough              | 192     | 0.202     | 0.781     | 0.017     | 0.710      | 0.290     | 2.990    | 175.390  |
+| HardenedMook       | 160     | 0.190     | 0.785     | 0.025     | 0.724      | 0.276     | 2.368    | 182.810  |
+| HardenedLieutenant | 128     | 0.096     | 0.894     | 0.010     | 0.680      | 0.320     | 2.821    | 383.590  |
+| Elite              | 528     | 0.085     | 0.907     | 0.009     | 0.702      | 0.298     | 3.386    | 426.230  |
+| HardenedMiniBoss   | 80      | 0.108     | 0.869     | 0.023     | 0.675      | 0.325     | 2.849    | 452.150  |
+| Boss               | 144     | 0.025     | 0.969     | 0.006     | 0.736      | 0.264     | 5.262    | 1940.360 |
+| HardenedBoss       | 32      | 0.029     | 0.962     | 0.009     | 0.532      | 0.468     | 1.133    | 1959.050 |
 
 _Source: [tables/subcomponent_decomposition.csv](tables/subcomponent_decomposition.csv)_
 
@@ -336,13 +336,13 @@ _P(EDPR_SS = 0) — how often a single shot from this rarity tier deals zero raw
 
 | pc_role   | Mook  | Tough | HardenedMook | HardenedLieutenant | Elite | HardenedMiniBoss | Boss  | HardenedBoss |
 | --------- | ----- | ----- | ------------ | ------------------ | ----- | ---------------- | ----- | ------------ |
-| Exec      | 1.000 | 0.833 | 0.800        | 0.875              | 0.727 | 0.800            | 0.444 | 1.000        |
-| Fixer     | 0.556 | 0.500 | 0.500        | 0.500              | 0.409 | 0.400            | 0.278 | 0.750        |
-| Media     | 0.704 | 0.611 | 0.600        | 0.625              | 0.515 | 0.533            | 0.333 | 0.833        |
-| Netrunner | 1.000 | 0.833 | 0.800        | 0.875              | 0.727 | 0.800            | 0.444 | 1.000        |
-| Rockerboy | 1.000 | 0.833 | 0.800        | 0.875              | 0.727 | 0.800            | 0.444 | 1.000        |
-| Solo      | 0.778 | 0.667 | 0.650        | 0.688              | 0.583 | 0.650            | 0.389 | 0.875        |
-| Tech      | 0.704 | 0.611 | 0.600        | 0.625              | 0.515 | 0.533            | 0.333 | 0.833        |
+| Exec      | 0.111 | 0.167 | 0.200        | 0.125              | 0.091 | 0.000            | 0.111 | 0.500        |
+| Fixer     | 0.111 | 0.125 | 0.100        | 0.062              | 0.061 | 0.000            | 0.056 | 0.250        |
+| Media     | 0.111 | 0.139 | 0.133        | 0.083              | 0.071 | 0.000            | 0.074 | 0.333        |
+| Netrunner | 0.111 | 0.167 | 0.200        | 0.125              | 0.091 | 0.000            | 0.111 | 0.500        |
+| Rockerboy | 0.111 | 0.167 | 0.200        | 0.125              | 0.091 | 0.000            | 0.111 | 0.500        |
+| Solo      | 0.278 | 0.271 | 0.275        | 0.125              | 0.129 | 0.100            | 0.111 | 0.500        |
+| Tech      | 0.111 | 0.139 | 0.133        | 0.083              | 0.071 | 0.000            | 0.074 | 0.333        |
 
 _Source: [tables/ots_zero_mass.csv](tables/ots_zero_mass.csv)_
 
@@ -359,8 +359,8 @@ _Spearman ρ of NPC rankings vs the 60/40 baseline under alternative OTS/DDS wei
 | index | ots_weight | dds_weight | spearman_rho | top10_overlap | top10_changes |
 | ----- | ---------- | ---------- | ------------ | ------------- | ------------- |
 | 0     | 0.600      | 0.400      | 1.000        | 10            | 0             |
-| 1     | 0.550      | 0.450      | 1.000        | 10            | 0             |
-| 2     | 0.500      | 0.500      | 0.999        | 10            | 0             |
+| 1     | 0.550      | 0.450      | 0.999        | 10            | 0             |
+| 2     | 0.500      | 0.500      | 0.998        | 10            | 0             |
 
 _Source: [tables/weighting_sensitivity.csv](tables/weighting_sensitivity.csv)_
 
@@ -371,8 +371,8 @@ _Source: [tables/weighting_sensitivity.csv](tables/weighting_sensitivity.csv)_
 ### Rank stability across PCs
 
 - **PCs compared**: 16
-- **Mean Spearman ρ**: 0.9953
-- **Min Spearman ρ**: 0.9828
+- **Mean Spearman ρ**: 0.9624
+- **Min Spearman ρ**: 0.8654
 - **Max Spearman ρ**: 1.0
 
 ρ ≈ 1 means every PC ranks the NPC roster the same way. ρ < 0.85 means some NPCs are dramatically more threatening to specific PCs.
@@ -384,21 +384,21 @@ _Top-15 NPCs by coefficient of variation of OTS across PCs (these are the most P
 
 | index | npc_id                      | npc_rarity         | ots_mean | ots_std | ots_cv |
 | ----- | --------------------------- | ------------------ | -------- | ------- | ------ |
-| 7     | NPC.Bozos_BurtTheSquirt     | HardenedMook       | 2.005    | 2.525   | 1.259  |
-| 49    | NPC.NCPD_Cherub             | Tough              | 2.005    | 2.525   | 1.259  |
-| 8     | NPC.Bozos_Centwit           | Elite              | 2.258    | 2.838   | 1.257  |
-| 22    | NPC.DigitalDivas_Firewall   | Tough              | 2.258    | 2.838   | 1.257  |
-| 23    | NPC.DigitalDivas_JoseQuispe | Tough              | 2.258    | 2.838   | 1.257  |
-| 72    | NPC.TeamMonster_Nox         | Elite              | 2.258    | 2.838   | 1.257  |
-| 66    | NPC.Sightseers_Glare        | Mook               | 1.506    | 1.892   | 1.256  |
-| 26    | NPC.GenerationRed_Apex      | HardenedMook       | 1.506    | 1.892   | 1.256  |
-| 87    | NPC.Zoners_Alpha            | Mook               | 1.506    | 1.892   | 1.256  |
-| 39    | NPC.Maelstrom_Ghoul         | Mook               | 1.506    | 1.892   | 1.256  |
-| 1     | NPC.6thStreet_Breacher      | Elite              | 1.506    | 1.892   | 1.256  |
-| 68    | NPC.Sightseers_Swirl        | Mook               | 1.506    | 1.892   | 1.256  |
-| 16    | NPC.DangerGal_DocMittens    | HardenedLieutenant | 2.511    | 3.152   | 1.255  |
-| 64    | NPC.Sightseers_Endo         | Elite              | 2.511    | 3.152   | 1.255  |
-| 60    | NPC.Network54_Stringer      | Tough              | 2.511    | 3.152   | 1.255  |
+| 7     | NPC.Bozos_BurtTheSquirt     | HardenedMook       | 2.146    | 2.596   | 1.210  |
+| 49    | NPC.NCPD_Cherub             | Tough              | 2.146    | 2.596   | 1.210  |
+| 8     | NPC.Bozos_Centwit           | Elite              | 2.417    | 2.919   | 1.208  |
+| 22    | NPC.DigitalDivas_Firewall   | Tough              | 2.417    | 2.919   | 1.208  |
+| 23    | NPC.DigitalDivas_JoseQuispe | Tough              | 2.417    | 2.919   | 1.208  |
+| 72    | NPC.TeamMonster_Nox         | Elite              | 2.417    | 2.919   | 1.208  |
+| 66    | NPC.Sightseers_Glare        | Mook               | 1.612    | 1.945   | 1.207  |
+| 26    | NPC.GenerationRed_Apex      | HardenedMook       | 1.612    | 1.945   | 1.207  |
+| 87    | NPC.Zoners_Alpha            | Mook               | 1.612    | 1.945   | 1.207  |
+| 39    | NPC.Maelstrom_Ghoul         | Mook               | 1.612    | 1.945   | 1.207  |
+| 1     | NPC.6thStreet_Breacher      | Elite              | 1.612    | 1.945   | 1.207  |
+| 68    | NPC.Sightseers_Swirl        | Mook               | 1.612    | 1.945   | 1.207  |
+| 16    | NPC.DangerGal_DocMittens    | HardenedLieutenant | 2.687    | 3.241   | 1.206  |
+| 64    | NPC.Sightseers_Endo         | Elite              | 2.687    | 3.241   | 1.206  |
+| 60    | NPC.Network54_Stringer      | Tough              | 2.687    | 3.241   | 1.206  |
 
 _Source: [tables/npc_consistency.csv](tables/npc_consistency.csv)_
 
@@ -435,18 +435,18 @@ _Left: distribution of raw SP. Right: NPCs hitting the SP=18 cap, by rarity._
 
 _Top 10 NPCs by NTS_raw with the dominant subcomponent driver attributed (HPP/AAC/DSR/EDPR-track/CTS-track). It is easy to observe that DDS is the dominant driver of NTS_raw._
 
-| index | npc_id                          | pc_role_id               | npc_rarity       | nts_raw | ots    | dds     | weapon_type     | driver |
-| ----- | ------------------------------- | ------------------------ | ---------------- | ------- | ------ | ------- | --------------- | ------ |
-| 0     | NPC.Maelstrom_Crusher           | NPC.Edgerunners_Leverage | HardenedBoss     | 97.691  | 0.297  | 243.782 | Flamethrower    | aac    |
-| 1     | NPC.Zoners_Tearjerker           | NPC.Edgerunners_Leverage | Boss             | 93.820  | 16.817 | 209.324 | GrenadeLauncher | aac    |
-| 2     | NPC.TygerClaws_ShinobuTheSecond | NPC.Edgerunners_Hammer   | Boss             | 92.977  | 8.412  | 219.824 | VeryHeavyMelee  | aac    |
-| 3     | NPC.Maelstrom_Warlock           | NPC.Edgerunners_Flasher  | Boss             | 90.948  | 3.363  | 222.324 | Shotgun         | aac    |
-| 4     | NPC.Bozos_Blammo                | NPC.Edgerunners_Hammer   | Boss             | 85.427  | 25.230 | 175.724 | RocketLauncher  | aac    |
-| 5     | NPC.Zoners_Vanisher             | NPC.Edgerunners_Leverage | Boss             | 84.455  | 8.557  | 198.301 | HeavySMG        | aac    |
-| 6     | NPC.Piranhas_BazookaJoe         | NPC.Edgerunners_CrabLord | Boss             | 81.872  | 0.238  | 204.324 | Brawling        | aac    |
-| 7     | NPC.Bozos_BigTop                | NPC.Edgerunners_Crasher  | HardenedBoss     | 78.465  | 4.293  | 189.724 | HeavyMelee      | aac    |
-| 8     | NPC.Maelstrom_ThePit            | NPC.Edgerunners_Leverage | HardenedMiniBoss | 77.394  | 6.729  | 183.392 | VeryHeavyPistol | aac    |
-| 9     | NPC.Maelstrom_Quake             | NPC.Edgerunners_Leverage | HardenedMiniBoss | 72.577  | 8.412  | 168.824 | VeryHeavyMelee  | aac    |
+| index | npc_id                          | pc_role_id              | npc_rarity   | nts_raw  | ots    | dds      | weapon_type     | driver |
+| ----- | ------------------------------- | ----------------------- | ------------ | -------- | ------ | -------- | --------------- | ------ |
+| 0     | NPC.Zoners_Tearjerker           | NPC.Edgerunners_Flasher | Boss         | 1386.170 | 16.817 | 3440.200 | GrenadeLauncher | aac    |
+| 1     | NPC.Maelstrom_Crusher           | NPC.Edgerunners_Flasher | HardenedBoss | 1385.423 | 1.269  | 3461.654 | Flamethrower    | aac    |
+| 2     | NPC.TygerClaws_ShinobuTheSecond | NPC.Edgerunners_Flasher | Boss         | 1382.372 | 8.428  | 3443.288 | VeryHeavyMelee  | aac    |
+| 3     | NPC.Maelstrom_Warlock           | NPC.Edgerunners_Flasher | Boss         | 1380.569 | 3.363  | 3446.376 | Shotgun         | aac    |
+| 4     | NPC.Bozos_Blammo                | NPC.Edgerunners_Flasher | Boss         | 1379.448 | 25.230 | 3410.776 | RocketLauncher  | aac    |
+| 5     | NPC.Zoners_Vanisher             | NPC.Edgerunners_Flasher | Boss         | 1376.804 | 9.529  | 3427.716 | HeavySMG        | aac    |
+| 6     | NPC.Piranhas_BazookaJoe         | NPC.Edgerunners_Flasher | Boss         | 1374.572 | 1.793  | 3433.739 | Brawling        | aac    |
+| 7     | NPC.Bozos_BigTop                | NPC.Edgerunners_Flasher | HardenedBoss | 1369.928 | 4.455  | 3418.139 | HeavyMelee      | aac    |
+| 8     | NPC.NCPD_Caliber                | NPC.Edgerunners_Flasher | Boss         | 1365.411 | 4.073  | 3407.419 | AssaultRifle    | aac    |
+| 9     | NPC.Piranhas_CorpseReviver      | NPC.Edgerunners_Flasher | Boss         | 1361.886 | 8.117  | 3392.540 | HeavyPistol     | aac    |
 
 _Source: [tables/extreme_tail_npcs.csv](tables/extreme_tail_npcs.csv)_
 
@@ -461,33 +461,15 @@ _Source: [tables/extreme_tail_npcs.csv](tables/extreme_tail_npcs.csv)_
 
 > Prioritized action plan tied to outline.md's open calibration parameters.
 
-**Executive summary:** 1 critical issue(s), 3 warning(s), 2 item(s) to monitor, 3 confirmed-healthy signal(s). Lead issue: _HardenedLieutenant↔Elite: Tiers Are Statistically Indistinguishable._ SCALE_FACTOR is confirmed at 5.00. Fix the tier-separation and AAC-dominance issues before treating NTS values as authoritative.
-
-
-### Priority 1 — Critical (Fix Before Use)
-
-
-#### ❌ HardenedLieutenant↔Elite: Tiers Are Statistically Indistinguishable
-
-**Issue:** The HardenedLieutenant and Elite tiers have 100.0% distributional overlap in NTS_raw (Cohen's d = 0.271). These two rarity levels cannot be told apart by NTS — assigning either label produces the same encounter difficulty.
-
-**Root cause:** AAC accounts for >70% of DDS at upper tiers. Both tiers likely share similar SP values, compressing their DDS ranges toward the same ceiling regardless of stat differences. HPP and DSR contribute too little to produce separation when AAC dominates.
-
-**Action:**
-- Audit SP assignments for HardenedLieutenant and Elite NPCs — verify they differ meaningfully.
-- If SP is already differentiated, raise HPP via BODY/WILL stat increases for Elite NPCs.
-- Address AAC dominance via formula rebalancing (see WARNING section) — this amplifies the effect of any stat differences.
-- Target: Cohen's d ≥ 0.8 and overlap < 30% for this boundary.
-
-**Expected outcome:** After corrections, HardenedLieutenant and Elite should occupy clearly distinct NTS bands, making rarity labels meaningful for encounter composition.
+**Executive summary:** 0 critical issue(s), 6 warning(s), 1 item(s) to monitor, 3 confirmed-healthy signal(s). Lead issue: _none identified._ SCALE_FACTOR is confirmed at 23.00. Fix the tier-separation and AAC-dominance issues before treating NTS values as authoritative.
 
 
 ### Priority 2 — Warning (Address Before Relying on Ratings)
 
 
-#### ⚠️ Tough↔HardenedMook: Weak Tier Boundary (d=0.177, overlap=74.0%)
+#### ⚠️ Tough↔HardenedMook: Weak Tier Boundary (d=0.039, overlap=66.6%)
 
-**Issue:** The Tough↔HardenedMook boundary has 74.0% distributional overlap (Cohen's d = 0.177). NPCs near this boundary receive interchangeable NTS values across tiers — meaningful but not yet collapsed.
+**Issue:** The Tough↔HardenedMook boundary has 66.6% distributional overlap (Cohen's d = 0.039). NPCs near this boundary receive interchangeable NTS values across tiers — meaningful but not yet collapsed.
 
 **Root cause:** The stat-block delta between Tough and HardenedMook is not large enough to overcome within-tier variance. AAC dominance in DDS suppresses NTS sensitivity to HP-pool differences.
 
@@ -499,9 +481,51 @@ _Source: [tables/extreme_tail_npcs.csv](tables/extreme_tail_npcs.csv)_
 **Expected outcome:** Target Cohen's d ≥ 0.8 and overlap < 40% for the Tough↔HardenedMook boundary.
 
 
+#### ⚠️ HardenedLieutenant↔Elite: Weak Tier Boundary (d=0.240, overlap=93.7%)
+
+**Issue:** The HardenedLieutenant↔Elite boundary has 93.7% distributional overlap (Cohen's d = 0.240). NPCs near this boundary receive interchangeable NTS values across tiers — meaningful but not yet collapsed.
+
+**Root cause:** The stat-block delta between HardenedLieutenant and Elite is not large enough to overcome within-tier variance. AAC dominance in DDS suppresses NTS sensitivity to HP-pool differences.
+
+**Action:**
+- Widen the stat gap: lower the HardenedLieutenant stat ceiling or raise the Elite floor.
+- Consider whether 'HardenedLieutenant' is a distinct design tier or should be merged with 'Elite'.
+- Rebalancing AAC in the DDS formula (see AAC recommendation) will increase the leverage of BODY/WILL differences.
+
+**Expected outcome:** Target Cohen's d ≥ 0.8 and overlap < 40% for the HardenedLieutenant↔Elite boundary.
+
+
+#### ⚠️ Elite↔HardenedMiniBoss: Weak Tier Boundary (d=0.143, overlap=77.9%)
+
+**Issue:** The Elite↔HardenedMiniBoss boundary has 77.9% distributional overlap (Cohen's d = 0.143). NPCs near this boundary receive interchangeable NTS values across tiers — meaningful but not yet collapsed.
+
+**Root cause:** The stat-block delta between Elite and HardenedMiniBoss is not large enough to overcome within-tier variance. AAC dominance in DDS suppresses NTS sensitivity to HP-pool differences.
+
+**Action:**
+- Widen the stat gap: lower the Elite stat ceiling or raise the HardenedMiniBoss floor.
+- Consider whether 'Elite' is a distinct design tier or should be merged with 'HardenedMiniBoss'.
+- Rebalancing AAC in the DDS formula (see AAC recommendation) will increase the leverage of BODY/WILL differences.
+
+**Expected outcome:** Target Cohen's d ≥ 0.8 and overlap < 40% for the Elite↔HardenedMiniBoss boundary.
+
+
+#### ⚠️ Boss↔HardenedBoss: Weak Tier Boundary (d=0.008, overlap=86.2%)
+
+**Issue:** The Boss↔HardenedBoss boundary has 86.2% distributional overlap (Cohen's d = 0.008). NPCs near this boundary receive interchangeable NTS values across tiers — meaningful but not yet collapsed.
+
+**Root cause:** The stat-block delta between Boss and HardenedBoss is not large enough to overcome within-tier variance. AAC dominance in DDS suppresses NTS sensitivity to HP-pool differences.
+
+**Action:**
+- Widen the stat gap: lower the Boss stat ceiling or raise the HardenedBoss floor.
+- Consider whether 'Boss' is a distinct design tier or should be merged with 'HardenedBoss'.
+- Rebalancing AAC in the DDS formula (see AAC recommendation) will increase the leverage of BODY/WILL differences.
+
+**Expected outcome:** Target Cohen's d ≥ 0.8 and overlap < 40% for the Boss↔HardenedBoss boundary.
+
+
 #### ⚠️ AAC Dominates DDS at Upper Tiers — HPP and DSR Are Noise
 
-**Issue:** At ['HardenedLieutenant', 'Elite', 'HardenedMiniBoss', 'Boss', 'HardenedBoss'], Armor Absorption Capacity accounts for up to 69% of mean DDS. Hit Point Pool (HPP) and Death Save Resilience (DSR) contribute so little that BODY and WILL stat differences between tiers have almost no effect on NTS.
+**Issue:** At ['Tough', 'HardenedMook', 'HardenedLieutenant', 'Elite', 'HardenedMiniBoss', 'Boss', 'HardenedBoss'], Armor Absorption Capacity accounts for up to 97% of mean DDS. Hit Point Pool (HPP) and Death Save Resilience (DSR) contribute so little that BODY and WILL stat differences between tiers have almost no effect on NTS.
 
 **Root cause:** The AAC formula uses a triangular sum (SP + SP-1 + … + 1), which grows as SP²/2. At high SP values this vastly outweighs the linear HPP formula (BODY×5 + 10). The `SP_CAPPED` parameter (currently 18) matches the highest observed SP in the dataset, so it is not binding — adjusting it would not affect current data.
 
@@ -513,34 +537,20 @@ _Source: [tables/extreme_tail_npcs.csv](tables/extreme_tail_npcs.csv)_
 **Expected outcome:** Once HPP and DSR contribute ≥ 30% of DDS, stat-block differences between tiers will produce larger NTS gaps, likely resolving several weak-boundary issues as a side effect.
 
 
-#### ⚠️ SCALE_FACTOR: Set to 5.00 — 75% Anchor Hit Rate
+#### ⚠️ SCALE_FACTOR: Set to 23.00 — 75% Anchor Hit Rate
 
-**Issue:** The optimal SCALE_FACTOR is 5.00, which lands 75% of anchor tiers inside their target NTS bands. Misses: Tough → NTS 5 (target 1-4), HardenedLieutenant → NTS 10 (target 5-8). Until this is explicitly set in the codebase, all NTS outputs are uncalibrated.
+**Issue:** The optimal SCALE_FACTOR is 23.00, which lands 75% of anchor tiers inside their target NTS bands. Misses: HardenedMook → NTS 2 (target 5-8), Boss → NTS 20 (target 13-16). Until this is explicitly set in the codebase, all NTS outputs are uncalibrated.
 
 **Root cause:** The Tough tier median NTS_raw (≈29.75) overshoots its target band (NTS 1–4) even at SCALE_FACTOR=6.0. This is a downstream symptom of the Tough↔HardenedMook boundary weakness — the two tiers are too close in score for both to land in separate bands.
 
 **Action:**
-- Set `SCALE_FACTOR = 5.00` in the codebase now as a baseline.
+- Set `SCALE_FACTOR = 23.00` in the codebase now as a baseline.
 - Retest the anchor hit rate after addressing Tough↔HardenedMook stat separation — the hit rate should improve once tier scores diverge.
 
-**Expected outcome:** After tier separation fixes, expect the anchor hit rate to rise above 87% at SCALE_FACTOR=5.00.
+**Expected outcome:** After tier separation fixes, expect the anchor hit rate to rise above 87% at SCALE_FACTOR=23.00.
 
 
 ### Priority 3 — Monitor (No Immediate Action)
-
-
-#### 🔍 OTS Zero-Mass: Low-Tier NPCs Fail to Penetrate Light-PC Armor
-
-**Issue:** In single-shot mode, ≥80% of attacks from low-tier NPCs deal zero raw damage to several PC roles — these NPCs are crit-only threats with no consistent damage output. Examples: Mook: Exec (100%), Netrunner (100%); Tough: Exec (83%), Netrunner (83%); HardenedMook: Exec (80%), Netrunner (80%).
-
-**Root cause:** Light-armor PCs (Exec, Rockerboy, Netrunner) have SP high enough to fully absorb average Mook/Tough weapon damage. This is a game-mechanic outcome, not a formula error — but it means low-tier NPCs are essentially harmless to some PCs except on lucky criticals.
-
-**Action:**
-- No formula change required at this time — this reflects intended armor economy.
-- Monitor during playtesting: if Mook encounters feel trivially safe for armored PCs, consider whether Mooks should include more autofire-capable weapons.
-- Track this metric as NPC stat blocks are expanded — rising zero-mass rates signal armor creep.
-
-**Expected outcome:** This is a design tension to be managed at the encounter-composition level, not a calibration fix.
 
 
 #### 🔍 Data Quality: 16% of NPCs Missing Clean Metadata
@@ -562,7 +572,7 @@ _Source: [tables/extreme_tail_npcs.csv](tables/extreme_tail_npcs.csv)_
 
 #### ✅ 60/40 OTS/DDS Weighting Is Stable
 
-**Issue:** Switching from 60/40 to 55/45 yields Spearman ρ=0.9995 vs baseline; 0.0/10 top-tier NPCs reshuffle. The weighting choice does not materially affect NPC rankings.
+**Issue:** Switching from 60/40 to 55/45 yields Spearman ρ=0.9992 vs baseline; 0.0/10 top-tier NPCs reshuffle. The weighting choice does not materially affect NPC rankings.
 
 **Root cause:** N/A — this is a confirmed healthy signal.
 
@@ -574,7 +584,7 @@ _Source: [tables/extreme_tail_npcs.csv](tables/extreme_tail_npcs.csv)_
 
 #### ✅ Cross-PC Rank Stability Is Strong
 
-**Issue:** Mean Spearman ρ=0.9953, min ρ=0.9828 across all 16 PC pairings. Every PC ranks the NPC roster nearly identically.
+**Issue:** Mean Spearman ρ=0.9624, min ρ=0.8654 across all 16 PC pairings. Every PC ranks the NPC roster nearly identically.
 
 **Root cause:** N/A — this is a confirmed healthy signal.
 

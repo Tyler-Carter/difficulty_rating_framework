@@ -19,7 +19,8 @@ from api.main import (
     compute_cts,
     AUTOFIRE_ATK_PENALTY,
 )
-from dds_calc import compute_dds, get_body, get_will
+from calculations.dds.dds_math import compute_dds
+from calculations.dds.orchestrator import get_body, get_will, get_n_dice
 from calculations.range_dv import get_difficulty
 
 BASE = Path(__file__).parent / "base_files"
@@ -145,7 +146,7 @@ def compute_ots(agg: dict, defn: dict) -> dict:
     def_sp     = get_effective_sp(defn)
 
     hpw_ss  = compute_hpw(attack_pool, range_dv, def_static, def_ref)
-    edpr_ss = compute_edpr_ss(w["avg_damage"], def_sp, w["rof"])
+    edpr_ss = compute_edpr_ss(w["dice_count"], def_sp, w["rof"])
     cts_ss  = compute_cts(w["dice_count"])
 
     has_autofire = bool(w["has_autofire"])
@@ -205,16 +206,15 @@ def main() -> None:
 
     print(f"Players (PCs): {len(pc_ids)}  |  NPCs: {len(npc_ids)}")
 
-    # Pre-compute DDS + CM per NPC — both depend only on the NPC, not the PC
-    npc_dds: dict[str, dict] = {}
-    npc_cm:  dict[str, float] = {}
+    # CM depends only on the NPC, but DDS now depends on the PC's weapon
+    # (per-matchup AAC), so DDS is computed inside the (NPC, PC) loop.
+    npc_cm: dict[str, float] = {}
     for npc_id in npc_ids:
         try:
             rec = load_record(npc_id)
-            npc_dds[npc_id] = compute_dds(get_body(rec), get_will(rec), get_effective_sp(rec))
-            npc_cm[npc_id]  = compute_cm(rec)
+            npc_cm[npc_id] = compute_cm(rec)
         except Exception as exc:
-            print(f"  [DDS SKIP] {npc_id}: {exc}")
+            print(f"  [CM SKIP] {npc_id}: {exc}")
 
     output: dict[str, dict] = {}
     skipped = 0
@@ -227,9 +227,16 @@ def main() -> None:
             try:
                 agg = load_record(npc_id)
                 ots_data = compute_ots(agg, defn)
-                dds_data = npc_dds.get(npc_id) or {}
+                # DDS scores the NPC's durability against the PC's weapon.
+                pc_n_dice = get_n_dice(defn)
+                dds_data = compute_dds(
+                    body=get_body(agg),
+                    will=get_will(agg),
+                    sp=get_effective_sp(agg),
+                    n_dice=pc_n_dice,
+                )
                 cm = npc_cm.get(npc_id, 1.0)
-                dds_value = float(dds_data.get("dds", 0.0))
+                dds_value = float(dds_data["dds"])   # always finite — no inf fallback needed
                 nts_raw = round((ots_data["ots"] * 0.6 + dds_value * 0.4) * cm, 4)
                 output[pc_id][npc_id] = {
                     "npc_rarity": agg.get("npcRarity"),
@@ -254,14 +261,16 @@ def main() -> None:
                     "def_ref":      ots_data["def_ref"],
                     "def_sp":       ots_data["def_sp"],
                     # DDS family (function of NPC only)
-                    "dds":          dds_data.get("dds"),
-                    "hpp":          dds_data.get("hpp"),
-                    "aac":          dds_data.get("aac"),
-                    "dsr_hp":       dds_data.get("dsr_hp"),
-                    "sp_raw":       dds_data.get("sp_raw"),
-                    "sp_capped":    dds_data.get("sp_capped"),
-                    "body":         get_body(agg),
-                    "will":         get_will(agg),
+                    "dds":                   dds_data.get("dds"),
+                    "hpp":                   dds_data.get("hpp"),
+                    "aac":                   dds_data.get("aac"),
+                    "dsr_hp":                dds_data.get("dsr_hp"),
+                    "sp_raw":                dds_data.get("sp_raw"),
+                    "sp_capped":             dds_data.get("sp_capped"),
+                    "penetration_probability": dds_data.get("penetration_probability"),
+                    "pc_n_dice":             pc_n_dice,
+                    "body":                  get_body(agg),
+                    "will":                  get_will(agg),
                 }
             except Exception as exc:
                 print(f"  [SKIP] {npc_id} vs {pc_id}: {exc}")
@@ -282,18 +291,18 @@ def main() -> None:
 
 if __name__ == "__main__":
     # --- Appendix B cross-check ---
-    # Cherub (NPC.6thStreet_Cherub-like) attacks Tia Pu'ao
-    # attack_pool=12, weapon=HeavyPistol (DV=15 at 12m), SP=15, REF<8
-    # Expected: P_static=0.8, EDPR_SS=0 (10.5-15<0), CTS_SS=0.0741×10.7≈0.7929
-    # OTS = 0.8 × (0 + 0.7929) ≈ 0.634
+    # Cherub (NPC) attacks Tia Pu'ao with a Heavy Pistol (3d6).
+    # attack_pool=12, weapon=HeavyPistol (DV=15 at 12m), SP=15, REF<8.
+    # Probabilistic EDPR: pi_3(15)=4.6%, e_pen(3,15)=1.5 -> EDPR_SS = e_net(3,15)*ROF
+    # ~= 0.0694 * 2 ~= 0.139.  CTS_SS = 0.0741 * 10.7 ~= 0.793.
     print("=== Appendix B cross-check (manual) ===")
     ps = _p_static(12, 15)
     cts = compute_cts(3)
-    edpr = compute_edpr_ss(10.5, 15, 2)
+    edpr = compute_edpr_ss(3, 15, 2)
     hpw = max(0.2, min(1.0, ps))
     ots_manual = hpw * (edpr + cts)
     print(f"  P_static={ps:.3f}  HPW={hpw:.3f}  EDPR_SS={edpr:.3f}  CTS_SS={cts:.4f}")
-    print(f"  OTS (manual) = {ots_manual:.4f}  (outline target ~0.632)")
+    print(f"  OTS (manual) = {ots_manual:.4f}")
 
     print()
     main()

@@ -10,6 +10,8 @@ import yaml
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from calculations.dds.pmf import e_net
+
 app = FastAPI()
 
 BASE_FILES_DIR = Path(__file__).parent.parent / "base_files"
@@ -23,29 +25,29 @@ AUTOFIRE_ATK_PENALTY = 3     # -3 to attack pool when computing HPW for autofire
 # ---------------------------------------------------------------------------
 # Weapon stats registry
 # Weapon YAML records do not exist yet; stats sourced from CP:RED Core Rulebook
-# pp. 340-351.  avg_damage = num_dice * 3.5 (average d6 = 3.5).
+# pp. 340-351.
 # attack_skill uses the canonical skill name from _base.yml (Handgun, not HandgunRanged).
 # ---------------------------------------------------------------------------
 WEAPON_STATS: dict[str, dict] = {
-    "Pistol":          {"avg_damage": 3.5,  "dice_count": 1, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
-    "MediumPistol":    {"avg_damage": 7.0, "dice_count": 2, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
-    "HeavyPistol":     {"avg_damage": 10.5, "dice_count": 3, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
-    "VeryHeavyPistol": {"avg_damage": 14.0, "dice_count": 4, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
-    "SMG":             {"avg_damage": 7.0,  "dice_count": 2, "rof": 1, "has_autofire": True,  "autofire_cap": 3,    "attack_skill": "ShoulderArms"},
-    "HeavySMG":        {"avg_damage": 21.0, "dice_count": 6, "rof": 1, "has_autofire": True,  "autofire_cap": 3,    "attack_skill": "ShoulderArms"},
-    "Shotgun":         {"avg_damage": 21.0, "dice_count": 6, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "ShoulderArms"},
-    "AssaultRifle":    {"avg_damage": 14.0, "dice_count": 4, "rof": 1, "has_autofire": True,  "autofire_cap": 4,    "attack_skill": "ShoulderArms"},
-    "SniperRifle":     {"avg_damage": 17.5, "dice_count": 5, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "ShoulderArms"},
-    "HeavyMachineGun": {"avg_damage": 21.0, "dice_count": 6, "rof": 1, "has_autofire": True,  "autofire_cap": 4,    "attack_skill": "HeavyWeapons"},
-    "VeryHeavyMelee":     {"avg_damage": 14.0, "dice_count": 4, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
-    "HeavyMelee":         {"avg_damage": 10.5, "dice_count": 3, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
-    "MediumMelee":        {"avg_damage": 7.0,  "dice_count": 2, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
-    "LightMelee":         {"avg_damage": 3.5,  "dice_count": 1, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
-    "GrenadeLauncher":    {"avg_damage": 21.0, "dice_count": 6, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},
-    "RocketLauncher":     {"avg_damage": 28.0, "dice_count": 8, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},
-    "FlamethrowerWeapon": {"avg_damage": 7.0,  "dice_count": 2, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},
-    "Flamethrower":       {"avg_damage": 7.0,  "dice_count": 2, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},  # alias; IDs without "Weapon" suffix match this
-    "Brawling":           {"avg_damage": 7.0,  "dice_count": 2, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Brawling"},
+    "Pistol":               {"dice_count": 1, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
+    "MediumPistol":         {"dice_count": 2, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
+    "HeavyPistol":          {"dice_count": 3, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
+    "VeryHeavyPistol":      {"dice_count": 4, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "Handgun"},
+    "SMG":                  {"dice_count": 2, "rof": 1, "has_autofire": True,  "autofire_cap": 3,    "attack_skill": "ShoulderArms"},
+    "HeavySMG":             {"dice_count": 6, "rof": 1, "has_autofire": True,  "autofire_cap": 3,    "attack_skill": "ShoulderArms"},
+    "Shotgun":              {"dice_count": 6, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "ShoulderArms"},
+    "AssaultRifle":         {"dice_count": 4, "rof": 1, "has_autofire": True,  "autofire_cap": 4,    "attack_skill": "ShoulderArms"},
+    "SniperRifle":          {"dice_count": 5, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "ShoulderArms"},
+    "HeavyMachineGun":      {"dice_count": 6, "rof": 1, "has_autofire": True,  "autofire_cap": 4,    "attack_skill": "HeavyWeapons"},
+    "VeryHeavyMelee":       {"dice_count": 4, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
+    "HeavyMelee":           {"dice_count": 3, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
+    "MediumMelee":          {"dice_count": 2, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
+    "LightMelee":           {"dice_count": 1, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "MeleeCombat"},
+    "GrenadeLauncher":      {"dice_count": 6, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},
+    "RocketLauncher":       {"dice_count": 8, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},
+    "FlamethrowerWeapon":   {"dice_count": 2, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},
+    "Flamethrower":         {"dice_count": 2, "rof": 1, "has_autofire": False, "autofire_cap": None, "attack_skill": "HeavyWeapons"},  # alias; IDs without "Weapon" suffix match this
+    "Brawling":             {"dice_count": 2, "rof": 2, "has_autofire": False, "autofire_cap": None, "attack_skill": "Brawling"},
 }
 
 # Longest-first so "VeryHeavyPistol" matches before "HeavyPistol" matches before "Pistol", etc.
@@ -293,22 +295,23 @@ def compute_hpw(attack_pool: int, def_total: float, *, autofire: bool = False) -
     return clamp(margin / 10, 0.3, 1.5)
 
 
-def compute_edpr_ss(avg_weapon_damage: float, def_sp: int, rof: int) -> float:
+def compute_edpr_ss(n_dice: int, def_sp: int, rof: int) -> float:
     """Expected Damage Per Round — single-shot.
 
-    EDPR_SS = max(0, avg_damage - SP) * ROF
+    EDPR_SS = E[max(0, Nd6 - SP)] * ROF, where the expectation is taken over the
+    actual damage PMF. Equals 0 only when the pool cannot exceed SP at all.
     """
-    return max(0.0, avg_weapon_damage - def_sp) * rof
+    return e_net(n_dice, def_sp) * rof
 
 
 def compute_edpr_af(hpw_af: float, autofire_cap: int, def_sp: int) -> float:
-    """Expected Damage Per Round — autofire.
+    """Expected Damage Per Round — autofire (always 2d6 per CP:RED).
 
     avg_mult = HPW_AF * (cap + 1) / 2
-    EDPR_AF  = max(0, avg(2d6) - SP) * avg_mult
+    EDPR_AF  = E[max(0, 2d6 - SP)] * avg_mult
     """
     avg_mult = hpw_af * (autofire_cap + 1) / 2
-    return max(0.0, 7.0 - def_sp) * avg_mult
+    return e_net(2, def_sp) * avg_mult
 
 
 def compute_cts(n_dice: int) -> float:
@@ -342,7 +345,7 @@ def compute_ots(
     adj_pool = attack_pool + quality_bonus
 
     hpw_ss = compute_hpw(adj_pool, def_total)
-    edpr_ss = compute_edpr_ss(weapon_stats["avg_damage"], def_sp, weapon_stats["rof"])
+    edpr_ss = compute_edpr_ss(weapon_stats["dice_count"], def_sp, weapon_stats["rof"])
     cts_ss = compute_cts(weapon_stats["dice_count"])
 
     hpw_af: float | None = None
@@ -467,6 +470,44 @@ async def calculate_ots(request: OTSRequest) -> OTSResult:
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     return OTSResult(**result)
+
+
+class DDSRequest(BaseModel):
+    aggressor_id: str  # weapon driver: their dice_count ablates the defender's armor
+    defender_id: str   # the character being scored
+
+
+class DDSResult(BaseModel):
+    dds: float
+    hpp: float
+    aac: float
+    dsr_hp: float
+    sp_raw: int
+    sp_capped: int
+    n_dice: int
+    body: int
+    will: int
+    aggressor_id: str
+    defender_id: str
+    penetration_probability: float = 0.0
+    # DDS and AAC are always finite (per-hit SP ablation, CP:RED Core p.184).
+
+
+@app.post("/dds", response_model=DDSResult)
+async def calculate_dds(request: DDSRequest) -> DDSResult:
+    """Calculate the Defensive Durability Score for the defender against the
+    aggressor's primary weapon.
+
+    AAC is per-matchup: the aggressor's `dice_count` drives the armor ablation
+    calculation via the closed-form Nd6 PMF.
+    """
+    from calculations.dds.orchestrator import calculate_dds_for_records
+
+    try:
+        result = calculate_dds_for_records(request.aggressor_id, request.defender_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    return DDSResult(**result)
 
 if __name__ == "__main__":
     from itertools import zip_longest

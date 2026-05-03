@@ -1,8 +1,8 @@
 ,lower,higher,n_lo,n_hi,mean_lo,mean_hi,cohen_d,overlap_pct,mw_p
-0,Mook,Tough,288,192,16.3,31.64,2.259,5.3,0.0
-1,Tough,HardenedMook,192,160,31.64,33.09,0.177,74.0,1.4e-05
-2,HardenedMook,HardenedLieutenant,160,128,33.09,46.72,1.791,25.0,0.0
-3,HardenedLieutenant,Elite,128,528,46.72,48.4,0.271,100.0,0.989696
-4,Elite,HardenedMiniBoss,528,80,48.4,59.99,1.946,33.5,0.0
-5,HardenedMiniBoss,Boss,80,144,59.99,79.51,1.906,23.4,0.0
-6,Boss,HardenedBoss,144,32,79.51,87.28,0.766,66.0,0.001304
+0,Mook,Tough,288,192,17.64,71.95,1.159,5.4,0.0
+1,Tough,HardenedMook,192,160,71.95,74.54,0.039,66.6,0.0
+2,HardenedMook,HardenedLieutenant,160,128,74.54,155.13,1.159,43.0,0.0
+3,HardenedLieutenant,Elite,128,528,155.13,172.52,0.24,93.7,0.135938
+4,Elite,HardenedMiniBoss,528,80,172.52,182.57,0.143,77.9,0.000723
+5,HardenedMiniBoss,Boss,80,144,182.57,779.3,1.244,62.9,2e-06
+6,Boss,HardenedBoss,144,32,779.3,784.3,0.008,86.2,0.110859
