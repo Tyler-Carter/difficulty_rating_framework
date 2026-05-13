@@ -26,10 +26,9 @@ These axes are combined and normalized into the final rating.
 
 The final score blends the three axes:
 
-$
-NTS_raw = ((OTS × 0.6) + (DDS × 0.4)) × CM
-NTS     = clamp(round(NTS_raw / SCALE_FACTOR), 1, 20)
-$
+$NTS\_raw = ((OTS × 0.6) + (DDS × 0.4)) × CM$<br>
+$NTS = clamp(round(NTS_raw / SCALE_FACTOR), 1, 20)$
+
 
 The remaining sections define each axis in turn (OTS, DDS, CM), then pull the pieces back together in [Final NTS Calculation](#final-nts-calculation). Every tunable constant is collected in [Open Calibration Parameters](#open-calibration-parameters) at the end.
 
@@ -39,59 +38,97 @@ The remaining sections define each axis in turn (OTS, DDS, CM), then pull the pi
 
 The Hit Probability Weight (HPW) is the probability that an aggressor's attack lands against the defender's optimally-chosen defense option (static range DV or active dodge), clamped to the range [0.2, 1.0]. The full derivation is in [§1.2](#12-conditional-dodge-attempts).
 
-Per the defined combat system in Cyberpunk RED, NPCs and PCs alike are required to be treated as aggressors and defenders relative to the current character's turn.
-However, there are differences in how skills are calculated between PCs and NPCs. This requires that the terms AGG and DEF define the appropriate calculation relative to a current term.
-Additionally, the intialism NPC and PC are still required to delineate between specific calculation inputs.
-To accommodate this requirement, the generalized terms 'aggressor' and 'defender' are used in addition to the initialism 'NPC' and 'PC' for this section.
+Per the defined combat system in Cyberpunk RED, NPCs and PCs alike are required to be treated as aggressors and defenders relative to the current character's turn . Turn order is determined on the outset of combat by having all parties involved in the encounter roll for initiative (Cyberpunk RED Core p. 168). The turn order is determined by placing the rolls in descending order. 
+
+![Combat Initiative](./outline_screenshots/combat_initiatitve.png)
+
+
+As a note, when comparing NPC and PC stat blocks, it's important to highlight the differences with how skill bases are represented. The PC "skill base" value is always shown as the number of ranks the PC has in that skill. The NPC stat blocks represent skill bases by precalculating the combined STAT + SKILL + (modifiers, role abilities, gear, etc.) within the stat blocks (Cyberpunk RED Core p. 412).
+
+![NPC Stat Block Delineation](./outline_screenshots/npc_skill_base.png)
+
+This distinction is import for ensuring that NPC stat blocks used for analysis are not calculated incorrectly.
+
 
 ---
 
+_For this section of the document, assume that a combat encounter is taking place and combat has been initiated. To accommodate that, calculations use the terms "aggressor" and "defender" instead of PC and NPC. This is done in order to simplify the presentation of the calculations._
+
 #### <u>1.1 Attack Pool</u>
-The attack pool defines an aggressor's total skill pool that will be added to a die roll in order to attempt to beat a defender's defense pool.
-Weapons that have a quality of excellent or better are awarded a +1 bonus when trying to attack.<br>
+The attack pool defines an aggressor's total skill pool that will be added to a die roll in order to attempt to beat a defender's defense pool. The `attack_pool` is derived from page 172 of the Cyberpunk RED Core Rulebook. The difference being that the total pool of values is being calculated, including bonuses.
 
-_Let `q = 1` if the weapon's quality is ≥ excellent, otherwise `q = 0`._
+There are a variety of bonuses that could be potentially added onto the base skill calculation of `STAT + SKILL`. The sources of these bonuses are generally derived from weapon quality, cyberware, or role abilities. The most basic example is weapon quality. If a weapon's quality is greater than or equal to the rating "excellent," that weapon receives a +1 bonus to it's accuracy.
+
+_Using weapon quality as an example: Let `st = STAT` `sk = SKILL` and `q = 1` if the weapon's quality is ≥ excellent, otherwise `q = 0`._
 
 ```
-pc_attack_pool  = REF + weapon_skill + q
-npc_attack_pool =       weapon_skill + q
+attack_pool = st + sk + q
 ```
+
+Applying the term with actual values, we have:
+```
+Assume: st = 6, sk = 4 and q = 1
+
+attack_pool = st + sk + q
+            = 6 + 4 + 1
+            = 11
+```
+
+This would mean that the `base skill` added to the 1d10 dice roll for an attack from this character is 11.
+
+**Autofire Attack Pool (af_attack_pool)**
+Using autofire has a unique requirement in that the autofire skill is used for calculating the attack pool irrespective of the weapon being used (Cyberpunk RED Core Rulebook p. 173).
+
+![Autofire Skill Rule](./outline_screenshots/af_skill_rule.png)
+
+_A similar set of variables is used for the expression below. Let `st  = STAT`, `af_sk = AUTOFIRE_SKILL`, and `q = 1` if the weapon's quality is ≥ excellent, otherwise `q = 0`._
+
+```
+Assume: st = 8, sk = 6, and q = 0
+
+af_attack_pool  = st + af_sk + q
+                = 8 + 6 + 0
+                = 14
+```
+
+This would mean that the `base_skill` added to the 1d10 dice roll for an attack would be 14.
 
 ---
 
 #### <u>1.2 Conditional Dodge Attempts</u>
 
-A defender with REF ≥ 8 may choose, when targeted by a Ranged Attack, to roll an active dodge (DEX + Evasion + 1d10) instead of letting the attack be resolved against the static DV from the [Range Table](#appendix-a---range-table). The defender is assumed to choose optimally (i.e., to pick whichever option minimizes the probability of being hit).
+A defender with REF ≥ 8 may choose, when targeted by a Ranged Attack, to roll an active dodge (DEX + Evasion + 1d10) instead of letting the attack be resolved against the static DV from either the single shot DV table or the autofire DV table (Cyberpunk RED Core Rulebook p. 173). The defender is assumed to choose optimally (i.e., to pick whichever option minimizes the probability of being hit).
 
 The damage distribution *given a hit* is identical under either option (neither d10 affects the damage dice), so minimizing P(hit) also minimizes E[damage taken from this attack]. Both probabilities have closed forms which removes any requirement for a per-roll simulation.
 
 #### Inputs
 
-- `attack_pool` — the aggressor's attack roll modifier from [§1.1](#11-attack-pool) (with the +1 Excellent-quality bonus already applied if applicable). For autofire, substitute `autofire_attack_pool` (and any DV penalty handled by the caller).
+- `attack_pool` — the aggressor's attack roll modifier from [§1.1](#11-attack-pool) (with the +1 Excellent-quality bonus already applied if applicable). For autofire, substitute `af_attack_pool` (and any DV penalty handled by the caller).
 - `range_dv` — static DV returned by `get_difficulty(weapon_type, range_m)` in [calculations/range_dv.py](../calculations/range_dv.py); see also the [Range Table](#appendix-a---range-table).
+- `af_range_dv`  — static DV for use when the autofire skill is being used by a character.
 - `def_static = DEF_DEX + DEF_evasion_skill` — deterministic part of the dodge defense.
 
 #### P_static — attack lands against the static range DV
 
-The attacker hits when `d10_a + attack_pool ≥ range_dv`. With a flat d10:
+The attacker hits when `d10_a + attack_pool > range_dv (or af_range_dv)` as ties go to the defender (Cyberpunk RED Core Rulebook p. 172). With a flat d10:
 
 ```
-need     = range_dv − attack_pool
+need     = range_dv (or af_range_dv) − attack_pool
 P_static = clamp((11 − need) / 10, 0, 1)
 ```
 
 #### P_dodge — attack lands against an active dodge
 
-The attacker hits when `d10_a + attack_pool ≥ d10_d + def_static`. Let `D = d10_a − d10_d`. With both dice flat-uniform on {1..10}, `D` is triangular on {−9..9} with PMF `P(D = k) = (10 − |k|) / 100`. Writing `shift = def_static − attack_pool`:
+The attacker hits when `d10_a + attack_pool > d10_d + def_static`. Let `D = d10_a − d10_d`. With both dice flat-uniform on {1..10}, `D` is triangular on {−9..9} with PMF `P(D = k) = (10 − |k|) / 100`. Writing `shift = def_static − attack_pool`:
 
 ```
-              ⎧ 1                                   shift ≤ −9
-P_dodge   =   ⎨ 1 − (9 + shift)(10 + shift) / 200   −9 ≤ shift ≤ 0
-              ⎨ (10 − shift)(11 − shift) / 200       0 ≤ shift ≤ 9
-              ⎩ 0                                    shift ≥ 10
+              ⎧ 1                                     shift < −9
+P_dodge   =   ⎨ 1 − (10 + shift)(11 + shift) / 200    −9 < shift < 0
+              ⎨ (9 − shift)(10 − shift) / 200         0 < shift < 9
+              ⎩ 0                                     shift ≥ 9
 ```
 
-(Both middle cases agree at `shift = 0`, giving 0.55.)
+(Both middle cases agree at `shift = 0`, giving 0.45.)
 
 #### Decision rule
 
@@ -123,7 +160,7 @@ Both closed forms treat the d10 as flat-uniform on {1..10}. CP:RED's exploding/i
 
 ### Component 2: Expected Damage Per Round (EDPR)
 
-EDPR is the expected net HP damage per round, with the expectation taken over the actual `Nd6` damage PMF (see [Appendix C](#appendix-c---probability-mass-function-for-the-sum-of-nd6)). It is **not** `mean(Nd6) − SP` — that proxy collapses to zero whenever `mean(Nd6) ≤ SP` even though the underlying pool penetrates a meaningful fraction of the time. Using the full PMF is what closes the OTS zero-mass gap.
+EDPR is the expected net HP damage per round, with the expectation taken over the actual `Nd6` damage PMF (see [Appendix C](#appendix-c---probability-mass-function-for-the-sum-of-nd6)).
 
 Define the per-attack expected net damage:
 
@@ -131,23 +168,26 @@ $E_{\text{net}}(N, SP) = E[\max(0, Nd6 - SP)] = \sum_{s=SP+1}^{6N} (s - SP) \cdo
 
 This equals zero only when `π_N(SP) = P(Nd6 > SP) = 0` (the pool literally cannot beat the armor).
 
-**Single Shot** (per attack, × ROF for multi-shot weapons):
+**Single Shot** (per attack, × ROF for weapons with an ROF of 2):
+- Against any defender, the same `P_hit` calculation from [§1.2](#u12-conditional-dodge-attemptsu) applies. Use the `attack_pool` and the designated ranged DV table before invoking the rule.
+
 ```
-EDPR_SS = E_net(N, SP) * ROF
+attack_pool     = REF + SKILL + q (see §1.1 for details)
+HPW_SS          = (derived per §1.2, using ranged_dv vs af_ranged_dv)
+EDPR_SS         = E_net(N, SP) * HPW_SS * ROF
 ```
 
-**Autofire** (SMG: ×3 cap, AR: ×4 cap). Per CP:RED rules autofire always rolls 2d6 for damage regardless of the base weapon's damage dice, so `N = 2` is hard-coded for the autofire branch:
+**Autofire**: (SMG: ×3 cap, AR: ×4 cap). Per CP:RED rules autofire always rolls 2d6 for damage regardless of the base weapon's damage dice, so `N = 2` is hard-coded for the autofire branch:
 
-- Against any defender, the same `P_hit` calculation from [§1.2](#12-conditional-dodge-attempts) applies. Substitute `autofire_attack_pool` for `attack_pool` and add a +3 penalty to `range_dv` (handled by the caller per §1.2) before invoking the rule.
+- Against any defender, the same `P_hit` calculation from [§1.2](#u12-conditional-dodge-attemptsu) applies. Substitute `af_attack_pool` for `attack_pool` and use the separate autofire range DV table (handled by the caller per §1.2) before invoking the rule.
 - Conditional on a hit, the multiplier is uniform on {1..cap}, so `E[mult | hit] = (cap + 1) / 2`.
 - The unconditional expected multiplier is therefore `HPW_AF × (cap + 1) / 2`.
 
 ```
-pc_autofire_attack_pool  = REF + autofire_skill
-npc_autofire_attack_pool = autofire_skill
-HPW_AF                   = (derived per §1.2, using autofire_attack_pool vs range_dv + 3)
+af_attack_pool           = REF + SKILL + q (see §1.1 for details)
+HPW_AF                   = (derived per §1.2, using af_ranged_dv vs ranged_dv)
 avg_mult                 = (autofire_cap + 1) / 2          # conditional on a hit; e.g., SMG cap 3 → 2.0
-EDPR_AF                  = E_net(2, SP) * HPW_AF * avg_mult
+EDPR_AF                  = E_net(N, SP) * HPW_AF * avg_mult
 ```
 
 ---
@@ -363,23 +403,14 @@ The formula handles this naturally:
 
 ## Final OTS Formulas
 
-*Weighted average across fire modes:*
-```
-CTS_AVG = (CTS_SS + CTS_AF) / 2
-```
 
-*Final OTS expression (expanded for autofire):*
+*Final OTS expression:*
 ```
-OTS = ((HPW_SS + HPW_AF) / 2) × ((EDPR_SS + EDPR_AF + CTS_SS + CTS_AF) / 2)
-```
-
-*Final OTS expression without autofire:*
-```
-OTS = HPW_SS × (EDPR_SS + CTS_SS)
+OTS = max((HPW_SS * (EDPR_SS + CTS_SS)), (HPW_AF * (EDPR_AF + CTS_AF)))
 ```
 
 Where:
-- `EDPR` is averaged across fire modes per the formula above; selecting the higher of the two instead is a candidate calibration option (see [Open Calibration Parameters](#open-calibration-parameters))
+- `EDPR` is the max of either fire mode (single shot or autofire)
 - `CTS` = P(crit) × 10.7 (using the matching die count for the fire mode)
 - `HPW` = P_hit per [§1.2](#u12-conditional-dodge-attemptsu), computed per fire mode (with `autofire_attack_pool` and the +3 DV penalty for `HPW_AF`)
 
@@ -463,12 +494,12 @@ The 4d6 reference attacker is used in these worked examples because `π_4(18) �
 
 **Mook (SP = 7, HPP = 30, N = 4):**
 
-|   k | π₄(k)  |  T₄(k)  | E_pen(4,k) | E_abs(4,k) |  Phase absorbed | Cumul. HP |
-|-----|--------|---------|------------|------------|-----------------|-----------|
-| 7   | 0.973  | 1.028   | 7.211      | 6.984      | **7.178**       |  7.211    |
-| 6   | 0.988  | 1.012   | 8.098      | 5.995      | **6.066**       | 15.309    |
-| 5   | 0.996  | 1.004   | 9.036      | 4.999      | **5.019**       | 24.345    |
-| 4   | partial: remaining = 30 − 24.345 = 5.655; partial_T = 5.655 / 10.008 = 0.565; absorbed += 0.565 · 1.001 · 4.000 ≈ **2.262** | | | | | (terminate) |
+| k | π₄(k)                                                                                                                       | T₄(k) | E_pen(4,k) | E_abs(4,k) | Phase absorbed | Cumul. HP   |
+|---|-----------------------------------------------------------------------------------------------------------------------------|-------|------------|------------|----------------|-------------|
+| 7 | 0.973                                                                                                                       | 1.028 | 7.211      | 6.984      | **7.178**      | 7.211       |
+| 6 | 0.988                                                                                                                       | 1.012 | 8.098      | 5.995      | **6.066**      | 15.309      |
+| 5 | 0.996                                                                                                                       | 1.004 | 9.036      | 4.999      | **5.019**      | 24.345      |
+| 4 | partial: remaining = 30 − 24.345 = 5.655; partial_T = 5.655 / 10.008 = 0.565; absorbed += 0.565 · 1.001 · 4.000 ≈ **2.262** |       |            |            |                | (terminate) |
 
 AAC ≈ 7.178 + 6.066 + 5.019 + 2.262 ≈ **20.52** (full breakdown reproduced by `python dds_calc.py`).
 
@@ -476,14 +507,14 @@ AAC ≈ 7.178 + 6.066 + 5.019 + 2.262 ≈ **20.52** (full breakdown reproduced b
 
 The Boss survives many ablation phases because each penetrating hit only deals an expected 2 to 8 net HP damage and `T_N(k)` is large at high SP (e.g., `T_4(18) ≈ 10.3`). Selected phases:
 
-|   k | π₄(k)  |  T₄(k)   | E_pen(4,k) | E_abs(4,k) | Phase absorbed | Cumul. HP |
-|-----|--------|----------|------------|------------|----------------|-----------|
-| 18  | 0.097  | 10.286   | 2.000      | 13.806     |     142.000    |   2.000   |
-| 17  | 0.159  |  6.291   | 2.223      | 13.647     |      85.854    |   4.223   |
-| 16  | 0.239  |  4.181   | 2.477      | 13.407     |      56.052    |   6.701   |
-| …   | …      | …        | …          | …          | …              | …         |
-|  7  | 0.973  |  1.028   | 7.211      | 6.984      |       7.178    |  48.567   |
-|  6  | partial: remaining = 55 − 48.567 = 6.433; partial_T = 0.794; absorbed += 0.794 · 1.012 · 5.995 ≈ **4.818** | | | | | (terminate) |
+| k  | π₄(k)                                                                                                      | T₄(k)  | E_pen(4,k) | E_abs(4,k) | Phase absorbed | Cumul. HP   |
+|----|------------------------------------------------------------------------------------------------------------|--------|------------|------------|----------------|-------------|
+| 18 | 0.097                                                                                                      | 10.286 | 2.000      | 13.806     | 142.000        | 2.000       |
+| 17 | 0.159                                                                                                      | 6.291  | 2.223      | 13.647     | 85.854         | 4.223       |
+| 16 | 0.239                                                                                                      | 4.181  | 2.477      | 13.407     | 56.052         | 6.701       |
+| …  | …                                                                                                          | …      | …          | …          | …              | …           |
+| 7  | 0.973                                                                                                      | 1.028  | 7.211      | 6.984      | 7.178          | 48.567      |
+| 6  | partial: remaining = 55 − 48.567 = 6.433; partial_T = 0.794; absorbed += 0.794 · 1.012 · 5.995 ≈ **4.818** |        |            |            |                | (terminate) |
 
 AAC ≈ **446.10** (full breakdown reproduced by `python dds_calc.py`).
 
@@ -775,17 +806,17 @@ HPP       = 35                  # from §2.1
 
 Iterate from the SP cap down, with expected per-phase quantities derived from the closed-form 3d6 PMF (see [Appendix C](#appendix-c---probability-mass-function-for-the-sum-of-nd6) / [Appendix E](#appendix-e---pdamage--armor-lookup-table)). Stop when expected cumulative HP damage ≥ HPP (35):
 
-|  k | π₃(k)  |  T₃(k)   | E_pen(3,k) | E_abs(3,k) | Phase absorbed | Cumul. HP |
-|----|--------|----------|------------|------------|----------------|-----------|
-| 11 | 0.375  | 2.667    | 2.556      |  9.542     |     25.444     |  2.556    |
-| 10 | 0.500  | 2.000    | 2.917      |  9.042     |     18.083     |  5.472    |
-|  9 | 0.625  | 1.600    | 3.333      |  8.417     |     13.467     |  8.806    |
-|  8 | 0.741  | 1.350    | 3.813      |  7.676     |     10.363     | 12.618    |
-|  7 | 0.838  | 1.193    | 4.370      |  6.838     |      8.160     | 16.988    |
-|  6 | 0.907  | 1.102    | 5.036      |  5.931     |      6.536     | 22.024    |
-|  5 | 0.954  | 1.048    | 5.791      |  4.977     |      5.218     | 27.815    |
-|  4 | 0.981  | 1.019    | 6.627      |  3.995     |      4.071     | 34.443    |
-|  3 | partial: remaining = 35 − 34.443 = 0.557; partial_T = 0.557 / 7.535 = 0.074; absorbed += 0.074 · 1.005 · 3.000 ≈ **0.223** | | | | | (terminate) |
+| k  | π₃(k)                                                                                                                      | T₃(k) | E_pen(3,k) | E_abs(3,k) | Phase absorbed | Cumul. HP   |
+|----|----------------------------------------------------------------------------------------------------------------------------|-------|------------|------------|----------------|-------------|
+| 11 | 0.375                                                                                                                      | 2.667 | 2.556      | 9.542      | 25.444         | 2.556       |
+| 10 | 0.500                                                                                                                      | 2.000 | 2.917      | 9.042      | 18.083         | 5.472       |
+| 9  | 0.625                                                                                                                      | 1.600 | 3.333      | 8.417      | 13.467         | 8.806       |
+| 8  | 0.741                                                                                                                      | 1.350 | 3.813      | 7.676      | 10.363         | 12.618      |
+| 7  | 0.838                                                                                                                      | 1.193 | 4.370      | 6.838      | 8.160          | 16.988      |
+| 6  | 0.907                                                                                                                      | 1.102 | 5.036      | 5.931      | 6.536          | 22.024      |
+| 5  | 0.954                                                                                                                      | 1.048 | 5.791      | 4.977      | 5.218          | 27.815      |
+| 4  | 0.981                                                                                                                      | 1.019 | 6.627      | 3.995      | 4.071          | 34.443      |
+| 3  | partial: remaining = 35 − 34.443 = 0.557; partial_T = 0.557 / 7.535 = 0.074; absorbed += 0.074 · 1.005 · 3.000 ≈ **0.223** |       |            |            |                | (terminate) |
 
 ```
 AAC ≈ 25.444 + 18.083 + 13.467 + 10.363 + 8.160 + 6.536 + 5.218 + 4.071 + 0.223 ≈ 91.57
@@ -1021,3 +1052,4 @@ for n in range(1, 9):
 ## Resources
 
 - [DND Mathematics Profile](https://github.com/tomedunn/the-finished-book/blob/master/assets/python/dice_roller/nodes.py)
+- Cyberpunk RED Core Rulebook
